@@ -16,6 +16,7 @@ class BaMainPageLocators:
     CLOSE_SIMPLE_NOTIFICATION_MODAL = (By.CSS_SELECTOR, 'div.simpleNotificationModal_close')
     SHOW_CREATE_REPORT_DIALOG = (By.CSS_SELECTOR, '.new-report .btn.btn-success')
     CREATE_NEW_COUNTRY_PROPERTY_REPORT = (By.CSS_SELECTOR, '#rtm-createNewCountryPropertyReportButton')
+    USER_NAME = (By.CSS_SELECTOR, '#headerUserName')
 
 
 class BaCountryPropertyNewReportPageLocators:
@@ -40,11 +41,11 @@ class BaCountryPropertyNewReportPageLocators:
     SELECT_CURRENT_VALUATION_DATE = (By.XPATH,
                                      "//label[contains(text(), 'Дата оценки')]/..//td[contains(@class, 'rdtToday')]")
     SIGNER_DROP_DOWN_MENU = (By.XPATH,
-                    "//label[contains(text(),'Подписант от лица организации')]/..//div[contains(@id, 'node-SELECT-')]")
+                             "//label[contains(text(),'Подписант от лица организации')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_SIGNER = (By.XPATH,
-            "//label[contains(text(),'Подписант от лица организации')]/..//span[contains(text(), 'Селениумов П. А.')]")
+                     "//label[contains(text(),'Подписант от лица организации')]/..//span[contains(text(), 'Селениумов П. А.')]")
     SELECT_FILE = (By.CSS_SELECTOR, '.ui.basic.primary.button')
     INPUT_FILE = (By.XPATH, "//button[contains(@class, 'ui basic primary button')]/..//input")
-    LINE_PROGRESS = (By.CSS_SELECTOR, "[data-percent='0']")
+    UPLOAD_PROGRESS_VISIBLE = (By.XPATH, "//div[contains(@class ,'Uploader_progress_')]")
+    UPLOAD_PROGRESS_HIDE = (By.XPATH, "//div[contains(@class ,'Uploader_progressHide')]")
     UPLOAD_FILE = (By.XPATH, "//a[contains(@class, 'UploaderItem_download')]")
-

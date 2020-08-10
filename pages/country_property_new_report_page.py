@@ -39,7 +39,7 @@ class CountryPropertyNewReport(BasePage):
         field_for_input_report_number = self.browser.find_element(
             *BaCountryPropertyNewReportPageLocators.INPUT_REPORT_NUMBER)
         field_for_input_report_number.click()
-        field_for_input_report_number.send_keys('autotest_vtb_country_property' + self.current_date())
+        field_for_input_report_number.send_keys('autotest_vtb_country_property ' + self.current_date())
 
     def select_bank_in_the_general_information_tab(self):
         """Выбоор банка 'ВТБ' в поле 'Банк' """
@@ -113,24 +113,20 @@ class CountryPropertyNewReport(BasePage):
     def select_file_in_the_general_information_tab(self):
         """Прикладывание файла с отчетом об оценке"""
         input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
-        input_file_report.send_keys(os.getcwd() + "/Test report.pdf")
-        '''
+        #input_file_report.send_keys(os.getcwd() + "/Test report.pdf")
         try:
-            wait_file_upload = WebDriverWait(self.browser, 10).until(
+            WebDriverWait(self.browser, 8).until(
                 EC.presence_of_element_located(
-                    BaCountryPropertyNewReportPageLocators.UPLOAD_FILE))  # Жду появления загруженного элемента внутри DOM
+                    BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_VISIBLE))  # Проверяю, что началась загрузка файла, т.к. отображается полоса загрузки
         except TimeoutException:
-            return print('По файлу не удалось кликнуть')
-        '''
-        time.sleep(6)
-        check_element = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.UPLOAD_FILE)
-        check_element.click()
-        #  Навожу мышкой
-        #success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.UPLOAD_FILE)
-        #action = ActionChains(self.browser)
-        #action.click_and_hold(on_element=success_file_upload)
-        #action.perform()
-        #if check_element.is_displayed():
-        #    print('Элемент видно')  # Если проверять элемент при наведении мышкой, то его видно. Если не наводить - не видно
-       # else:
-        #    print('Элемент не видно')
+            print('Загрузка файла с отчетом не началась')
+        WebDriverWait(self.browser, 8).until(
+            EC.presence_of_element_located(
+                BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE))  # Полоса загрузки пропала, значит по идее файл загрузился
+        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.UPLOAD_FILE)
+        action = ActionChains(self.browser)
+        action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
+        action.perform()
+        WebDriverWait(self.browser, 8).until(
+            EC.element_to_be_clickable(
+                BaCountryPropertyNewReportPageLocators.UPLOAD_FILE))  # Проверил, что файл кликабельный (значит его можно скачать)

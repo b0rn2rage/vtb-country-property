@@ -8,9 +8,9 @@ class BaMainPage(BasePage):
 
     def close_gost_popup(self):
         """Закрытие всплывающего окна ГОСТ"""
-        assert WebDriverWait(self.browser, 4).until(
-            EC.visibility_of_element_located(
-                BaMainPageLocators.GOST_POPUP)), 'Всплывающее окно с ГОСТом не успело прогрузиться'
+        WebDriverWait(self.browser, 4).until(EC.visibility_of_element_located(BaMainPageLocators.GOST_POPUP)),
+        assert self.is_element_present(
+            *BaMainPageLocators.GOST_POPUP), 'Всплывающее окно с ГОСТом не успело прогрузиться'
         button_for_closing_gost_popup = self.browser.find_element(*BaMainPageLocators.CLOSE_GOST_POPUP)
         button_for_closing_gost_popup.click()
 

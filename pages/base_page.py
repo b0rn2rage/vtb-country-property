@@ -9,7 +9,8 @@ class BasePage():
         self.browser = browser
         self.url = url
 
-    def current_date(self):
+    @staticmethod
+    def current_date():
         """Получить текущую дату"""
         now = str(datetime.datetime.now())
         return now
