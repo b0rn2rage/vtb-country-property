@@ -113,16 +113,13 @@ class CountryPropertyNewReport(BasePage):
     def select_file_in_the_general_information_tab(self):
         """Прикладывание файла с отчетом об оценке"""
         input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
-        #input_file_report.send_keys(os.getcwd() + "/Test report.pdf")
+        input_file_report.send_keys(os.getcwd() + "/Test report.pdf")
         try:
             WebDriverWait(self.browser, 8).until(
                 EC.presence_of_element_located(
-                    BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_VISIBLE))  # Проверяю, что началась загрузка файла, т.к. отображается полоса загрузки
+                    BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE))  # Проверяю, что полоса пропала, т.к. файл загрузился
         except TimeoutException:
-            print('Загрузка файла с отчетом не началась')
-        WebDriverWait(self.browser, 8).until(
-            EC.presence_of_element_located(
-                BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE))  # Полоса загрузки пропала, значит по идее файл загрузился
+            print('Файл не может загрузиться. Прогресс бар не пропадает')
         success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.UPLOAD_FILE)
         action = ActionChains(self.browser)
         action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
