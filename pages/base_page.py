@@ -25,9 +25,18 @@ class BasePage():
             return False
         return True
 
-    def is_disappeared(self, how, what, timeout=1):
+    def is_file_attached(self, how, what, timeout=10):
+        """Проверка прикрепления файла"""
         try:
-            WebDriverWait(self.browser, timeout, TimeoutException).until_not(EC.presence_of_element_located((how, what)))
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return False
+        return True
+
+    def is_element_clickable(self, how, what, timeout=10):
+        """Проверка того, что элемент является кликабельным"""
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.element_to_be_clickable((how, what)))
         except TimeoutException:
             return False
         return True

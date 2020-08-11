@@ -111,19 +111,50 @@ class CountryPropertyNewReport(BasePage):
         select_signer_from_organization.click()
 
     def select_file_in_the_general_information_tab(self):
-        """Прикладывание файла с отчетом об оценке"""
+        """
+        Прикладывание файла с отчетом об оценке. Проверка всех трех типов файлов (doc, docx, pdf)
+        Проверка на загрузку/удаление прикрепленных файлов.
+        """
         input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
-        input_file_report.send_keys(os.getcwd() + "/Test report.pdf")
-        try:
-            WebDriverWait(self.browser, 8).until(
-                EC.presence_of_element_located(
-                    BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE))  # Проверяю, что полоса пропала, т.к. файл загрузился
-        except TimeoutException:
-            print('Файл не может загрузиться. Прогресс бар не пропадает')
-        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.UPLOAD_FILE)
+        input_file_report.send_keys(os.getcwd() + "/Test report pdf.pdf")
+        # Когда файл начинает прикрепляться, то появляется прогресс бар. Метод is_file_attached ждет 10 секунд
+        # пока этот прогресс бар пропадет. Если не пропадает - assert = False
+        assert self.is_file_attached(
+            *BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE), \
+            "PDF файл не может прикрепиться. Прогресс бар не пропадает."
+        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON)
         action = ActionChains(self.browser)
         action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
         action.perform()
-        WebDriverWait(self.browser, 8).until(
-            EC.element_to_be_clickable(
-                BaCountryPropertyNewReportPageLocators.UPLOAD_FILE))  # Проверил, что файл кликабельный (значит его можно скачать)
+        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON), \
+            "У прикрепленного PDF файла недоступна кнопки загрузки."
+        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON), \
+            "У прикрепленного PDF файла недоступна кнопка удаления."
+        del_file = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON).click()
+        input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
+        input_file_report.send_keys(os.getcwd() + "/Test report docx.docx")
+        assert self.is_file_attached(
+            *BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE), \
+            "DOCX файл не может прикрепиться. Прогресс бар не пропадает."
+        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON)
+        action = ActionChains(self.browser)
+        action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
+        action.perform()
+        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON), \
+            "У прикрепленного DOCX файла недоступна кнопки загрузки."
+        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON), \
+            "У прикрепленного DOCX файла недоступна кнопка удаления."
+        del_file = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON).click()
+        input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
+        input_file_report.send_keys(os.getcwd() + "/Test report doc.doc")
+        assert self.is_file_attached(
+            *BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE), \
+            "DOC файл не может прикрепиться. Прогресс бар не пропадает."
+        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON)
+        action = ActionChains(self.browser)
+        action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
+        action.perform()
+        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON), \
+            "У прикрепленного DOC файла недоступна кнопки загрузки."
+        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON), \
+            "У прикрепленного DOC файла недоступна кнопка удаления."
