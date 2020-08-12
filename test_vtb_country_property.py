@@ -24,7 +24,7 @@ def test_creating_new_country_property_report(browser):
     page.create_new_report_from_main_page()
 
 
-def test_filling_new_country_property_report(browser):
+def test_filling_general_information_tab(browser):
     """Заполнение отчета по ЖД"""
     link = browser.current_url
     page = CountryPropertyNewReport(browser, link)
@@ -40,3 +40,7 @@ def test_filling_new_country_property_report(browser):
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
+    page.go_to_photos_and_documents_from_general_information_tab()
+
+def test_filling_photo_and_documents(browser):
+    pass

@@ -11,10 +11,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 class CountryPropertyNewReport(BasePage):
-    """Заполнить раздел 'Общая информация' """
+    """ Заполнить раздел 'Общая информация' """
 
     def close_modal_popup(self):
-        """Закрыть модальные окна на входе в новый отчет"""
+        """ Закрыть модальные окна на входе в новый отчет """
         assert WebDriverWait(self.browser, 4).until(EC.visibility_of_element_located(
             BaCountryPropertyNewReportPageLocators.MODAL_POPUP)), "Всплывающее окно 'ГОСТ Р' не появилось на " \
                                                                   "странице или не успело прогрузиться"
@@ -22,8 +22,13 @@ class CountryPropertyNewReport(BasePage):
             *BaCountryPropertyNewReportPageLocators.CLOSE_MODAL_POPUP)
         button_for_closing_modal_popup.click()
 
+    def go_to_photos_and_documents_from_general_information_tab(self):
+        """ Переход из раздела 'Общая информация' в раздел 'Фотографии и документы' """
+        self.browser.find_element(
+            *BaCountryPropertyNewReportPageLocators.FROM_GENERAL_TAB_TO_PHOTOS_AND_DOCUMENTS_TAB).click()
+
     def input_full_name_of_the_borrower_customer_in_the_general_information_tab(self):
-        """Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика' """
+        """ Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика' """
         assert self.is_element_present(
             *BaCountryPropertyNewReportPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER), \
             "Поле 'ФИО Заемщика/Заказчика' отсутствует на странице"
@@ -33,7 +38,7 @@ class CountryPropertyNewReport(BasePage):
         field_for_input_full_name_of_the_borrower_customer.send_keys('Рандомное Физическое Лицо')
 
     def input_report_number_in_the_general_information_tab(self):
-        """Ввод номера отчета в поле 'Номер отчета' """
+        """ Ввод номера отчета в поле 'Номер отчета' """
         assert self.is_element_present(*BaCountryPropertyNewReportPageLocators.INPUT_REPORT_NUMBER), \
             "Поле 'Номер отчета' отсутствует на странице"
         field_for_input_report_number = self.browser.find_element(
@@ -41,8 +46,11 @@ class CountryPropertyNewReport(BasePage):
         field_for_input_report_number.click()
         field_for_input_report_number.send_keys('autotest_vtb_country_property ' + self.current_date())
 
+    def attach_photos_in_photos_and_documents_tab(self):
+        """ Приложить фотографии в разделе 'Фото и документы' """
+
     def select_bank_in_the_general_information_tab(self):
-        """Выбоор банка 'ВТБ' в поле 'Банк' """
+        """ Выбор банка 'ВТБ' в поле 'Банк' """
         assert self.is_element_present(*BaCountryPropertyNewReportPageLocators.BANK_DROP_DOWN_MENU), \
             "Поле 'Банк' отсутствует на странице"
         drop_down_menu_for_the_bank_field = self.browser.find_element(
@@ -52,7 +60,7 @@ class CountryPropertyNewReport(BasePage):
         select_bank_vtb.click()
 
     def select_department_in_the_general_information_tab(self):
-        """Выбор департамента 'Ипотека' в поле 'Департамент' """
+        """ Выбор департамента 'Ипотека' в поле 'Департамент' """
         assert self.is_element_present(*BaCountryPropertyNewReportPageLocators.DEPARTMENT_DROP_DOWN_MENU), \
             "Поле 'Департамент' отсутствует на странице"
         drop_down_menu_for_the_department_field = self.browser.find_element(
@@ -63,7 +71,7 @@ class CountryPropertyNewReport(BasePage):
         select_mortgage_department.click()
 
     def select_bank_employee_in_the_general_information_tab(self):
-        """Ввод сотрудника банка в поле 'Сотрудник банка' """
+        """ Ввод сотрудника банка в поле 'Сотрудник банка' """
         assert self.is_element_present(*BaCountryPropertyNewReportPageLocators.BANK_EMPLOYEE_DROP_DOWN_MENU), \
             "Поле 'Сотрудник банка' отсутствует на странице"
         drop_down_menu_for_bank_employee = self.browser.find_element(
@@ -75,7 +83,7 @@ class CountryPropertyNewReport(BasePage):
         field_for_input_bank_employee.send_keys(Keys.RETURN)
 
     def select_report_date_in_the_general_information_tab(self):
-        """Выбор текущей даты для поля 'Дата отчета' """
+        """ Выбор текущей даты для поля 'Дата отчета' """
         assert self.is_element_present(*BaCountryPropertyNewReportPageLocators.REPORT_DATE), \
             "Поле 'Дата отчета' отсутствует на странице"
         open_calendar = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.REPORT_DATE)
@@ -83,10 +91,9 @@ class CountryPropertyNewReport(BasePage):
         select_current_date_in_calendar = self.browser.find_element(
             *BaCountryPropertyNewReportPageLocators.SELECT_CURRENT_REPORT_DATE)
         select_current_date_in_calendar.click()
-        self.browser.execute_script("window.scrollTo(0, 1750)")
 
     def select_valuation_date_in_the_general_information_tab(self):
-        """Выбор текущей даты для поля 'Дата оценки' """
+        """ Выбор текущей даты для поля 'Дата оценки' """
         assert self.is_element_present(*BaCountryPropertyNewReportPageLocators.VALUATION_DATE), \
             "Поле 'Дата оценки' отсутствует на странице"
         open_calendar = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.VALUATION_DATE)
@@ -115,46 +122,17 @@ class CountryPropertyNewReport(BasePage):
         Прикладывание файла с отчетом об оценке. Проверка всех трех типов файлов (doc, docx, pdf)
         Проверка на загрузку/удаление прикрепленных файлов.
         """
-        input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
-        input_file_report.send_keys(os.getcwd() + "/Test report pdf.pdf")
-        # Когда файл начинает прикрепляться, то появляется прогресс бар. Метод is_file_attached ждет 10 секунд
-        # пока этот прогресс бар пропадет. Если не пропадает - assert = False
-        assert self.is_file_attached(
-            *BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE), \
-            "PDF файл не может прикрепиться. Прогресс бар не пропадает."
-        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON)
-        action = ActionChains(self.browser)
-        action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
-        action.perform()
-        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON), \
-            "У прикрепленного PDF файла недоступна кнопки загрузки."
-        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON), \
-            "У прикрепленного PDF файла недоступна кнопка удаления."
-        del_file = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON).click()
-        input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
-        input_file_report.send_keys(os.getcwd() + "/Test report docx.docx")
-        assert self.is_file_attached(
-            *BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE), \
-            "DOCX файл не может прикрепиться. Прогресс бар не пропадает."
-        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON)
-        action = ActionChains(self.browser)
-        action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
-        action.perform()
-        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON), \
-            "У прикрепленного DOCX файла недоступна кнопки загрузки."
-        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON), \
-            "У прикрепленного DOCX файла недоступна кнопка удаления."
-        del_file = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON).click()
-        input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
-        input_file_report.send_keys(os.getcwd() + "/Test report doc.doc")
-        assert self.is_file_attached(
-            *BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE), \
-            "DOC файл не может прикрепиться. Прогресс бар не пропадает."
-        success_file_upload = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON)
-        action = ActionChains(self.browser)
-        action.click_and_hold(on_element=success_file_upload)  # Навел мышкой на прикрепленный файл
-        action.perform()
-        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DOWNLOAD_FILE_BUTTON), \
-            "У прикрепленного DOC файла недоступна кнопки загрузки."
-        assert self.is_element_clickable(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON), \
-            "У прикрепленного DOC файла недоступна кнопка удаления."
+        scroll_to_select_file = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.FOOTER)
+        actions = ActionChains(self.browser)
+        actions.move_to_element(scroll_to_select_file).perform()
+        files = ["\\Test report doc.doc", "\\Test report pdf.pdf", "\\Test report docx.docx"]
+        for file in files:
+            input_file_report = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.INPUT_FILE)
+            input_file_report.send_keys(os.getcwd() + file)
+            # Когда файл начинает прикрепляться, то появляется прогресс бар. Метод is_file_attached ждет 10 секунд
+            # пока этот прогресс бар пропадет. Если не пропадает - assert = False
+            assert self.is_file_attached(
+                *BaCountryPropertyNewReportPageLocators.UPLOAD_PROGRESS_HIDE), \
+                "Файл не может прикрепиться. Прогресс бар не пропадает."
+            if file[0] or file[1]:
+                del_file = self.browser.find_element(*BaCountryPropertyNewReportPageLocators.DELETE_FILE_BUTTON).click()
