@@ -19,7 +19,7 @@ class BaMainPageLocators:
     USER_NAME = (By.CSS_SELECTOR, '#headerUserName')
 
 
-class BaCountryPropertyNewReportPageLocators:
+class BaNewCountryPropertyGeneralInformationPageLocators:
     BANK_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Банк')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_BANK = (By.XPATH, "//span[contains( text(), 'ВТБ')]")
     MODAL_POPUP = (By.CSS_SELECTOR, '.ui.modal')
@@ -48,7 +48,25 @@ class BaCountryPropertyNewReportPageLocators:
     INPUT_FILE = (By.XPATH, "//button[contains(@class, 'ui basic primary button')]/..//input")
     UPLOAD_PROGRESS_HIDE = (By.XPATH, "//div[contains(@class ,'Uploader_progressHide')]")
     DOWNLOAD_FILE_BUTTON = (By.XPATH, "//a[contains(@class, 'UploaderItem_download')]")
-    QWE = (By.XPATH, "//a[contains(@class, 'UploaderItem_noBig')]")
     DELETE_FILE_BUTTON = (By.XPATH, "//div[contains(@class, 'UploaderItem_remove')]")
     FOOTER = (By.XPATH, "//div[contains(@class, 'Footer_root')]")
     FROM_GENERAL_TAB_TO_PHOTOS_AND_DOCUMENTS_TAB = (By.XPATH, "//div[contains(text(), 'Фото и документы')]")
+
+
+class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
+    INPUT_PHOTO = (By.XPATH, "//div[contains(text(), 'Фотографии')]/../../..//input")
+    UPLOAD_PROGRESS_BAR_PHOTO = (By.XPATH,
+                                 "//div[contains(text(), 'Фотографии')]/../../..//div[contains(@class, 'ui') and"
+                                 " contains(@class, 'blue') and @data-percent='100']")
+    INPUT_DOCUMENT = (By.XPATH, "//div[contains(text(), 'Документы')]/../../..//input")
+    UPLOAD_PROGRESS_BAR_DOCUMENT = (By.XPATH,
+                                    "//div[contains(text(), 'Документы')]/../../..//div[contains(@class, 'ui') and"
+                                    " contains(@class, 'blue') and @data-percent='100']")
+    FROM_PHOTO_AND_DOCUMENTS_TAB_TO_FIRST_OBJECT_TAB = (By.XPATH, "//div[contains(text(), 'Добавить объект')]")
+
+
+class BaNewCountryPropertyResidentialBuildingPageLocators:
+    TYPE_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Тип')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_A_PROPERTY_TYPE_WITH_THE_VALUE_RESIDENTIAL = (By.XPATH, "//span[contains( text(), 'Жилой (садовый) дом')]")
+    DEFAULT_VALUE_IN_TYPE_FIELD = (By.XPATH, "//div[contains(text(), 'Жилой (садовый) дом')]")
+

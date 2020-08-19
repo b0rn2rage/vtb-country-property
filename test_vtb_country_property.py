@@ -1,8 +1,9 @@
+import pytest
+import time
 from pages.ba_login_page import BaLoginPage
 from pages.ba_main_page import BaMainPage
-from pages.country_property_new_report_page import CountryPropertyNewReport
-
-import time
+from pages.ba_new_country_property_general_information_page import BaCountryPropertyNewReportGeneralInformationTab
+from pages.ba_new_country_property_photos_and_documents_page import BaNewCountryPropertyPhotosAndDocumentsPage
 
 
 def test_login_to_ba(browser):
@@ -25,9 +26,9 @@ def test_creating_new_country_property_report(browser):
 
 
 def test_filling_general_information_tab(browser):
-    """Заполнение отчета по ЖД"""
+    """ Заполнение отчета по ЖД. Заполнение раздела 'Общая информация' """
     link = browser.current_url
-    page = CountryPropertyNewReport(browser, link)
+    page = BaCountryPropertyNewReportGeneralInformationTab(browser, link)
     page.close_modal_popup()
     page.close_modal_popup()
     page.close_modal_popup()
@@ -40,7 +41,21 @@ def test_filling_general_information_tab(browser):
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
-    page.go_to_photos_and_documents_from_general_information_tab()
+    page.go_to_photos_and_documents_tab_from_general_information_tab()
+
 
 def test_filling_photo_and_documents(browser):
-    pass
+    """ Заполнение отчета по ЖД. Заполнение раздела 'Фото и документы' """
+    link = browser.current_url
+    page = BaNewCountryPropertyPhotosAndDocumentsPage(browser, link)
+    page.attach_photos_in_photos_and_documents_tab()
+    page.attach_documents_in_photos_and_documents_tab()
+    page.go_to_first_object_tab_from_photos_and_documents_tab()
+
+
+def test_filling_residential_filling(browser):
+    """ Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом' """
+    link = browser.current_url
+    #page = CountryPropertyNewReport(browser, link)
+
+
