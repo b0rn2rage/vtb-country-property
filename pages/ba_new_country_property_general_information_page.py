@@ -1,5 +1,6 @@
 import os
 import time
+import datetime
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
@@ -11,7 +12,7 @@ from .locators import BaNewCountryPropertyGeneralInformationPageLocators
 from selenium.webdriver.common.by import By
 
 
-class BaCountryPropertyNewReportGeneralInformationTab(BasePage):
+class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
     """ Заполнение раздела 'Общая информация' в новом отчете по ЖД """
 
     def close_modal_popup(self):
@@ -35,8 +36,9 @@ class BaCountryPropertyNewReportGeneralInformationTab(BasePage):
             "Поле 'ФИО Заемщика/Заказчика' отсутствует на странице"
         field_for_input_full_name_of_the_borrower_customer = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER)
-        field_for_input_full_name_of_the_borrower_customer.click()
         field_for_input_full_name_of_the_borrower_customer.send_keys('Рандомное Физическое Лицо')
+        assert field_for_input_full_name_of_the_borrower_customer.get_attribute('value') == 'Рандомное Физическое Лицо', \
+            " Значение в поле 'ФИО Заемщика/Заказчика' не соответствует введенному "
 
     def input_report_number_in_the_general_information_tab(self):
         """ Ввод номера отчета в поле 'Номер отчета' """
@@ -44,8 +46,10 @@ class BaCountryPropertyNewReportGeneralInformationTab(BasePage):
             "Поле 'Номер отчета' отсутствует на странице"
         field_for_input_report_number = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER)
-        field_for_input_report_number.click()
-        field_for_input_report_number.send_keys('autotest_vtb_country_property ' + self.current_date())
+        report_number = 'autotest_vtb_country_property ' + str(self.current_date())
+        field_for_input_report_number.send_keys(report_number)
+        assert field_for_input_report_number.get_attribute('value') == report_number, \
+            " Значение в поле 'Номер отчета' не соответствует введенному "
 
     def select_bank_in_the_general_information_tab(self):
         """ Выбор банка 'ВТБ' в поле 'Банк' """
@@ -56,7 +60,8 @@ class BaCountryPropertyNewReportGeneralInformationTab(BasePage):
         drop_down_menu_for_the_bank_field.click()
         select_bank_vtb = self.browser.find_element(*BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK)
         select_bank_vtb.click()
-        assert self.browser.find_element(By.XPATH, "//div[contains(text(), 'ВТБ')]").text == 'ВТБ', \
+        assert self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_BANK).text == 'ВТБ', \
             'Значение в поле Банк != ВТБ'
 
     def select_department_in_the_general_information_tab(self):
@@ -69,7 +74,8 @@ class BaCountryPropertyNewReportGeneralInformationTab(BasePage):
         select_mortgage_department = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_DEPARTMENT)
         select_mortgage_department.click()
-        assert self.browser.find_element(By.XPATH, "//div[contains(text(), 'Ипотека')]").text == 'Ипотека', \
+        assert self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_DEPARTMENT).text == 'Ипотека', \
             'Значение в поле Департамент != Ипотека'
 
     def select_bank_employee_in_the_general_information_tab(self):
@@ -83,27 +89,36 @@ class BaCountryPropertyNewReportGeneralInformationTab(BasePage):
         field_for_input_bank_employee = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_BANK_EMPLOYEE)
         field_for_input_bank_employee.send_keys('autotest-country-property-vtb@test.ru')
+        # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля 'Сотрудник банка'
+        assert self.is_element_presence(
+            *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_A_VALUE_IN_THE_FIELD_EMPLOYEE_OF_THE_BANK), \
+            " Введенный сотрудник банка не отображается в поле 'Сотрудник банка'. Возможно тормозит КРОНА "
         field_for_input_bank_employee.send_keys(Keys.RETURN)
-        assert self.browser.find_element(By.XPATH,
-            "//div[contains(text(), 'Селениумов Питон (autotest-country-property-vtb@test.ru)')]").text == \
-            'Селениумов Питон (autotest-country-property-vtb@test.ru', \
+        assert self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_BANK_EMPLOYEE).text == \
+            'Селениумов Питон (autotest-country-property-vtb@test.ru)', \
             ' Значение в поле Сотрудник банка != autotest-country-property-vtb@test.ru '
 
     def select_report_date_in_the_general_information_tab(self):
         """ Выбор текущей даты для поля 'Дата отчета' """
-        assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.REPORT_DATE), \
+        assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.REPORT_DATE_FIELD), \
             "Поле 'Дата отчета' отсутствует на странице"
-        open_calendar = self.browser.find_element(*BaNewCountryPropertyGeneralInformationPageLocators.REPORT_DATE)
+        open_calendar = self.browser.find_element(*BaNewCountryPropertyGeneralInformationPageLocators.REPORT_DATE_FIELD)
         open_calendar.click()
         select_current_date_in_calendar = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_CURRENT_REPORT_DATE)
         select_current_date_in_calendar.click()
+        assert self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_VALUE_IN_REPORT_DATE_FIELD).get_attribute(
+            'value') == self.current_date().strftime(
+            "%d.%m.%Y"), " Значение в поле 'Дата отчета' не соответствует текущей дате "
 
     def select_valuation_date_in_the_general_information_tab(self):
         """ Выбор текущей даты для поля 'Дата оценки' """
-        assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.VALUATION_DATE), \
+        assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.VALUATION_DATE_FIELD), \
             "Поле 'Дата оценки' отсутствует на странице"
-        open_calendar = self.browser.find_element(*BaNewCountryPropertyGeneralInformationPageLocators.VALUATION_DATE)
+        open_calendar = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.VALUATION_DATE_FIELD)
         open_calendar.click()
         select_current_date_in_calendar = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_CURRENT_VALUATION_DATE)

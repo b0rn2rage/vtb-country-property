@@ -22,28 +22,35 @@ class BaMainPageLocators:
 class BaNewCountryPropertyGeneralInformationPageLocators:
     BANK_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Банк')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_BANK = (By.XPATH, "//span[contains( text(), 'ВТБ')]")
+    CHECKING_THE_SELECTED_BANK = (By.XPATH, "//div[contains(text(), 'ВТБ')]")
     MODAL_POPUP = (By.CSS_SELECTOR, '.ui.modal')
     CLOSE_MODAL_POPUP = (By.CSS_SELECTOR, '.ui.large.basic')
     DEPARTMENT_DROP_DOWN_MENU = (By.XPATH,
                                  "//label[contains(text(),'Департамент')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_DEPARTMENT = (By.XPATH, "//span[contains( text(), 'Ипотека')]")
+    CHECKING_THE_SELECTED_DEPARTMENT = (By.XPATH, "//div[contains(text(), 'Ипотека')]")
     BANK_EMPLOYEE_DROP_DOWN_MENU = (By.XPATH,
-                                    "//label[contains(text(),'Сотрудник банка')]/..//div[contains(@id, 'node-SELECT-')]")
+        "//label[contains(text(),'Сотрудник банка')]/..//div[contains(@id, 'node-SELECT-')]")
     INPUT_BANK_EMPLOYEE = (By.XPATH,
                            "//label[contains(text(),'Сотрудник банка')]/..//div[contains(@id, 'node-SELECT-')]/input")
+    SELECT_A_VALUE_IN_THE_FIELD_EMPLOYEE_OF_THE_BANK = (By.XPATH,
+        "//span[contains(text(), 'Селениумов Питон (autotest-country-property-vtb@test.ru)')]")
+    CHECKING_THE_SELECTED_BANK_EMPLOYEE = (By.XPATH,
+        "//div[contains(text(), 'Селениумов Питон (autotest-country-property-vtb@test.ru)')]")
     INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER = (By.XPATH,
                                                 "//label[contains(text(), 'ФИО Заемщика/Заказчика')]/..//input")
     INPUT_REPORT_NUMBER = (By.XPATH, "//label[contains(text(), 'Номер отчета')]/..//input")
-    REPORT_DATE = (By.XPATH, "//label[contains(text(), 'Дата отчета')]/..//input")
+    REPORT_DATE_FIELD = (By.XPATH, "//label[contains(text(), 'Дата отчета')]/..//input")
     SELECT_CURRENT_REPORT_DATE = (By.XPATH,
                                   "//label[contains(text(), 'Дата отчета')]/..//td[contains(@class, 'rdtToday')]")
-    VALUATION_DATE = (By.XPATH, "//label[contains(text(), 'Дата оценки')]/..//input")
+    SELECT_VALUE_IN_REPORT_DATE_FIELD = (By.XPATH, "//label[contains(text(), 'Дата отчета')]/..//input")
+    VALUATION_DATE_FIELD = (By.XPATH, "//label[contains(text(), 'Дата оценки')]/..//input")
     SELECT_CURRENT_VALUATION_DATE = (By.XPATH,
                                      "//label[contains(text(), 'Дата оценки')]/..//td[contains(@class, 'rdtToday')]")
     SIGNER_DROP_DOWN_MENU = (By.XPATH,
-                             "//label[contains(text(),'Подписант от лица организации')]/..//div[contains(@id, 'node-SELECT-')]")
+        "//label[contains(text(),'Подписант от лица организации')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_SIGNER = (By.XPATH,
-                     "//label[contains(text(),'Подписант от лица организации')]/..//span[contains(text(), 'Селениумов П. А.')]")
+        "//label[contains(text(),'Подписант от лица организации')]/..//span[contains(text(), 'Селениумов П. А.')]")
     SELECT_FILE = (By.CSS_SELECTOR, '.ui.basic.primary.button')
     INPUT_FILE = (By.XPATH, "//button[contains(@class, 'ui basic primary button')]/..//input")
     UPLOAD_PROGRESS_HIDE = (By.XPATH, "//div[contains(@class ,'Uploader_progressHide')]")
@@ -67,6 +74,12 @@ class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
 
 class BaNewCountryPropertyResidentialBuildingPageLocators:
     TYPE_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Тип')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_A_PROPERTY_TYPE_WITH_THE_VALUE_RESIDENTIAL = (By.XPATH, "//span[contains( text(), 'Жилой (садовый) дом')]")
-    DEFAULT_VALUE_IN_TYPE_FIELD = (By.XPATH, "//div[contains(text(), 'Жилой (садовый) дом')]")
+    CHECKING_THE_SELECTED_TYPE = (By.XPATH, "//div[contains(text(), 'Жилой (садовый) дом')]")
+    INPUT_NAME_OF_THE_OBJECT = (By.XPATH,
+        "//label[contains(text(), 'Наименование объекта')]/..//textarea[contains(@id, 'node-INPUT-')]")
+    INPUT_THE_ADDRESS_FOR_DOCUMENTS = (By.XPATH,
+        "//label[contains(text(), 'Адрес по документам')]/..//textarea[contains(@id, 'node-INPUT-')]")
+    INPUT_FIAS_ADDRESS = (By.XPATH, "//label[contains(text(), 'Адрес по ФИАС')]/..//input")
+    SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS = (By.XPATH, "//span[contains(text(), 'г Москва, ул Тестовская, д 1А')]")
+
 

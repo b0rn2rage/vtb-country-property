@@ -15,9 +15,8 @@ class BasePage:
     @staticmethod
     def current_date():
         """Получить текущую дату"""
-        now = str(datetime.datetime.now())
+        now = datetime.datetime.now()
         return now
-
 
     def is_element_present(self, how, what):
         """Проверка наличия элемента на странице"""
