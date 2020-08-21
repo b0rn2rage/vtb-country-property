@@ -31,9 +31,9 @@ class BaNewCountryPropertyPhotosAndDocumentsPage(BasePage):
             input_new_photo = self.browser.find_element(
                 *BaNewCountryPropertyPhotosAndDocumentsPageLocators.INPUT_DOCUMENT)
             input_new_photo.send_keys(os.getcwd() + document)
-            assert self.is_element_presence(
+            assert self.is_file_attached(
                 *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_DOCUMENT), \
-                'Документ не загрузился'
+                f'Документ {document} не загрузился'
 
     def go_to_first_object_tab_from_photos_and_documents_tab(self):
         """ Переход из раздела 'Фото и документы' в раздел 'Объект 1'. Тип объекта = Жилой дом """

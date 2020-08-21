@@ -17,12 +17,13 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
 
     def close_modal_popup(self):
         """ Закрыть модальные окна на входе в новый отчет """
-        assert WebDriverWait(self.browser, 4).until(EC.visibility_of_element_located(
-            BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP)), \
-            "Всплывающее окно 'ГОСТ Р' не появилось на странице или не успело прогрузиться"
-        button_for_closing_modal_popup = self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.CLOSE_MODAL_POPUP)
-        button_for_closing_modal_popup.click()
+        while self.is_element_visible(*BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP, timeout=2):
+            assert self.is_element_visible(
+                *BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP), \
+                'Всплывающее окно с ГОСТом не успело прогрузиться'
+            button_for_closing_modal_popup = self.browser.find_element(
+                *BaNewCountryPropertyGeneralInformationPageLocators.CLOSE_MODAL_POPUP)
+            button_for_closing_modal_popup.click()
 
     def go_to_photos_and_documents_tab_from_general_information_tab(self):
         """ Переход из раздела 'Общая информация' в раздел 'Фотографии и документы' """
@@ -123,6 +124,10 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
         select_current_date_in_calendar = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_CURRENT_VALUATION_DATE)
         select_current_date_in_calendar.click()
+        assert self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_VALUE_IN_VALUATION_DATE_FIELD).get_attribute(
+            'value') == self.current_date().strftime(
+            "%d.%m.%Y"), " Значение в поле 'Дата оценки' не соответствует текущей дате "
 
     def select_signer_in_the_general_information_tab(self):
         """
@@ -156,7 +161,7 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
             # пока этот прогресс бар пропадет. Если не пропадает - assert = False
             assert self.is_file_attached(
                 *BaNewCountryPropertyGeneralInformationPageLocators.UPLOAD_PROGRESS_HIDE), \
-                "Файл не может прикрепиться. Прогресс бар не пропадает."
+                f"Файл {file} не может прикрепиться. Прогресс бар не пропадает."
             if file[0] or file[1]:
                 del_file = self.browser.find_element(
                     *BaNewCountryPropertyGeneralInformationPageLocators.DELETE_FILE_BUTTON).click()

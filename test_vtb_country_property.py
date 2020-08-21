@@ -21,7 +21,6 @@ def test_creating_new_country_property_report(browser):
     link = browser.current_url
     page = BaMainPage(browser, link)
     page.close_gost_popup()
-    page.close_simple_notification_modal()
     page.close_simple_notification_modal()  # Закрытие двух всплывающих окон
     page.create_new_report_from_main_page()
 
@@ -30,9 +29,6 @@ def test_filling_general_information_tab(browser):
     """ Заполнение отчета по ЖД. Заполнение раздела 'Общая информация' """
     link = browser.current_url
     page = BaCountryPropertyNewReportGeneralInformationPage(browser, link)
-    page.close_modal_popup()
-    page.close_modal_popup()
-    page.close_modal_popup()
     page.close_modal_popup()  # Закрытие четырех всплывающих окон
     page.select_bank_in_the_general_information_tab()
     page.select_department_in_the_general_information_tab()
@@ -61,6 +57,5 @@ def test_filling_residential_filling(browser):
     page.select_type_in_residential_building_tab()
     page.input_name_of_the_object()
     page.input_the_address_for_documents()
-    time.sleep(4)
 
 

@@ -26,7 +26,7 @@ class BasePage:
             return False
         return True
 
-    def is_file_attached(self, how, what, timeout=10):
+    def is_file_attached(self, how, what, timeout=120):
         """Проверка прикрепления файла"""
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
@@ -46,6 +46,14 @@ class BasePage:
         """ Проверка того, что элемент находится в DOM дереве """
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return False
+        return True
+
+    def is_element_visible(self, how, what, timeout=10):
+        """Проверка того, что элемент находится в DOM дереве + отображается"""
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.visibility_of_element_located((how, what)))
         except TimeoutException:
             return False
         return True

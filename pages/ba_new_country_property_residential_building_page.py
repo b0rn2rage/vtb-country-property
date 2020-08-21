@@ -2,6 +2,7 @@ from .base_page import BasePage
 from .locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from selenium.webdriver.common.keys import Keys
 
+
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):
     """ Заполнение раздела 'Объект №1' в новом отчете по ЖД """
 
@@ -25,15 +26,14 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
     def input_fias_address(self):
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS), \
             "Поле 'Адрес по ФИАС' не отображается на странице"
-        field_for_input_fias_address = self.browser.find_element(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
-        #field_for_input_fias_address.click()
+        field_for_input_fias_address = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
         field_for_input_fias_address.send_keys("г Москва, ул Тестовская, д 1А")
         # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля 'Сотрудник банка'
         assert self.is_element_presence(
             *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS), \
             " Введенный адрес не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
         field_for_input_fias_address.send_keys(Keys.RETURN)
-        #assert self.browser.find_element(*)
 
     def select_type_in_residential_building_tab(self):
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.TYPE_DROP_DOWN_MENU), \

@@ -47,6 +47,7 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
     VALUATION_DATE_FIELD = (By.XPATH, "//label[contains(text(), 'Дата оценки')]/..//input")
     SELECT_CURRENT_VALUATION_DATE = (By.XPATH,
                                      "//label[contains(text(), 'Дата оценки')]/..//td[contains(@class, 'rdtToday')]")
+    SELECT_VALUE_IN_VALUATION_DATE_FIELD = (By.XPATH, "//label[contains(text(), 'Дата оценки')]/..//input")
     SIGNER_DROP_DOWN_MENU = (By.XPATH,
         "//label[contains(text(),'Подписант от лица организации')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_SIGNER = (By.XPATH,

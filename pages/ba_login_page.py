@@ -10,7 +10,7 @@ class BaLoginPage(BasePage):
 
     def close_fb_popup(self):
         """Закрытие всплывающего окна FB"""
-        assert self.is_element_present(*BaLoginPageLocators.FACEBOOK_POPUP), \
+        assert self.is_element_visible(*BaLoginPageLocators.FACEBOOK_POPUP), \
             "Всплывающее окно с фэйсбуком отсутствует на странице"
         button_for_closing_fb_popup = self.browser.find_element(*BaLoginPageLocators.CLOSE_FACEBOOK_POPUP)
         button_for_closing_fb_popup.click()
