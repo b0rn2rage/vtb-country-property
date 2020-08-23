@@ -57,5 +57,7 @@ def test_filling_residential_filling(browser):
     page.select_type_in_residential_building_tab()
     page.input_name_of_the_object()
     page.input_the_address_for_documents()
+    page.input_total_area_of_the_assessment_object()
+    page.select_property_rights_to_the_object_assessments()
 
 

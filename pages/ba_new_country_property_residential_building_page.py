@@ -35,9 +35,32 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             " Введенный адрес не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
         field_for_input_fias_address.send_keys(Keys.RETURN)
 
+    def input_total_area_of_the_assessment_object(self):
+        assert self.is_element_present(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT), \
+            " Поле 'Общая площадь объекта оценки' не отображается на странице "
+        field_for_input_total_area_of_the_assessment_object = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
+        field_for_input_total_area_of_the_assessment_object.send_keys("250")
+        assert field_for_input_total_area_of_the_assessment_object.get_attribute(
+            "value") == '250', "Значение в поле 'Общая площадь объекта оценки не соответствует введенному' "
+
     def select_type_in_residential_building_tab(self):
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.TYPE_DROP_DOWN_MENU), \
             " Поле 'Тип' не отображается на странице "
         assert self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_TYPE), \
             " Выбранный тип недвижимости != Жилой садовый дом "
+
+    def select_property_rights_to_the_object_assessments(self):
+        assert self.is_element_present(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT), \
+            " Поле 'Имущественные права на объект оценки' отсутствует на странице "
+        drop_down_menu_for_the_property_rights_field = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT)
+        drop_down_menu_for_the_property_rights_field.click()
+        select_ownership = self.browser.find_element(*BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_PROPERTY_RIGHTS)
+        select_ownership.click()
+        assert self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_PROPERTY_RIGHTS).text == \
+            'Право собственности', "Значение в поле 'Имущственые права на объект оценки' != Право собственности"

@@ -82,5 +82,9 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
         "//label[contains(text(), 'Адрес по документам')]/..//textarea[contains(@id, 'node-INPUT-')]")
     INPUT_FIAS_ADDRESS = (By.XPATH, "//label[contains(text(), 'Адрес по ФИАС')]/..//input")
     SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS = (By.XPATH, "//span[contains(text(), 'г Москва, ул Тестовская, д 1А')]")
-
-
+    TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT = (By.XPATH,
+        "//label[contains(text(), 'Общая площадь объекта оценки')]/..//input[contains(@id, 'node-INPUT-')]")
+    PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT = (By.XPATH,
+        "//label[contains(text(), 'Имущественные права на объект оценки')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_PROPERTY_RIGHTS = (By.XPATH, "//span[contains( text(), 'Право собственности')]")
+    CHECKING_THE_PROPERTY_RIGHTS = (By.XPATH, "//div[contains(text(), 'Право собственности')]")
