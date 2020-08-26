@@ -58,6 +58,7 @@ def test_filling_residential_building(browser):
     page.select_type_in_residential_building_tab()
     page.input_name_of_the_object()
     page.input_the_address_for_documents()
+    page.input_fias_address()
     page.input_total_area_of_the_assessment_object()
     page.select_property_rights_to_the_object_assessments()
     page.select_wall_material()
@@ -83,4 +84,5 @@ def test_filling_land(browser):
     page.select_type_in_land_tab()
     page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
     page2.select_property_rights_to_the_object_assessments()
-    time.sleep(3)
+    page2.input_the_address_for_documents()
+    page2.input_fias_address()

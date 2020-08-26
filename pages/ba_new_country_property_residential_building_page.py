@@ -2,6 +2,7 @@ from .base_page import BasePage
 from .locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+import time
 
 
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):
@@ -25,7 +26,7 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         field_for_input_name_of_the_object.send_keys(Keys.TAB)
         assert self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT).text == \
-               "Home Sweet Home ^_^", " Значение в поле 'Наименование объекта...' не соответствует введенному "
+            "Home Sweet Home ^_^", " Значение в поле 'Наименование объекта...' не соответствует введенному "
 
     def input_the_address_for_documents(self):
         """ Заполнение поля 'Адрес по документам' """
@@ -46,13 +47,16 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             " Поле 'Адрес по ФИАС' не отображается на странице "
         field_for_input_fias_address = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
+        field_for_input_fias_address.click()
         field_for_input_fias_address.send_keys("г Москва, ул Тестовская, д 1А")
-        # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля 'Сотрудник банка'
+        # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля
         assert self.is_element_presence(
             *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS), \
             " Введенный адрес не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
         field_for_input_fias_address.send_keys(Keys.RETURN)
-        assert field_for_input_fias_address.get_attribute('value') == "г Москва, ул Тестовская, д 1А", \
+        check_value_in_fias_address_field = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_FIAS_ADDRESS)
+        assert check_value_in_fias_address_field.text == "г Москва, ул Тестовская, д 1А", \
             " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
 
     def input_total_area_of_the_assessment_object(self):
