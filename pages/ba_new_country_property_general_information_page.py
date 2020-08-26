@@ -1,6 +1,7 @@
 import os
 import time
 import datetime
+import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
@@ -38,7 +39,8 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
         field_for_input_full_name_of_the_borrower_customer = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER)
         field_for_input_full_name_of_the_borrower_customer.send_keys('Рандомное Физическое Лицо')
-        assert field_for_input_full_name_of_the_borrower_customer.get_attribute('value') == 'Рандомное Физическое Лицо', \
+        assert field_for_input_full_name_of_the_borrower_customer.get_attribute('value') == \
+            'Рандомное Физическое Лицо', \
             " Значение в поле 'ФИО Заемщика/Заказчика' не соответствует введенному "
 
     def input_report_number_in_the_general_information_tab(self):
@@ -152,16 +154,13 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
         scroll_to_select_file = self.browser.find_element(*BaNewCountryPropertyGeneralInformationPageLocators.FOOTER)
         actions = ActionChains(self.browser)
         actions.move_to_element(scroll_to_select_file).perform()
-        files = ["\\samples\\test doc.doc", "\\samples\\test pdf.pdf", "\\samples\\test docx.docx"]
-        for file in files:
-            input_file_report = self.browser.find_element(
-                *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FILE)
-            input_file_report.send_keys(os.getcwd() + file)
-            # Когда файл начинает прикрепляться, то появляется прогресс бар. Метод is_file_attached ждет 10 секунд
-            # пока этот прогресс бар пропадет. Если не пропадает - assert = False
-            assert self.is_file_attached(
-                *BaNewCountryPropertyGeneralInformationPageLocators.UPLOAD_PROGRESS_HIDE), \
-                f"Файл {file} не может прикрепиться. Прогресс бар не пропадает."
-            if file[0] or file[1]:
-                del_file = self.browser.find_element(
-                    *BaNewCountryPropertyGeneralInformationPageLocators.DELETE_FILE_BUTTON).click()
+        input_file_report = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FILE)
+        #file = ["\\samples\\test pdf.pdf", "\\samples\\test doc.doc", "\\samples\\test docx.docx"]
+        file = "\\samples\\test pdf.pdf"
+        input_file_report.send_keys(os.getcwd() + file)
+        #Когда файл начинает прикрепляться, то появляется прогресс бар. Метод is_file_attached ждет 10 секунд
+        # пока этот прогресс бар пропадет. Если не пропадает - assert = False
+        assert self.is_file_attached(
+            *BaNewCountryPropertyGeneralInformationPageLocators.UPLOAD_PROGRESS_HIDE), \
+            f"Файл {file} не может прикрепиться. Прогресс бар не пропадает."

@@ -20,7 +20,7 @@ class BaNewCountryPropertyPhotosAndDocumentsPage(BasePage):
             input_new_photo = self.browser.find_element(*BaNewCountryPropertyPhotosAndDocumentsPageLocators.INPUT_PHOTO)
             input_new_photo.send_keys(os.getcwd() + photo)
             assert self.is_element_presence(
-                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_PHOTO), \
+                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_PHOTO), \
                 f"Фото {photo} не загрузилось"
 
     def attach_documents_in_photos_and_documents_tab(self):
@@ -38,7 +38,7 @@ class BaNewCountryPropertyPhotosAndDocumentsPage(BasePage):
                 *BaNewCountryPropertyPhotosAndDocumentsPageLocators.INPUT_DOCUMENT)
             input_new_photo.send_keys(os.getcwd() + document)
             assert self.is_file_attached(
-                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_DOCUMENT), \
+                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_DOCUMENT), \
                 f'Документ {document} не загрузился'
 
     def go_to_first_object_tab_from_photos_and_documents_tab(self):

@@ -5,6 +5,7 @@ from pages.ba_main_page import BaMainPage
 from pages.ba_new_country_property_general_information_page import BaCountryPropertyNewReportGeneralInformationPage
 from pages.ba_new_country_property_photos_and_documents_page import BaNewCountryPropertyPhotosAndDocumentsPage
 from pages.ba_new_country_property_residential_building_page import BaNewCountryPropertyResidentialBuildingPage
+from pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
 
 
 def test_login_to_ba(browser):
@@ -50,7 +51,7 @@ def test_filling_photo_and_documents(browser):
     page.go_to_first_object_tab_from_photos_and_documents_tab()
 
 
-def test_filling_residential_filling(browser):
+def test_filling_residential_building(browser):
     """ Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом' """
     link = browser.current_url
     page = BaNewCountryPropertyResidentialBuildingPage(browser, link)
@@ -59,5 +60,27 @@ def test_filling_residential_filling(browser):
     page.input_the_address_for_documents()
     page.input_total_area_of_the_assessment_object()
     page.select_property_rights_to_the_object_assessments()
+    page.select_wall_material()
+    page.select_repairs()
+    page.input_market_price_of_the_object()
+    page.select_electricity()
+    page.select_water_supply()
+    page.select_sewerage()
+    page.select_gas()
+    page.select_heat_supply()
+    page.select_borrower_customer_are_same_person()
+    page.go_to_new_object_tab()
 
 
+def test_filling_land(browser):
+    """
+    Заполнение отчета по ЖД. Заполнение объекта с типом = 'Земельный участок'
+    Для новых методов, (у которых поля отличаются от объекта с типом = ЖД) используется экземпляр page
+    Повторяющиеся методы вызываются из класса с типом ЖД, для них создан экземпляр page2.
+    """
+    link = browser.current_url
+    page = BaNewCountryPropertyLandPage(browser, link)  # Экземпляр с классом ЗУ
+    page.select_type_in_land_tab()
+    page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
+    page2.select_property_rights_to_the_object_assessments()
+    time.sleep(3)

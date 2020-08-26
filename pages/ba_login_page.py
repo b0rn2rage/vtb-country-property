@@ -30,5 +30,4 @@ class BaLoginPage(BasePage):
         login_button = self.browser.find_element(*BaLoginPageLocators.LOGIN_BUTTON)
         login_button.click()
         WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(BaMainPageLocators.USER_NAME))
-        print(self.browser.current_url)
         assert self.browser.current_url in 'https://testba.srg-it.ru/index.html', 'Авторизация не удалась'
