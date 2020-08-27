@@ -2,6 +2,7 @@ from .base_page import BasePage
 from .locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from options.data import DataBankAppraiser
 import time
 
 
@@ -35,10 +36,11 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             "Поле 'Адрес по документам' не отображается на странице "
         field_for_input_the_address_for_documents = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
-        field_for_input_the_address_for_documents.click()
-        field_for_input_the_address_for_documents.send_keys("г Москва, ул Тестовская, д 1А")
+        field_for_input_the_address_for_documents.send_keys(
+            DataBankAppraiser.VtbData.Moscow_address_for_country_property)
         field_for_input_the_address_for_documents.send_keys(Keys.TAB)
-        assert field_for_input_the_address_for_documents.text == "г Москва, ул Тестовская, д 1А", \
+        assert field_for_input_the_address_for_documents.text == \
+            DataBankAppraiser.VtbData.Moscow_address_for_country_property, \
             " Значение в поле 'Адрес по документам' не соответствует введенному "
 
     def input_fias_address(self):
@@ -47,8 +49,7 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             " Поле 'Адрес по ФИАС' не отображается на странице "
         field_for_input_fias_address = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
-        field_for_input_fias_address.click()
-        field_for_input_fias_address.send_keys("г Москва, ул Тестовская, д 1А")
+        field_for_input_fias_address.send_keys(DataBankAppraiser.VtbData.Moscow_address_for_country_property)
         # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля
         assert self.is_element_presence(
             *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS), \
@@ -56,7 +57,7 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         field_for_input_fias_address.send_keys(Keys.RETURN)
         check_value_in_fias_address_field = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_FIAS_ADDRESS)
-        assert check_value_in_fias_address_field.text == "г Москва, ул Тестовская, д 1А", \
+        assert check_value_in_fias_address_field.text == DataBankAppraiser.VtbData.Moscow_address_for_country_property,\
             " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
 
     def input_total_area_of_the_assessment_object(self):
@@ -77,8 +78,9 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
         field_for_input_market_price_of_the_object = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT)
-        field_for_input_market_price_of_the_object.send_keys("17000000")
-        assert field_for_input_market_price_of_the_object.get_attribute('value') == '17000000', \
+        field_for_input_market_price_of_the_object.send_keys(DataBankAppraiser.VtbData.Moscow_low_price_house)
+        assert field_for_input_market_price_of_the_object.get_attribute('value') == \
+            DataBankAppraiser.VtbData.Moscow_low_price_house, \
             "Значение в поле 'Рыночная стоимость объекта оценки' не соответствует введенному"
 
     def select_type_in_residential_building_tab(self):

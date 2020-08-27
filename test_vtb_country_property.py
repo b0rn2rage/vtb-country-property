@@ -6,11 +6,12 @@ from pages.ba_new_country_property_general_information_page import BaCountryProp
 from pages.ba_new_country_property_photos_and_documents_page import BaNewCountryPropertyPhotosAndDocumentsPage
 from pages.ba_new_country_property_residential_building_page import BaNewCountryPropertyResidentialBuildingPage
 from pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
+from options.links import LinksBankAppraiser
 
 
 def test_login_to_ba(browser):
     """Авторизация в БО"""
-    link = 'https://testba.srg-it.ru/login.html'
+    link = LinksBankAppraiser.DefaultTestStand.login_link
     page = BaLoginPage(browser, link)
     page.open()
     page.close_fb_popup()
@@ -86,3 +87,10 @@ def test_filling_land(browser):
     page2.select_property_rights_to_the_object_assessments()
     page2.input_the_address_for_documents()
     page2.input_fias_address()
+    page.input_cadastral_number()
+    page2.input_total_area_of_the_assessment_object()
+    page.select_category()
+    page.input_type_of_permitted_use()
+    page2.select_property_rights_to_the_object_assessments()
+    page.input_market_price_of_the_object()
+    time.sleep(3)

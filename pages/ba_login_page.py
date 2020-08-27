@@ -3,6 +3,7 @@ from .locators import BaLoginPageLocators
 from .locators import BaMainPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from options.auth import AuthBankAppraiser
 import time
 
 
@@ -22,9 +23,9 @@ class BaLoginPage(BasePage):
         assert self.is_element_present(*BaLoginPageLocators.INPUT_PASSWORD), \
             "Поля для ввода пароля отсутствует на странице"
         field_for_input_email = self.browser.find_element(*BaLoginPageLocators.INPUT_EMAIL)
-        field_for_input_email.send_keys('autotest-country-property-vtb@test.ru')
+        field_for_input_email.send_keys(AuthBankAppraiser.VtbAuth.VtbLogin)
         field_for_input_password = self.browser.find_element(*BaLoginPageLocators.INPUT_PASSWORD)
-        field_for_input_password.send_keys('testvtb')
+        field_for_input_password.send_keys(AuthBankAppraiser.VtbAuth.VtbPassword)
         assert self.is_element_present(*BaLoginPageLocators.LOGIN_BUTTON), \
             "Кнопка 'Войти в систему' отсутствует на странице"
         login_button = self.browser.find_element(*BaLoginPageLocators.LOGIN_BUTTON)

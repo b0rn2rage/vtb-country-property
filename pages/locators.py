@@ -145,3 +145,14 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
 class BaNewCountryPropertyLandPageLocators:
     SELECT_TYPE_IS_LAND = (By.XPATH, "//span[contains( text(), 'Земельный участок')]")
     CHECK_TYPE_IS_LAND = (By.XPATH, "//div[contains(text(), 'Земельный участок')]")
+    INPUT_CADASTRAL_NUMBER = (
+        By.XPATH, "//label[contains(text(),'Кадастровый номер')]/..//input[contains(@id, 'node-INPUT-')]")
+    CATEGORY_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Категория')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_CATEGORY = (By.XPATH, "//span[contains( text(), 'Земли населённых пунктов (земли поселений)')]")
+    CHECKING_THE_SELECTED_CATEGORY = (By.XPATH,
+                                      "//label[contains(text(),'Категория')]/..//div[contains(text(), "
+                                      "'Земли населённых пунктов (земли поселений)')]")
+    INPUT_TYPE_OF_PERMITTED_USE = (
+        By.XPATH, "//label[contains(text(),'Вид разрешенного использования')]/..//input[contains(@id, 'node-INPUT-')]")
+    
+
