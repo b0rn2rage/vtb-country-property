@@ -154,5 +154,8 @@ class BaNewCountryPropertyLandPageLocators:
                                       "'Земли населённых пунктов (земли поселений)')]")
     INPUT_TYPE_OF_PERMITTED_USE = (
         By.XPATH, "//label[contains(text(),'Вид разрешенного использования')]/..//input[contains(@id, 'node-INPUT-')]")
-    
+
+
+class BaReportPageLocators:
+    SAVE_REPORT_BUTTON = (By.XPATH, "//button[contains(@id, 'node-REPORT_HEADER-')]")
 
