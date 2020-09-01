@@ -6,12 +6,13 @@ from pages.ba_new_country_property_general_information_page import BaCountryProp
 from pages.ba_new_country_property_photos_and_documents_page import BaNewCountryPropertyPhotosAndDocumentsPage
 from pages.ba_new_country_property_residential_building_page import BaNewCountryPropertyResidentialBuildingPage
 from pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
+from pages.ba_report_page import BaReportPage
 from options.links import LinksBankAppraiser
 
 
 def test_login_to_ba(browser):
     """Авторизация в БО"""
-    link = LinksBankAppraiser.DefaultTestStand.login_link
+    link = LinksBankAppraiser.DefaultTest.login_link
     page = BaLoginPage(browser, link)
     page.open()
     page.close_fb_popup()
@@ -98,4 +99,11 @@ def test_filling_land(browser):
     page2.select_sewerage()
     page2.select_gas()
     page2.select_borrower_customer_are_same_person()
+
+
+def test_save_report(browser):
+    """Сохранение отчета"""
+    link = browser.current_url
+    page = BaReportPage(browser, link)
+    page.save_report()
     time.sleep(3)

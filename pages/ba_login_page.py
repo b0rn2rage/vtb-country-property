@@ -1,10 +1,7 @@
 from .base_page import BasePage
 from .locators import BaLoginPageLocators
 from .locators import BaMainPageLocators
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from options.auth import AuthBankAppraiser
-import time
 
 
 class BaLoginPage(BasePage):
@@ -30,5 +27,4 @@ class BaLoginPage(BasePage):
             "Кнопка 'Войти в систему' отсутствует на странице"
         login_button = self.browser.find_element(*BaLoginPageLocators.LOGIN_BUTTON)
         login_button.click()
-        WebDriverWait(self.browser, 5).until(EC.presence_of_element_located(BaMainPageLocators.USER_NAME))
-        assert self.browser.current_url in 'https://testba.srg-it.ru/index.html', 'Авторизация не удалась'
+        assert self.is_element_presence(*BaMainPageLocators.USER_NAME, timeout=2), "Авторизация не удалась"

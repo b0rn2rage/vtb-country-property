@@ -32,14 +32,13 @@ class BaNewCountryPropertyPhotosAndDocumentsPage(BasePage):
                      "\\samples\\test bmp.bmp", "\\samples\\test doc.doc",
                      "\\samples\\test docx.docx", "\\samples\\test pdf.pdf", "\\samples\\test tiff.tiff"]
         '''
-        documents = ["\\samples\\test jpeg.jpeg"]
-        for document in documents:
-            input_new_photo = self.browser.find_element(
-                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.INPUT_DOCUMENT)
-            input_new_photo.send_keys(os.getcwd() + document)
-            assert self.is_file_attached(
-                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_DOCUMENT), \
-                f'Документ {document} не загрузился'
+        document = "\\samples\\test jpeg.jpeg"
+        input_new_photo = self.browser.find_element(
+            *BaNewCountryPropertyPhotosAndDocumentsPageLocators.INPUT_DOCUMENT)
+        input_new_photo.send_keys(os.getcwd() + document)
+        assert self.is_file_attached(
+            *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_DOCUMENT), \
+            f'Документ {document} не загрузился'
 
     def go_to_first_object_tab_from_photos_and_documents_tab(self):
         """ Переход из раздела 'Фото и документы' в раздел 'Объект 1'. Тип объекта = Жилой дом """

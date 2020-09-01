@@ -1,16 +1,8 @@
 import os
-import time
-import datetime
-import pytest
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from .base_page import BasePage
 from .locators import BaNewCountryPropertyGeneralInformationPageLocators
-from selenium.webdriver.common.by import By
 
 
 class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
