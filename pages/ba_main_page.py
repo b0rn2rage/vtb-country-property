@@ -1,25 +1,31 @@
 from .base_page import BasePage
 from .locators import BaMainPageLocators
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class BaMainPage(BasePage):
 
     def close_gost_popup(self):
-        """Закрытие всплывающего окна ГОСТ"""
-        assert self.is_element_visible(
-            *BaMainPageLocators.GOST_POPUP), 'Всплывающее окно с ГОСТом не успело прогрузиться'
-        button_for_closing_gost_popup = self.browser.find_element(*BaMainPageLocators.CLOSE_GOST_POPUP)
-        button_for_closing_gost_popup.click()
+        """Закрытие всплывающего окна ГОСТ, жду 2 секунды, заодно подгружается страница в БО"""
+        try:
+            WebDriverWait(self.browser, 2).until(EC.visibility_of_element_located(*BaMainPageLocators.GOST_POPUP))
+            button_for_closing_gost_popup = self.browser.find_element(*BaMainPageLocators.CLOSE_GOST_POPUP)
+            button_for_closing_gost_popup.click()
+        except TimeoutException:
+            print('Всплывающее окно с ГОСТом не успело прогрузиться')
 
     def close_simple_notification_modal(self):
         """Закрытие всплывающИХ окОН 'Уважаемые партнеры' """
-        while self.is_element_visible(*BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL, timeout=2):
-            assert self.is_element_visible(
-                *BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL), \
-                "Всплывающее окно 'Уважаемые партнеры' не отображается на странице"
-            button_for_closing_simple_notification_modal = self.browser.find_element(
-                *BaMainPageLocators.CLOSE_SIMPLE_NOTIFICATION_MODAL)
-            button_for_closing_simple_notification_modal.click()
+        try:
+            while WebDriverWait(self.browser, 2).until(
+                    EC.visibility_of_element_located(*BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL)):
+                button_for_closing_simple_notification_modal = self.browser.find_element(
+                    *BaMainPageLocators.CLOSE_SIMPLE_NOTIFICATION_MODAL)
+                button_for_closing_simple_notification_modal.click()
+        except TimeoutException:
+            print("Всплывающее окно 'Уважаемые партнеры' не отображается на странице")
 
     def create_new_report_from_main_page(self):
         """Создание нового отчета по ЖД с главной страницы БО"""
