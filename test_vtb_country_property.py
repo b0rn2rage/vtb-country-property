@@ -66,6 +66,7 @@ def test_filling_residential_building(browser):
     page.select_wall_material()
     page.select_repairs()
     page.input_market_price_of_the_object()
+    page.select_reason_why_not_egrn()
     page.select_electricity()
     page.select_water_supply()
     page.select_sewerage()
@@ -94,6 +95,7 @@ def test_filling_land(browser):
     page.input_type_of_permitted_use()
     page2.select_property_rights_to_the_object_assessments()
     page.input_market_price_of_the_object()
+    page2.select_reason_why_not_egrn()
     page2.select_electricity()
     page2.select_water_supply()
     page2.select_sewerage()
@@ -106,4 +108,6 @@ def test_save_report(browser):
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.save_report()
+    page.pay_report()
+    page.sign_report()
     time.sleep(3)

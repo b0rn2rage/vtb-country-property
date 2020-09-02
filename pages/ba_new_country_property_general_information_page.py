@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from .base_page import BasePage
 from .locators import BaNewCountryPropertyGeneralInformationPageLocators
+import requests
 
 
 class BaCountryPropertyNewReportGeneralInformationPage(BasePage):

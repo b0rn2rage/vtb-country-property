@@ -210,6 +210,19 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_HEAT_SUPPLY).text == \
             "Нет", " Значение в поле 'Теплоснабжение' != Нет "
 
+    def select_reason_why_not_egrn(self):
+        """ Выбор причины актуальной выписки из ЕГРН = Другое """
+        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.EGRN_DROP_DOWN_MENU), \
+            " Поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' "
+        drop_down_menu_for_egrn = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.EGRN_DROP_DOWN_MENU)
+        drop_down_menu_for_egrn.click()
+        select_reason = self.browser.find_element(*BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_EGRN)
+        select_reason.click()
+        assert self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_EGRN).text == "Другое", \
+            " Значение в поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' != Другое "
+
     def select_borrower_customer_are_same_person(self):
         """Включение чек-бокса 'Замемщик/Заказчик и собственник является одним лицом' """
         assert self.is_element_present(
@@ -228,4 +241,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         checkbox_for_borrower_customer_are_same_person_after_checked = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
         assert checkbox_for_borrower_customer_are_same_person_after_checked.is_selected(), "Чек-бокс не активен"
+
+
 

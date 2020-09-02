@@ -26,7 +26,7 @@ class BasePage:
             return False
         return True
 
-    def is_file_attached(self, how, what, timeout=120):
+    def is_file_attached(self, how, what, timeout=30):
         """Проверка прикрепления файла"""
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))

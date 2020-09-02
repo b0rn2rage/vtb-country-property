@@ -139,16 +139,21 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(text(), 'Нет')]")
     SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON = (
         By.XPATH, "//label[contains(text(),'Заемщик/Заказчик и собственник является одним лицом')]/..//input")
+    EGRN_DROP_DOWN_MENU = (
+        By.XPATH, "//label[contains(text(), 'Причина отсутствия актуальной')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_EGRN = (By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//span[contains(text(), 'Другое')]")
+    CHECKING_THE_SELECTED_EGRN = (
+        By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//div[contains(text(), 'Другое')]")
     GO_TO_NEW_OBJECT_TAB = (By.XPATH, "//div[contains(text(), 'Добавить объект')]")
 
 
 class BaNewCountryPropertyLandPageLocators:
-    SELECT_TYPE_IS_LAND = (By.XPATH, "//span[contains( text(), 'Земельный участок')]")
+    SELECT_TYPE_IS_LAND = (By.XPATH, "//span[contains(text(), 'Земельный участок')]")
     CHECK_TYPE_IS_LAND = (By.XPATH, "//div[contains(text(), 'Земельный участок')]")
     INPUT_CADASTRAL_NUMBER = (
         By.XPATH, "//label[contains(text(),'Кадастровый номер')]/..//input[contains(@id, 'node-INPUT-')]")
     CATEGORY_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Категория')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_CATEGORY = (By.XPATH, "//span[contains( text(), 'Земли населённых пунктов (земли поселений)')]")
+    SELECT_CATEGORY = (By.XPATH, "//span[contains(text(), 'Земли населённых пунктов (земли поселений)')]")
     CHECKING_THE_SELECTED_CATEGORY = (By.XPATH,
                                       "//label[contains(text(),'Категория')]/..//div[contains(text(), "
                                       "'Земли населённых пунктов (земли поселений)')]")
@@ -158,4 +163,8 @@ class BaNewCountryPropertyLandPageLocators:
 
 class BaReportPageLocators:
     SAVE_REPORT_BUTTON = (By.XPATH, "//button[contains(@id, 'node-REPORT_HEADER-')]")
+    PAY_REPORT_BUTTON = (By.XPATH, "//i[contains(@class, 'shopping')]/..")
+    SIGN_REPORT_BUTTON = (By.XPATH, "//i[contains(@class, 'flag')]/..")
+    THE_COMPLETION_OF_THE_REPORT_WINDOW = (By.CSS_SELECTOR, ".ui.tiny.modal.transition.visible.active")
+
 
