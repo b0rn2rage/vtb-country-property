@@ -59,7 +59,6 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
     DOWNLOAD_FILE_BUTTON = (By.XPATH, "//a[contains(@class, 'UploaderItem_download')]")
     DELETE_FILE_BUTTON = (By.XPATH, "//div[contains(@class, 'UploaderItem_remove')]")
     FOOTER = (By.XPATH, "//div[contains(@class, 'Footer_root')]")
-    FROM_GENERAL_TAB_TO_PHOTOS_AND_DOCUMENTS_TAB = (By.XPATH, "//div[contains(text(), 'Фото и документы')]")
 
 
 class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
@@ -71,7 +70,6 @@ class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
     UPLOAD_PROGRESS_BAR_FOR_DOCUMENT = (
         By.XPATH, "//div[contains(text(), 'Документы')]/../../..//div[contains(@class, 'ui') and"
         " contains(@class, 'blue') and @data-percent='100']")
-    FROM_PHOTO_AND_DOCUMENTS_TAB_TO_FIRST_OBJECT_TAB = (By.XPATH, "//div[contains(text(), 'Добавить объект')]")
 
 
 class BaNewCountryPropertyResidentialBuildingPageLocators:
@@ -144,7 +142,6 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
     SELECT_EGRN = (By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//span[contains(text(), 'Другое')]")
     CHECKING_THE_SELECTED_EGRN = (
         By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//div[contains(text(), 'Другое')]")
-    GO_TO_NEW_OBJECT_TAB = (By.XPATH, "//div[contains(text(), 'Добавить объект')]")
 
 
 class BaNewCountryPropertyLandPageLocators:
@@ -166,5 +163,7 @@ class BaReportPageLocators:
     PAY_REPORT_BUTTON = (By.XPATH, "//i[contains(@class, 'shopping')]/..")
     SIGN_REPORT_BUTTON = (By.XPATH, "//i[contains(@class, 'flag')]/..")
     THE_COMPLETION_OF_THE_REPORT_WINDOW = (By.CSS_SELECTOR, ".ui.tiny.modal.transition.visible.active")
+    GO_TO_PHOTOS_AND_DOCUMENTS_TAB = (By.XPATH, "//div[contains(text(), 'Фото и документы')]")
+    GO_TO_NEW_OBJECT_TAB = (By.XPATH, "//div[contains(text(), 'Добавить объект')]")
 
 

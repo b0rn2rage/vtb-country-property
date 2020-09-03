@@ -27,4 +27,4 @@ class BaLoginPage(BasePage):
             "Кнопка 'Войти в систему' отсутствует на странице"
         login_button = self.browser.find_element(*BaLoginPageLocators.LOGIN_BUTTON)
         login_button.click()
-        assert self.is_element_presence(*BaMainPageLocators.USER_NAME, timeout=2), "Авторизация не удалась"
+        assert self.is_element_presence(*BaMainPageLocators.USER_NAME, timeout=5), "Авторизация не удалась"

@@ -3,6 +3,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from .base_page import BasePage
 from .locators import BaNewCountryPropertyGeneralInformationPageLocators
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import requests
 
 
@@ -11,18 +14,14 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
 
     def close_modal_popup(self):
         """ Закрыть модальные окна на входе в новый отчет """
-        while self.is_element_visible(*BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP, timeout=2):
-            assert self.is_element_visible(
-                *BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP), \
-                'Всплывающее окно с ГОСТом не успело прогрузиться'
-            button_for_closing_modal_popup = self.browser.find_element(
-                *BaNewCountryPropertyGeneralInformationPageLocators.CLOSE_MODAL_POPUP)
-            button_for_closing_modal_popup.click()
-
-    def go_to_photos_and_documents_tab_from_general_information_tab(self):
-        """ Переход из раздела 'Общая информация' в раздел 'Фотографии и документы' """
-        self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.FROM_GENERAL_TAB_TO_PHOTOS_AND_DOCUMENTS_TAB).click()
+        try:
+            while WebDriverWait(self.browser, timeout=2).until(
+                    EC.visibility_of_element_located(BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP)):
+                button_for_closing_modal_popup = self.browser.find_element(
+                    *BaNewCountryPropertyGeneralInformationPageLocators.CLOSE_MODAL_POPUP)
+                button_for_closing_modal_popup.click()
+        except TimeoutException:
+            print('Всплывающее окно с ГОСТом не успело прогрузиться')
 
     def input_full_name_of_the_borrower_customer_in_the_general_information_tab(self):
         """ Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика' """
@@ -154,6 +153,6 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
         input_file_report.send_keys(os.getcwd() + file)
         #Когда файл начинает прикрепляться, то появляется прогресс бар. Метод is_file_attached ждет 10 секунд
         # пока этот прогресс бар пропадет. Если не пропадает - assert = False
-        assert self.is_file_attached(
-            *BaNewCountryPropertyGeneralInformationPageLocators.UPLOAD_PROGRESS_HIDE), \
+        assert self.is_element_presence(
+            *BaNewCountryPropertyGeneralInformationPageLocators.UPLOAD_PROGRESS_HIDE, timeout=30), \
             f"Файл {file} не может прикрепиться. Прогресс бар не пропадает."

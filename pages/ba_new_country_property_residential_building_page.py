@@ -9,13 +9,6 @@ import time
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):
     """ Заполнение раздела 'Объект №1' в новом отчете по ЖД. Тип объекта = ЖД """
 
-    def go_to_new_object_tab(self):
-        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.GO_TO_NEW_OBJECT_TAB), \
-            "Кнопка добавления нового объекта отсутствует на странице"
-        from_residential_tab_go_to_land_object_tab = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.GO_TO_NEW_OBJECT_TAB)
-        from_residential_tab_go_to_land_object_tab.click()
-
     def input_name_of_the_object(self):
         """ Заполнение поля 'Наименование объекта' """
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT), \

@@ -20,7 +20,7 @@ class BaNewCountryPropertyPhotosAndDocumentsPage(BasePage):
             input_new_photo = self.browser.find_element(*BaNewCountryPropertyPhotosAndDocumentsPageLocators.INPUT_PHOTO)
             input_new_photo.send_keys(os.getcwd() + photo)
             assert self.is_element_presence(
-                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_PHOTO), \
+                *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_PHOTO, timeout=30), \
                 f"Фото {photo} не загрузилось"
 
     def attach_documents_in_photos_and_documents_tab(self):
@@ -36,11 +36,7 @@ class BaNewCountryPropertyPhotosAndDocumentsPage(BasePage):
         input_new_photo = self.browser.find_element(
             *BaNewCountryPropertyPhotosAndDocumentsPageLocators.INPUT_DOCUMENT)
         input_new_photo.send_keys(os.getcwd() + document)
-        assert self.is_file_attached(
-            *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_DOCUMENT), \
+        assert self.is_element_presence(
+            *BaNewCountryPropertyPhotosAndDocumentsPageLocators.UPLOAD_PROGRESS_BAR_FOR_DOCUMENT, timeout=30), \
             f'Документ {document} не загрузился'
 
-    def go_to_first_object_tab_from_photos_and_documents_tab(self):
-        """ Переход из раздела 'Фото и документы' в раздел 'Объект 1'. Тип объекта = Жилой дом """
-        self.browser.find_element(
-            *BaNewCountryPropertyPhotosAndDocumentsPageLocators.FROM_PHOTO_AND_DOCUMENTS_TAB_TO_FIRST_OBJECT_TAB).click()

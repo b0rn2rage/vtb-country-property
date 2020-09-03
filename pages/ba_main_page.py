@@ -10,7 +10,8 @@ class BaMainPage(BasePage):
     def close_gost_popup(self):
         """Закрытие всплывающего окна ГОСТ, жду 2 секунды, заодно подгружается страница в БО"""
         try:
-            WebDriverWait(self.browser, 2).until(EC.visibility_of_element_located(*BaMainPageLocators.GOST_POPUP))
+            WebDriverWait(self.browser, timeout=2).until(
+                EC.visibility_of_element_located(BaMainPageLocators.GOST_POPUP))
             button_for_closing_gost_popup = self.browser.find_element(*BaMainPageLocators.CLOSE_GOST_POPUP)
             button_for_closing_gost_popup.click()
         except TimeoutException:
@@ -19,8 +20,8 @@ class BaMainPage(BasePage):
     def close_simple_notification_modal(self):
         """Закрытие всплывающИХ окОН 'Уважаемые партнеры' """
         try:
-            while WebDriverWait(self.browser, 2).until(
-                    EC.visibility_of_element_located(*BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL)):
+            while WebDriverWait(self.browser, timeout=2).until(
+                    EC.visibility_of_element_located(BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL)):
                 button_for_closing_simple_notification_modal = self.browser.find_element(
                     *BaMainPageLocators.CLOSE_SIMPLE_NOTIFICATION_MODAL)
                 button_for_closing_simple_notification_modal.click()

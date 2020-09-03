@@ -41,7 +41,8 @@ def test_filling_general_information_tab(browser):
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
-    page.go_to_photos_and_documents_tab_from_general_information_tab()
+    page2 = BaReportPage(browser, link)
+    page2.go_to_photos_and_documents_tab()
 
 
 def test_filling_photo_and_documents(browser):
@@ -50,7 +51,8 @@ def test_filling_photo_and_documents(browser):
     page = BaNewCountryPropertyPhotosAndDocumentsPage(browser, link)
     page.attach_photos_in_photos_and_documents_tab()
     page.attach_documents_in_photos_and_documents_tab()
-    page.go_to_first_object_tab_from_photos_and_documents_tab()
+    page2 = BaReportPage(browser, link)
+    page2.go_to_new_object_tab()
 
 
 def test_filling_residential_building(browser):
@@ -73,7 +75,8 @@ def test_filling_residential_building(browser):
     page.select_gas()
     page.select_heat_supply()
     page.select_borrower_customer_are_same_person()
-    page.go_to_new_object_tab()
+    page2 = BaReportPage(browser, link)
+    page2.go_to_new_object_tab()
 
 
 def test_filling_land(browser):
@@ -108,6 +111,6 @@ def test_save_report(browser):
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.save_report()
-    page.pay_report()
-    page.sign_report()
+    #page.pay_report()
+    #page.sign_report()
     time.sleep(3)
