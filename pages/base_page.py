@@ -53,3 +53,11 @@ class BasePage:
     def open(self):
         """ Открытие страницы по ссылке """
         self.browser.get(self.url)
+
+    def text_in_element_is_correct(self, how, what, expected_text, timeout=5):
+        """ Проверка того, что текст внутри элемента изменяется на правильный """
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.text_to_be_present_in_element((how, what), expected_text))
+        except TimeoutException:
+            return False
+        return True
