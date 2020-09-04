@@ -107,10 +107,22 @@ def test_filling_land(browser):
 
 
 def test_save_report(browser):
-    """Сохранение отчета"""
+    """ Сохранение отчета """
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.save_report()
-    #page.pay_report()
-    #page.sign_report()
+
+
+def test_pay_report(browser):
+    """ Оплата отчета """
+    link = browser.current_url
+    page = BaReportPage(browser, link)
+    page.pay_report()
+
+
+def test_sign_report(browser):
+    """ Подписание отчета """
+    link = browser.current_url
+    page = BaReportPage(browser, link)
+    page.sign_report()
     time.sleep(3)

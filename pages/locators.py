@@ -160,7 +160,8 @@ class BaNewCountryPropertyLandPageLocators:
 
 class BaReportPageLocators:
     SAVE_REPORT_BUTTON = (By.XPATH, "//button[contains(@id, 'node-REPORT_HEADER-')]")
-    PAY_REPORT_BUTTON = (By.XPATH, "//i[contains(@class, 'shopping')]/..")
+    PAY_REPORT_BUTTON_BEFORE_CLICK = (By.XPATH, "//i[contains(@class, 'shopping')]/..")
+    PAY_REPORT_BUTTON_AFTER_CLICK = (By.XPATH, ".check.icon")
     COMPLETE_AND_SIGN_BUTTON = (By.XPATH, "//i[contains(@class, 'flag')]/..")
     THE_COMPLETION_OF_THE_REPORT_WINDOW = (By.CSS_SELECTOR, ".ui.tiny.modal.transition.visible.active")
     GO_TO_PHOTOS_AND_DOCUMENTS_TAB = (By.XPATH, "//div[contains(text(), 'Фото и документы')]")

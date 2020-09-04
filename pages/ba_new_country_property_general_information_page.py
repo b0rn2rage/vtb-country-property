@@ -15,7 +15,7 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
     def close_modal_popup(self):
         """ Закрыть модальные окна на входе в новый отчет """
         try:
-            while WebDriverWait(self.browser, timeout=2).until(
+            while WebDriverWait(self.browser, timeout=4).until(
                     EC.visibility_of_element_located(BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP)):
                 button_for_closing_modal_popup = self.browser.find_element(
                     *BaNewCountryPropertyGeneralInformationPageLocators.CLOSE_MODAL_POPUP)

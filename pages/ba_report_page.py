@@ -23,11 +23,13 @@ class BaReportPage(BasePage):
             *BaReportPageLocators.GO_TO_NEW_OBJECT_TAB).click()
 
     def pay_report(self):
-        assert self.is_element_present(*BaReportPageLocators.PAY_REPORT_BUTTON), \
+        assert self.is_element_present(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK), \
             " Кнопка оплаты отчета отсутствует на странцие "
-        pay_report = self.browser.find_element(*BaReportPageLocators.PAY_REPORT_BUTTON)
+        pay_report = self.browser.find_element(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK)
         pay_report.click()
-        assert self.text_in_element_is_correct(*BaReportPageLocators.SAVE_REPORT_BUTTON, 'Оплачено'), \
+        assert self.is_element_presence(
+            *BaReportPageLocators.PAY_REPORT_BUTTON_AFTER_CLICK), "Селектор с кнопкой 'Оплачено' не обновился"
+        assert self.text_in_element_is_correct(*BaReportPageLocators.PAY_REPORT_BUTTON_AFTER_CLICK, 'Оплачено'), \
             "Возникла проблема с оплатой отчета"
 
     def save_report(self):

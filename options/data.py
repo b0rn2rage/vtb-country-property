@@ -1,6 +1,6 @@
 class DataBankAppraiser:
     class SharedData:
-        password_for_singing_reports = "testtest"
+        password_for_singing_reports = "testvtb"
 
     class VtbData:
         Moscow_low_price_house = "17000000"
