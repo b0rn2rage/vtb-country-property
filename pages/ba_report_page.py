@@ -24,7 +24,7 @@ class BaReportPage(BasePage):
 
     def pay_report(self):
         assert self.is_element_present(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK), \
-            " Кнопка оплаты отчета отсутствует на странцие "
+            " Кнопка оплаты отчета отсутствует на странице "
         pay_report = self.browser.find_element(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK)
         pay_report.click()
         assert self.is_element_presence(
@@ -48,7 +48,7 @@ class BaReportPage(BasePage):
         button_for_complete_and_sign.click()
         assert self.is_element_visible(*BaReportPageLocators.THE_COMPLETION_OF_THE_REPORT_WINDOW), \
             " Окно 'Завершение отчета' не появилось на странице "
-        assert self.is_element_present(*BaReportPageLocators.ENTER_THE_PASSWORD_FOR_SIGNING), \
+        assert self.is_element_visible(*BaReportPageLocators.ENTER_THE_PASSWORD_FOR_SIGNING), \
             " Поле для ввода пароля при подписании отчета не появилось на странице "
         field_for_enter_the_password_for_singing = self.browser.find_element(
             *BaReportPageLocators.ENTER_THE_PASSWORD_FOR_SIGNING)

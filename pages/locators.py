@@ -79,6 +79,7 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
         By.XPATH, "//label[contains(text(), 'Наименование объекта')]/..//textarea[contains(@id, 'node-INPUT-')]")
     INPUT_THE_ADDRESS_FOR_DOCUMENTS = (
         By.XPATH, "//label[contains(text(), 'Адрес по документам')]/..//textarea[contains(@id, 'node-INPUT-')]")
+    FIAS_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Адрес по ФИАС')]/..//div[contains(@id, 'node-SELECT-')]")
     INPUT_FIAS_ADDRESS = (By.XPATH, "//label[contains(text(), 'Адрес по ФИАС')]/..//input")
     SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS = (By.XPATH, "//span[contains(text(), 'г Москва, ул Тестовская, д 1А')]")
     CHECKING_THE_SELECTED_FIAS_ADDRESS = (By.XPATH, "//div[contains(text(), 'г Москва, ул Тестовская, д 1А')]")
@@ -161,7 +162,7 @@ class BaNewCountryPropertyLandPageLocators:
 class BaReportPageLocators:
     SAVE_REPORT_BUTTON = (By.XPATH, "//button[contains(@id, 'node-REPORT_HEADER-')]")
     PAY_REPORT_BUTTON_BEFORE_CLICK = (By.XPATH, "//i[contains(@class, 'shopping')]/..")
-    PAY_REPORT_BUTTON_AFTER_CLICK = (By.XPATH, ".check.icon")
+    PAY_REPORT_BUTTON_AFTER_CLICK = (By.CSS_SELECTOR, ".ui.green.small.disabled.button")
     COMPLETE_AND_SIGN_BUTTON = (By.XPATH, "//i[contains(@class, 'flag')]/..")
     THE_COMPLETION_OF_THE_REPORT_WINDOW = (By.CSS_SELECTOR, ".ui.tiny.modal.transition.visible.active")
     GO_TO_PHOTOS_AND_DOCUMENTS_TAB = (By.XPATH, "//div[contains(text(), 'Фото и документы')]")

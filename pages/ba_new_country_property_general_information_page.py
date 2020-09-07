@@ -78,9 +78,6 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
         assert self.is_element_present(
             *BaNewCountryPropertyGeneralInformationPageLocators.BANK_EMPLOYEE_DROP_DOWN_MENU), \
             "Поле 'Сотрудник банка' отсутствует на странице"
-        drop_down_menu_for_bank_employee = self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.BANK_EMPLOYEE_DROP_DOWN_MENU)
-        drop_down_menu_for_bank_employee.click()
         field_for_input_bank_employee = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_BANK_EMPLOYEE)
         field_for_input_bank_employee.send_keys('autotest-country-property-vtb@test.ru')
