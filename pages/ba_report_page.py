@@ -56,4 +56,5 @@ class BaReportPage(BasePage):
         assert self.is_element_present(*BaReportPageLocators.SIGN_BUTTON), " Кнопка 'Подписать' отсутствует на странице"
         sign_button = self.browser.find_element(*BaReportPageLocators.SIGN_BUTTON)
         sign_button.click()
-
+        assert self.text_in_element_is_correct(*BaReportPageLocators.SUCCESSFUL_SIGN,
+                                               'Отчет готов к печати!'), "При подписании отчета возникла ошибка"

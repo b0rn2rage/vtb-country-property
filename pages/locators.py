@@ -64,6 +64,16 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
     SELECT_EXTERNAL_EXAMINATION = (By.XPATH,
                                    "//label[contains(text(),'Внешний осмотр')]/..//div[contains(@id, 'node-SELECT-')]"
                                    "//span[contains( text(), 'Проводился')]")
+    CHECKING_THE_SELECTED_EXTERNAL_EXAMINATION = (
+        By.XPATH, "//label[contains(text(),'Внешний осмотр')]/..//div[contains(text(), 'Проводился')]")
+    INTERNAL_INSPECTION_DROP_DOWN_MENU = (
+        By.XPATH, "//label[contains(text(),'Внутренний осмотр')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_INTERNAL_INSPECTION = (By.XPATH,
+                                  "//label[contains(text(),'Внутренний осмотр')]/..//div[contains(@id, 'node-SELECT-')]"
+                                  "//span[contains( text(), 'Проводился')]")
+    CHECKING_THE_SELECTED_INTERNAL_INSPECTION = (
+        By.XPATH, "//label[contains(text(),'Внутренний осмотр')]/..//div[contains(text(), 'Проводился')]")
+
 
 
 class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
@@ -174,5 +184,6 @@ class BaReportPageLocators:
     GO_TO_NEW_OBJECT_TAB = (By.XPATH, "//div[contains(text(), 'Добавить объект')]")
     ENTER_THE_PASSWORD_FOR_SIGNING = (By.CSS_SELECTOR, "input[name='authPassword']")
     SIGN_BUTTON = (By.XPATH, "//button[contains(text(), 'Подписать')]")
+    SUCCESSFUL_SIGN = (By.XPATH, "//div[contains(text(), 'Отчет готов к печати')]")
 
 

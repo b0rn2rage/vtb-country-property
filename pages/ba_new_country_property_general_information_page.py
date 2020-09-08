@@ -120,9 +120,35 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
             'value') == self.current_date().strftime(
             "%d.%m.%Y"), " Значение в поле 'Дата оценки' не соответствует текущей дате "
 
-    def select_external_examination(self):
-        """Выбор осмотра в поле 'Внешний осмотр' """
-        assert self.is_element_present()
+    def select_external_examination_in_the_general_information_tab(self):
+        """ Выбор осмотра в поле 'Внешний осмотр' """
+        assert self.is_element_present(
+            *BaNewCountryPropertyGeneralInformationPageLocators.EXTERNAL_EXAMINATION_DROP_DOWN_MENU), \
+            " Поле 'Внешний осмотр' не отображается на странице "
+        drop_down_menu_for_external_examination = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.EXTERNAL_EXAMINATION_DROP_DOWN_MENU)
+        drop_down_menu_for_external_examination.click()
+        select_external = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_EXTERNAL_EXAMINATION)
+        select_external.click()
+        assert self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_EXTERNAL_EXAMINATION).text == \
+            "Проводился", "Значение в поле 'Внешний осмотр' не соответствует выбранному значению"
+
+    def select_internal_inspection_in_the_general_information_tab(self):
+        """ Выбор осмотра в поле 'Внутренний осмотр' """
+        assert self.is_element_present(
+            *BaNewCountryPropertyGeneralInformationPageLocators.INTERNAL_INSPECTION_DROP_DOWN_MENU), \
+            " Поле 'Внутренний осмотр' не отображается на странице "
+        drop_down_menu_for_internal_inspection = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.INTERNAL_INSPECTION_DROP_DOWN_MENU)
+        drop_down_menu_for_internal_inspection.click()
+        select_inspection = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_INTERNAL_INSPECTION)
+        select_inspection.click()
+        assert self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_INTERNAL_INSPECTION).text == \
+            "Проводился", "Значение в поле 'Внешний осмотр' не соответствует выбранному значению"
 
     def select_signer_in_the_general_information_tab(self):
         """

@@ -41,6 +41,8 @@ def test_filling_general_information_tab(browser):
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
+    page.select_external_examination_in_the_general_information_tab()
+    page.select_internal_inspection_in_the_general_information_tab()
     page2 = BaReportPage(browser, link)
     page2.go_to_photos_and_documents_tab()
 
@@ -125,4 +127,3 @@ def test_sign_report(browser):
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.sign_report()
-    time.sleep(3)
