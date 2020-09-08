@@ -42,12 +42,9 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             " Поле 'Адрес по ФИАС' не отображается на странице "
         field_for_input_fias_address = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
-        field_for_input_fias_address.click()
-        field_for_input_fias_address.send_keys('г Мо')
-        field_for_input_fias_address.click()
+        for char in DataBankAppraiser.VtbData.Moscow_address_for_country_property:
+            field_for_input_fias_address.send_keys(char)
         # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля
-        time.sleep(5)
-        '''
         assert self.is_element_presence(
             *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS), \
             " Введенный адрес не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
@@ -56,7 +53,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_FIAS_ADDRESS)
         assert check_value_in_fias_address_field.text == DataBankAppraiser.VtbData.Moscow_address_for_country_property,\
             " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
-        '''
 
     def input_total_area_of_the_assessment_object(self):
         """ Заполнение поля с общей площадью ОО """

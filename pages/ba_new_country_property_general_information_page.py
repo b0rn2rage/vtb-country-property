@@ -120,6 +120,10 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
             'value') == self.current_date().strftime(
             "%d.%m.%Y"), " Значение в поле 'Дата оценки' не соответствует текущей дате "
 
+    def select_external_examination(self):
+        """Выбор осмотра в поле 'Внешний осмотр' """
+        assert self.is_element_present()
+
     def select_signer_in_the_general_information_tab(self):
         """
         Выбор подписанта в поле 'Подписант от лица организации'.

@@ -59,6 +59,11 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
     DOWNLOAD_FILE_BUTTON = (By.XPATH, "//a[contains(@class, 'UploaderItem_download')]")
     DELETE_FILE_BUTTON = (By.XPATH, "//div[contains(@class, 'UploaderItem_remove')]")
     FOOTER = (By.XPATH, "//div[contains(@class, 'Footer_root')]")
+    EXTERNAL_EXAMINATION_DROP_DOWN_MENU = (
+        By.XPATH, "//label[contains(text(),'Внешний осмотр')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_EXTERNAL_EXAMINATION = (By.XPATH,
+                                   "//label[contains(text(),'Внешний осмотр')]/..//div[contains(@id, 'node-SELECT-')]"
+                                   "//span[contains( text(), 'Проводился')]")
 
 
 class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
