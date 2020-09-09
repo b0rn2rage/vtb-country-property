@@ -1,6 +1,6 @@
-from .base_page import BasePage
-from .locators import BaLoginPageLocators
-from .locators import BaMainPageLocators
+from pages.base_page import BasePage
+from .ba_locators import BaLoginPageLocators
+from .ba_locators import BaMainPageLocators
 from options.auth import AuthBankAppraiser
 
 

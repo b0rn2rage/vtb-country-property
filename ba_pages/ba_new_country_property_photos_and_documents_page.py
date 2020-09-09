@@ -1,6 +1,6 @@
 import os
-from .base_page import BasePage
-from .locators import BaNewCountryPropertyPhotosAndDocumentsPageLocators
+from pages.base_page import BasePage
+from .ba_locators import BaNewCountryPropertyPhotosAndDocumentsPageLocators
 
 
 class BaNewCountryPropertyPhotosAndDocumentsPage(BasePage):

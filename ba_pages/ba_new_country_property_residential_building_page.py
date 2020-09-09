@@ -1,9 +1,8 @@
-from .base_page import BasePage
-from .locators import BaNewCountryPropertyResidentialBuildingPageLocators
+from pages.base_page import BasePage
+from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from options.data import DataBankAppraiser
-import time
 
 
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):

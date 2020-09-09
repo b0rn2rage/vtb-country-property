@@ -1,11 +1,6 @@
-from .base_page import BasePage
-from .locators import BaReportPageLocators
+from pages.base_page import BasePage
+from .ba_locators import BaReportPageLocators
 from options.data import DataBankAppraiser
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-import time
 
 
 class BaReportPage(BasePage):

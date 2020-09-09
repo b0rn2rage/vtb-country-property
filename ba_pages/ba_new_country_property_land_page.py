@@ -1,6 +1,6 @@
-from .base_page import BasePage
-from .locators import BaNewCountryPropertyResidentialBuildingPageLocators
-from .locators import BaNewCountryPropertyLandPageLocators
+from pages.base_page import BasePage
+from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
+from .ba_locators import BaNewCountryPropertyLandPageLocators
 from options.data import DataBankAppraiser
 
 
