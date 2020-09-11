@@ -8,15 +8,18 @@ from pages.ba_new_country_property_residential_building_page import BaNewCountry
 from pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
 from pages.ba_report_page import BaReportPage
 from options.links import LinksBankAppraiser
+from options.auth import AuthBankAppraiser
 
 
-def test_login_to_ba(browser):
+@pytest.mark.parametrize('login, password',
+                         [(AuthBankAppraiser.VtbAuth.VtbLogin, AuthBankAppraiser.VtbAuth.VtbPassword)])
+def test_login_to_ba(browser, login, password):
     """Авторизация в БО"""
     link = LinksBankAppraiser.DefaultTest.login_link
     page = BaLoginPage(browser, link)
     page.open()
     page.close_fb_popup()
-    page.login_to_bank_appraiser()
+    page.login_to_bank_appraiser(login, password)
 
 
 def test_creating_new_country_property_report(browser):
@@ -41,6 +44,8 @@ def test_filling_general_information_tab(browser):
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
+    page.select_external_examination_in_the_general_information_tab()
+    page.select_internal_inspection_in_the_general_information_tab()
     page2 = BaReportPage(browser, link)
     page2.go_to_photos_and_documents_tab()
 
@@ -125,4 +130,3 @@ def test_sign_report(browser):
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.sign_report()
-    time.sleep(3)
