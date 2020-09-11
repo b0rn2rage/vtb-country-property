@@ -15,8 +15,19 @@ class BaMainPageLocators:
     SIMPLE_NOTIFICATION_MODAL = (By.CSS_SELECTOR, 'div.simpleNotificationModal_content')
     CLOSE_SIMPLE_NOTIFICATION_MODAL = (By.CSS_SELECTOR, 'div.simpleNotificationModal_close')
     SHOW_CREATE_REPORT_DIALOG = (By.CSS_SELECTOR, '.new-report .btn.btn-success')
-    CREATE_NEW_COUNTRY_PROPERTY_REPORT = (By.CSS_SELECTOR, '#rtm-createNewCountryPropertyReportButton')
     USER_NAME = (By.CSS_SELECTOR, '#headerUserName')
+    CREATE_NEW_REPORT_FLAT = (
+        By.XPATH, "//a[contains(text(), 'Квартиры') and contains(@class, 'btn-success')]")
+    CREATE_NEW_REPORT_COMMERCIAL_PROPERTY = (
+        By.XPATH, "//a[contains(text(), 'Коммерческая недвижимость') and contains(@class, 'btn-success')]")
+    CREATE_NEW_REPORT_COUNTRY_PROPERTY = (
+        By.XPATH, "//a[contains(text(), 'Жилые дома') and contains(@class, 'btn-success')]")
+    CREATE_NEW_REPORT_INTANGIBLE_ASSET = (
+        By.XPATH, "//a[contains(text(), 'Нематериальные активы') and contains(@class, 'btn-success')]")
+    CREATE_NEW_REPORT_MOVABLE_PROPERTY = (
+        By.XPATH, "//a[contains(text(), 'Движимое имущество') and contains(@class, 'btn-success')]")
+    CREATE_NEW_REPORT_NEW_INVENTORY = (
+        By.XPATH, "//a[contains(text(), 'Товарно-материальные ценности') and contains(@class, 'btn-success')]")
 
 
 class BaNewCountryPropertyGeneralInformationPageLocators:

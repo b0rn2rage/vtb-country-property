@@ -1,14 +1,15 @@
 import pytest
 import time
-from pages.ba_login_page import BaLoginPage
-from pages.ba_main_page import BaMainPage
-from pages.ba_new_country_property_general_information_page import BaCountryPropertyNewReportGeneralInformationPage
-from pages.ba_new_country_property_photos_and_documents_page import BaNewCountryPropertyPhotosAndDocumentsPage
-from pages.ba_new_country_property_residential_building_page import BaNewCountryPropertyResidentialBuildingPage
-from pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
-from pages.ba_report_page import BaReportPage
+from ba_pages.ba_login_page import BaLoginPage
+from ba_pages.ba_main_page import BaMainPage
+from ba_pages.ba_new_country_property_general_information_page import BaCountryPropertyNewReportGeneralInformationPage
+from ba_pages.ba_new_country_property_photos_and_documents_page import BaNewCountryPropertyPhotosAndDocumentsPage
+from ba_pages.ba_new_country_property_residential_building_page import BaNewCountryPropertyResidentialBuildingPage
+from ba_pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
+from ba_pages.ba_report_page import BaReportPage
 from options.links import LinksBankAppraiser
 from options.auth import AuthBankAppraiser
+from ba_pages.ba_enums.ba_enum_type_new_report import BaTypeNewReport
 
 
 @pytest.mark.parametrize('login, password',
@@ -28,7 +29,7 @@ def test_creating_new_country_property_report(browser):
     page = BaMainPage(browser, link)
     page.close_gost_popup()
     page.close_simple_notification_modal()  # Закрытие двух всплывающих окон
-    page.create_new_report_from_main_page()
+    page.create_new_report_from_main_page(BaTypeNewReport.COUNTRY)
 
 
 def test_filling_general_information_tab(browser):

@@ -1,3 +1,6 @@
+from typing import Tuple
+
+from ba_pages.ba_enums.ba_enum_type_new_report import BaTypeNewReport
 from pages.base_page import BasePage
 from .ba_locators import BaMainPageLocators
 from selenium.common.exceptions import TimeoutException
@@ -28,14 +31,21 @@ class BaMainPage(BasePage):
         except TimeoutException:
             print("Всплывающее окно 'Уважаемые партнеры' не отображается на странице")
 
-    def create_new_report_from_main_page(self):
+    def create_new_report_from_main_page(self, report_type):
         """Создание нового отчета по ЖД с главной страницы БО"""
         assert self.is_element_present(*BaMainPageLocators.SHOW_CREATE_REPORT_DIALOG), \
             "Кнопка 'Новый отчет' не отображается на странице"
         button_for_show_create_report_dialog = self.browser.find_element(*BaMainPageLocators.SHOW_CREATE_REPORT_DIALOG)
         button_for_show_create_report_dialog.click()
-        assert self.is_element_present(*BaMainPageLocators.CREATE_NEW_COUNTRY_PROPERTY_REPORT), \
+        assert self.is_element_present(*BaMainPageLocators.CREATE_NEW_REPORT_COUNTRY_PROPERTY), \
             "Кнопка 'Жилые дома' не отображается на странице"
-        button_for_create_new_country_property_report = self.browser.find_element(
-            *BaMainPageLocators.CREATE_NEW_COUNTRY_PROPERTY_REPORT)
-        button_for_create_new_country_property_report.click()
+        dict_with_reports_type = {'Квартиры': BaMainPageLocators.CREATE_NEW_REPORT_FLAT,
+                                  'Коммерческая недвижимость': BaMainPageLocators.CREATE_NEW_REPORT_COMMERCIAL_PROPERTY,
+                                  'Жилые дома': BaMainPageLocators.CREATE_NEW_REPORT_COUNTRY_PROPERTY,
+                                  'Нематериальные активы': BaMainPageLocators.CREATE_NEW_REPORT_INTANGIBLE_ASSET,
+                                  'Движимое имущество': BaMainPageLocators.CREATE_NEW_REPORT_MOVABLE_PROPERTY,
+                                  'Товарно-материальные ценности': BaMainPageLocators.CREATE_NEW_REPORT_NEW_INVENTORY
+                                  }
+        select_type = dict_with_reports_type[report_type.value]
+        select_report_type = self.browser.find_element(*select_type)
+        select_report_type.click()
