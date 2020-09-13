@@ -17,6 +17,14 @@ class BaReportPage(BasePage):
         self.browser.find_element(
             *BaReportPageLocators.GO_TO_NEW_OBJECT_TAB).click()
 
+    def input_in_textarea(self, how, what, text_in_field):
+        """ Заполнение поля с обычным input'ом """
+        assert self.is_element_present(how, what), f'{what} не найден на странице'
+        field_for_input = self.browser.find_element(how, what)
+        field_for_input.send_keys(text_in_field)
+        assert field_for_input.get_attribute('value') == text_in_field, \
+            f'{text_in_field} не соответствует введенному значению'
+
     def pay_report(self):
         assert self.is_element_present(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK), \
             " Кнопка оплаты отчета отсутствует на странице "

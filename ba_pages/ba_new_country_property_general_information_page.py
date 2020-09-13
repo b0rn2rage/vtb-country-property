@@ -6,6 +6,7 @@ from .ba_locators import BaNewCountryPropertyGeneralInformationPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
 
 
 class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
@@ -14,7 +15,7 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
     def close_modal_popup(self):
         """ Закрыть модальные окна на входе в новый отчет """
         try:
-            while WebDriverWait(self.browser, timeout=4).until(
+            while WebDriverWait(self.browser, timeout=3).until(
                     EC.visibility_of_element_located(BaNewCountryPropertyGeneralInformationPageLocators.MODAL_POPUP)):
                 button_for_closing_modal_popup = self.browser.find_element(
                     *BaNewCountryPropertyGeneralInformationPageLocators.CLOSE_MODAL_POPUP)
@@ -22,40 +23,19 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
         except TimeoutException:
             print('Всплывающее окно с ГОСТом не успело прогрузиться')
 
-    def input_full_name_of_the_borrower_customer_in_the_general_information_tab(self):
-        """ Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика' """
-        assert self.is_element_present(
-            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER), \
-            "Поле 'ФИО Заемщика/Заказчика' отсутствует на странице"
-        field_for_input_full_name_of_the_borrower_customer = self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER)
-        field_for_input_full_name_of_the_borrower_customer.send_keys('Рандомное Физическое Лицо')
-        assert field_for_input_full_name_of_the_borrower_customer.get_attribute('value') == \
-            'Рандомное Физическое Лицо', \
-            " Значение в поле 'ФИО Заемщика/Заказчика' не соответствует введенному "
-
-    def input_report_number_in_the_general_information_tab(self):
-        """ Ввод номера отчета в поле 'Номер отчета' """
-        assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER), \
-            "Поле 'Номер отчета' отсутствует на странице"
-        field_for_input_report_number = self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER)
-        report_number = 'autotest_vtb_country_property ' + str(self.current_date())
-        field_for_input_report_number.send_keys(report_number)
-        assert field_for_input_report_number.get_attribute('value') == report_number, \
-            " Значение в поле 'Номер отчета' не соответствует введенному "
-
-    def select_bank_in_the_general_information_tab(self):
-        """ Выбор банка 'ВТБ' в поле 'Банк' """
+    def select_bank_in_the_general_information_tab(self, bank):
+        """ Выбор банка в поле 'Банк' """
         assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.BANK_DROP_DOWN_MENU), \
             "Поле 'Банк' отсутствует на странице"
         drop_down_menu_for_the_bank_field = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.BANK_DROP_DOWN_MENU)
         drop_down_menu_for_the_bank_field.click()
-        select_bank_vtb = self.browser.find_element(*BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK)
-        select_bank_vtb.click()
-        assert self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_BANK).text == 'ВТБ', \
+        dict_with_the_banks = \
+            {'ВТБ': BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK_VTB,
+             "ПАО Банк 'ФК Открытие'": BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK_OPENBANK}
+        selected_bank = dict_with_the_banks[bank.value]
+        self.browser.find_element(*selected_bank).click()  # Найти банк и кликнуть
+        assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{bank.value}')]").text == bank.value, \
             'Значение в поле Банк != ВТБ'
 
     def select_department_in_the_general_information_tab(self):

@@ -10,6 +10,9 @@ from ba_pages.ba_report_page import BaReportPage
 from options.links import LinksBankAppraiser
 from options.auth import AuthBankAppraiser
 from ba_pages.ba_enums.ba_enum_type_new_report import BaTypeNewReport
+from selenium.webdriver.common.by import By
+from ba_pages.ba_locators import BaNewCountryPropertyGeneralInformationPageLocators
+from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectBank
 
 
 @pytest.mark.parametrize('login, password',
@@ -24,12 +27,12 @@ def test_login_to_ba(browser, login, password):
 
 
 def test_creating_new_country_property_report(browser):
-    """Создание нового отчета по ЖД"""
+    """Создание нового отчета """
     link = browser.current_url
     page = BaMainPage(browser, link)
     page.close_gost_popup()
     page.close_simple_notification_modal()  # Закрытие двух всплывающих окон
-    page.create_new_report_from_main_page(BaTypeNewReport.COUNTRY)
+    page.create_new_report_from_main_page(BaTypeNewReport.COUNTRY)  # Создать новый отчет, enum = Тип отчёта
 
 
 def test_filling_general_information_tab(browser):
@@ -37,11 +40,17 @@ def test_filling_general_information_tab(browser):
     link = browser.current_url
     page = BaCountryPropertyNewReportGeneralInformationPage(browser, link)
     page.close_modal_popup()  # Закрытие четырех всплывающих окон
-    page.select_bank_in_the_general_information_tab()
+    page.select_bank_in_the_general_information_tab(BaSelectBank.VTB)  # Выбрать банк ВТБ
     page.select_department_in_the_general_information_tab()
     page.select_bank_employee_in_the_general_information_tab()
-    page.input_full_name_of_the_borrower_customer_in_the_general_information_tab()
-    page.input_report_number_in_the_general_information_tab()
+    page2 = BaReportPage(browser, link)
+    # Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика'
+    page2.input_in_textarea(
+        *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER,
+        text_in_field='Рандомное Физическое Лицо')
+    # Ввод номера отчета в поле 'Номер отчета'
+    page2.input_in_textarea(*BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER,
+                            text_in_field='autotest_vtb_country_property ' + str(page.current_date()))
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
