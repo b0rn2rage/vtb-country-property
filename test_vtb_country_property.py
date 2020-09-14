@@ -9,9 +9,11 @@ from ba_pages.ba_new_country_property_land_page import BaNewCountryPropertyLandP
 from ba_pages.ba_report_page import BaReportPage
 from options.links import LinksBankAppraiser
 from options.auth import AuthBankAppraiser
+from options.data import DataBankAppraiser
 from ba_pages.ba_enums.ba_enum_type_new_report import BaTypeNewReport
 from selenium.webdriver.common.by import By
 from ba_pages.ba_locators import BaNewCountryPropertyGeneralInformationPageLocators
+from ba_pages.ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectBank
 
 
@@ -45,12 +47,12 @@ def test_filling_general_information_tab(browser):
     page.select_bank_employee_in_the_general_information_tab()
     page2 = BaReportPage(browser, link)
     # Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика'
-    page2.input_in_textarea(
+    page2.input_in_field(
         *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER,
-        text_in_field='Рандомное Физическое Лицо')
+        text_in_field=DataBankAppraiser.BaCountryReport.Borrower_Customer_Name)
     # Ввод номера отчета в поле 'Номер отчета'
-    page2.input_in_textarea(*BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER,
-                            text_in_field='autotest_vtb_country_property ' + str(page.current_date()))
+    page2.input_in_field(*BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER,
+                         text_in_field=DataBankAppraiser.BaCountryReport.Report_Name + str(page.current_date()))
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
@@ -75,8 +77,13 @@ def test_filling_residential_building(browser):
     link = browser.current_url
     page = BaNewCountryPropertyResidentialBuildingPage(browser, link)
     page.select_type_in_residential_building_tab()
-    page.input_name_of_the_object()
-    page.input_the_address_for_documents()
+    page2 = BaReportPage(browser, link)
+    # Ввод наименования объекта в поле 'Наименование объекта'
+    page2.input_in_textarea(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT,
+                            text_in_field=DataBankAppraiser.BaCountryReport.Name_of_the_object)
+    # Ввод адреса в поле 'Адрес по документам'
+    page2.input_in_textarea(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
+                            text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     page.input_fias_address()
     page.input_total_area_of_the_assessment_object()
     page.select_property_rights_to_the_object_assessments()

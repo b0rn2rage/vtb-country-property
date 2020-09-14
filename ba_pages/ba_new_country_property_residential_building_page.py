@@ -8,40 +8,13 @@ from options.data import DataBankAppraiser
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):
     """ Заполнение раздела 'Объект №1' в новом отчете по ЖД. Тип объекта = ЖД """
 
-    def input_name_of_the_object(self):
-        """ Заполнение поля 'Наименование объекта' """
-        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT), \
-            " Поле 'Наименование объекта (без учета адреса)' не отображается на странице "
-        field_for_input_name_of_the_object = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT)
-        field_for_input_name_of_the_object.click()
-        field_for_input_name_of_the_object.send_keys("Home Sweet Home ^_^")
-        field_for_input_name_of_the_object.send_keys(Keys.TAB)
-        assert self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT).text == \
-            "Home Sweet Home ^_^", " Значение в поле 'Наименование объекта...' не соответствует введенному "
-
-    def input_the_address_for_documents(self):
-        """ Заполнение поля 'Адрес по документам' """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS), \
-            "Поле 'Адрес по документам' не отображается на странице "
-        field_for_input_the_address_for_documents = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
-        field_for_input_the_address_for_documents.send_keys(
-            DataBankAppraiser.VtbData.Moscow_address_for_country_property)
-        field_for_input_the_address_for_documents.send_keys(Keys.TAB)
-        assert field_for_input_the_address_for_documents.text == \
-            DataBankAppraiser.VtbData.Moscow_address_for_country_property, \
-            " Значение в поле 'Адрес по документам' не соответствует введенному "
-
     def input_fias_address(self):
         """Заполнение поля 'Адрес по ФИАС' """
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.FIAS_DROP_DOWN_MENU), \
             " Поле 'Адрес по ФИАС' не отображается на странице "
         field_for_input_fias_address = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
-        for char in DataBankAppraiser.VtbData.Moscow_address_for_country_property:
+        for char in DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property:
             field_for_input_fias_address.send_keys(char)
         # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля
         assert self.is_element_presence(
@@ -50,7 +23,7 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         field_for_input_fias_address.send_keys(Keys.RETURN)
         check_value_in_fias_address_field = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_FIAS_ADDRESS)
-        assert check_value_in_fias_address_field.text == DataBankAppraiser.VtbData.Moscow_address_for_country_property,\
+        assert check_value_in_fias_address_field.text == DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property,\
             " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
 
     def input_total_area_of_the_assessment_object(self):
@@ -71,9 +44,9 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
         field_for_input_market_price_of_the_object = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT)
-        field_for_input_market_price_of_the_object.send_keys(DataBankAppraiser.VtbData.Moscow_low_price_house)
+        field_for_input_market_price_of_the_object.send_keys(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
         assert field_for_input_market_price_of_the_object.get_attribute('value') == \
-            DataBankAppraiser.VtbData.Moscow_low_price_house, \
+            DataBankAppraiser.BaCountryReport.Moscow_low_price_house, \
             "Значение в поле 'Рыночная стоимость объекта оценки' не соответствует введенному"
 
     def select_type_in_residential_building_tab(self):

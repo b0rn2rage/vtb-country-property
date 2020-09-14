@@ -87,7 +87,6 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
         By.XPATH, "//label[contains(text(),'Внутренний осмотр')]/..//div[contains(text(), 'Проводился')]")
 
 
-
 class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
     INPUT_PHOTO = (By.XPATH, "//div[contains(text(), 'Фотографии')]/../../..//input")
     UPLOAD_PROGRESS_BAR_FOR_PHOTO = (

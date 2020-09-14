@@ -34,9 +34,9 @@ class BaNewCountryPropertyLandPage(BasePage):
             " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
         field_for_input_market_price_of_the_object = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT)
-        field_for_input_market_price_of_the_object.send_keys(DataBankAppraiser.VtbData.Moscow_low_price_land)
+        field_for_input_market_price_of_the_object.send_keys(DataBankAppraiser.BaCountryReport.Moscow_low_price_land)
         assert field_for_input_market_price_of_the_object.get_attribute('value') == \
-            DataBankAppraiser.VtbData.Moscow_low_price_land, \
+            DataBankAppraiser.BaCountryReport.Moscow_low_price_land, \
             "Значение в поле 'Рыночная стоимость объекта оценки' не соответствует введенному"
 
     def select_type_in_land_tab(self):
