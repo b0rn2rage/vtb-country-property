@@ -17,3 +17,8 @@ class BaSelectBank(Enum):
     Sviaz = 'ПАО АКБ "Связь-Банк"'
     VTB = 'ВТБ'
     OpenBank = 'ПАО Банк "ФК Открытие"'
+
+
+class BaSelectDepartment(Enum):
+    MORTGAGE = 'Ипотека'
+    SMALL_BUSINESS_LENDING = 'Кредитование малого бизнеса'

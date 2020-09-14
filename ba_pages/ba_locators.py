@@ -36,10 +36,10 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
     BANK_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Банк')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_BANK_VTB = (By.XPATH, "//span[contains(text(), 'ВТБ')]")
     SELECT_BANK_OPENBANK = (By.XPATH, "//span[contains(text(), 'ПАО Банк 'ФК Открытие'')]")
-    CHECKING_THE_SELECTED_BANK = (By.XPATH, "//div[contains(text(), 'ВТБ')]")
     DEPARTMENT_DROP_DOWN_MENU = (By.XPATH,
                                  "//label[contains(text(),'Департамент')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_DEPARTMENT = (By.XPATH, "//span[contains( text(), 'Ипотека')]")
+    SELECT_MORTGAGE_DEPARTMENT = (By.XPATH, "//span[contains( text(), 'Ипотека')]")
+    SELECT_SMALL_BUSINESS_LENDING_DEPARTMENT = (By.XPATH, "//span[contains( text(), 'Кредитование малого бизнеса')]")
     CHECKING_THE_SELECTED_DEPARTMENT = (By.XPATH, "//div[contains(text(), 'Ипотека')]")
     BANK_EMPLOYEE_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Сотрудник банка')]/..//div[contains(@id, 'node-SELECT-')]")

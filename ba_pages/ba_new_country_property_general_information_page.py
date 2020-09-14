@@ -31,26 +31,33 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
             *BaNewCountryPropertyGeneralInformationPageLocators.BANK_DROP_DOWN_MENU)
         drop_down_menu_for_the_bank_field.click()
         dict_with_the_banks = \
-            {'ВТБ': BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK_VTB,
-             "ПАО Банк 'ФК Открытие'": BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK_OPENBANK}
+            {
+                'ВТБ': BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK_VTB,
+                "ПАО Банк 'ФК Открытие'": BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK_OPENBANK
+            }
         selected_bank = dict_with_the_banks[bank.value]
         self.browser.find_element(*selected_bank).click()  # Найти банк и кликнуть
         assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{bank.value}')]").text == bank.value, \
-            'Значение в поле Банк != ВТБ'
+            'Значение в поле Банк != выбранному банку'
 
-    def select_department_in_the_general_information_tab(self):
-        """ Выбор департамента 'Ипотека' в поле 'Департамент' """
+    def select_department_in_the_general_information_tab(self, department):
+        """ Выбор департамента в поле 'Департамент' """
         assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.DEPARTMENT_DROP_DOWN_MENU), \
             "Поле 'Департамент' отсутствует на странице"
         drop_down_menu_for_the_department_field = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.DEPARTMENT_DROP_DOWN_MENU)
         drop_down_menu_for_the_department_field.click()
-        select_mortgage_department = self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_DEPARTMENT)
-        select_mortgage_department.click()
-        assert self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_DEPARTMENT).text == 'Ипотека', \
-            'Значение в поле Департамент != Ипотека'
+        dict_with_departments = \
+            {
+                'Ипотека': BaNewCountryPropertyGeneralInformationPageLocators.SELECT_MORTGAGE_DEPARTMENT,
+                'Кредитование малого бизнеса':
+                    BaNewCountryPropertyGeneralInformationPageLocators.SELECT_SMALL_BUSINESS_LENDING_DEPARTMENT
+            }
+        select_department = dict_with_departments[department.value]
+        self.browser.find_element(*select_department).click()  # Найти департамент
+        assert self.browser.find_element(By.XPATH,
+                                         f"//div[contains(text(), '{department.value}')]").text == department.value, \
+            'Значение в поле Департамент != выбранному департаменту'
 
     def select_bank_employee_in_the_general_information_tab(self):
         """ Ввод сотрудника банка в поле 'Сотрудник банка' """

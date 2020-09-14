@@ -15,6 +15,7 @@ from selenium.webdriver.common.by import By
 from ba_pages.ba_locators import BaNewCountryPropertyGeneralInformationPageLocators
 from ba_pages.ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectBank
+from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectDepartment
 
 
 @pytest.mark.parametrize('login, password',
@@ -43,7 +44,7 @@ def test_filling_general_information_tab(browser):
     page = BaCountryPropertyNewReportGeneralInformationPage(browser, link)
     page.close_modal_popup()  # Закрытие четырех всплывающих окон
     page.select_bank_in_the_general_information_tab(BaSelectBank.VTB)  # Выбрать банк ВТБ
-    page.select_department_in_the_general_information_tab()
+    page.select_department_in_the_general_information_tab(BaSelectDepartment.MORTGAGE)
     page.select_bank_employee_in_the_general_information_tab()
     page2 = BaReportPage(browser, link)
     # Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика'
@@ -111,8 +112,9 @@ def test_filling_land(browser):
     page = BaNewCountryPropertyLandPage(browser, link)  # Экземпляр с классом ЗУ
     page.select_type_in_land_tab()
     page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
-    page2.select_property_rights_to_the_object_assessments()
-    page2.input_the_address_for_documents()
+    page3 = BaReportPage(browser, link)
+    page3.input_in_textarea(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
+                            text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     page2.input_fias_address()
     page.input_cadastral_number()
     page2.input_total_area_of_the_assessment_object()
