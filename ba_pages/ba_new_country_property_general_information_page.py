@@ -36,7 +36,7 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
                 "ПАО Банк 'ФК Открытие'": BaNewCountryPropertyGeneralInformationPageLocators.SELECT_BANK_OPENBANK
             }
         selected_bank = dict_with_the_banks[bank.value]
-        self.browser.find_element(*selected_bank).click()  # Найти банк и кликнуть
+        self.browser.find_element(*selected_bank).click()
         assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{bank.value}')]").text == bank.value, \
             'Значение в поле Банк != выбранному банку'
 
@@ -54,27 +54,26 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
                     BaNewCountryPropertyGeneralInformationPageLocators.SELECT_SMALL_BUSINESS_LENDING_DEPARTMENT
             }
         select_department = dict_with_departments[department.value]
-        self.browser.find_element(*select_department).click()  # Найти департамент
+        self.browser.find_element(*select_department).click()
         assert self.browser.find_element(By.XPATH,
                                          f"//div[contains(text(), '{department.value}')]").text == department.value, \
             'Значение в поле Департамент != выбранному департаменту'
 
-    def select_bank_employee_in_the_general_information_tab(self):
+    def select_bank_employee_in_the_general_information_tab(self, bank_employee):
         """ Ввод сотрудника банка в поле 'Сотрудник банка' """
         assert self.is_element_present(
             *BaNewCountryPropertyGeneralInformationPageLocators.BANK_EMPLOYEE_DROP_DOWN_MENU), \
             "Поле 'Сотрудник банка' отсутствует на странице"
         field_for_input_bank_employee = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_BANK_EMPLOYEE)
-        field_for_input_bank_employee.send_keys('autotest-country-property-vtb@test.ru')
+        for char in bank_employee:
+            field_for_input_bank_employee.send_keys(char)
         # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля 'Сотрудник банка'
-        assert self.is_element_presence(
-            *BaNewCountryPropertyGeneralInformationPageLocators.SELECT_A_VALUE_IN_THE_FIELD_EMPLOYEE_OF_THE_BANK), \
+        assert self.is_element_presence(By.XPATH, f"//span[contains(text(), '{bank_employee}')]"), \
             " Введенный сотрудник банка не отображается в поле 'Сотрудник банка'. Возможно тормозит КРОНА "
         field_for_input_bank_employee.send_keys(Keys.RETURN)
         assert self.browser.find_element(
-            *BaNewCountryPropertyGeneralInformationPageLocators.CHECKING_THE_SELECTED_BANK_EMPLOYEE).text == \
-            'Селениумов Питон (autotest-country-property-vtb@test.ru)', \
+            By.XPATH, f"//div[contains(text(), '{bank_employee}')]").text == bank_employee, \
             ' Значение в поле Сотрудник банка != autotest-country-property-vtb@test.ru '
 
     def select_report_date_in_the_general_information_tab(self):

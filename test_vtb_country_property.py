@@ -23,7 +23,7 @@ from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectPropertyRights
                          [(AuthBankAppraiser.VtbAuth.VtbLogin, AuthBankAppraiser.VtbAuth.VtbPassword)])
 def test_login_to_ba(browser, login, password):
     """Авторизация в БО"""
-    link = LinksBankAppraiser.DefaultTest.login_link
+    link = LinksBankAppraiser.DefaultTest.login_link  # Выбор тестового стенда
     page = BaLoginPage(browser, link)
     page.open()
     page.close_fb_popup()
@@ -46,7 +46,7 @@ def test_filling_general_information_tab(browser):
     page.close_modal_popup()  # Закрытие четырех всплывающих окон
     page.select_bank_in_the_general_information_tab(BaSelectBank.VTB)  # Выбрать банк, enum = Банк
     page.select_department_in_the_general_information_tab(BaSelectDepartment.MORTGAGE)
-    page.select_bank_employee_in_the_general_information_tab()
+    page.select_bank_employee_in_the_general_information_tab(DataBankAppraiser.BaCountryReport.bank_employee)
     shared_method = BaReportPage(browser, link)
     # Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика'
     shared_method.input_in_field(
@@ -57,9 +57,9 @@ def test_filling_general_information_tab(browser):
                                  text_in_field=DataBankAppraiser.BaCountryReport.Report_Name + str(page.current_date()))
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
-    page.select_file_in_the_general_information_tab()
     page.select_external_examination_in_the_general_information_tab()
     page.select_internal_inspection_in_the_general_information_tab()
+    page.select_file_in_the_general_information_tab()
     shared_method.go_to_photos_and_documents_tab()
 
 
@@ -86,7 +86,7 @@ def test_filling_residential_building(browser):
     shared_method.input_in_textarea(
         *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
         text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
-    shared_method.input_fias_address()
+    shared_method.input_fias_address(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method.input_total_area_of_the_assessment_object()
     shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
     page.select_wall_material()
@@ -116,7 +116,7 @@ def test_filling_land(browser):
     shared_method.input_in_textarea(
         *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
         text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
-    shared_method.input_fias_address()
+    shared_method.input_fias_address(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     page.input_cadastral_number()
     shared_method.input_total_area_of_the_assessment_object()
     page.select_category()

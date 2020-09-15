@@ -67,8 +67,6 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
     SELECT_FILE = (By.CSS_SELECTOR, '.ui.basic.primary.button')
     INPUT_FILE = (By.XPATH, "//button[contains(@class, 'ui basic primary button')]/..//input")
     UPLOAD_PROGRESS_HIDE = (By.XPATH, "//div[contains(@class ,'Uploader_progressHide')]")
-    DOWNLOAD_FILE_BUTTON = (By.XPATH, "//a[contains(@class, 'UploaderItem_download')]")
-    DELETE_FILE_BUTTON = (By.XPATH, "//div[contains(@class, 'UploaderItem_remove')]")
     FOOTER = (By.XPATH, "//div[contains(@class, 'Footer_root')]")
     EXTERNAL_EXAMINATION_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Внешний осмотр')]/..//div[contains(@id, 'node-SELECT-')]")
@@ -106,7 +104,6 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
         By.XPATH, "//label[contains(text(), 'Адрес по документам')]/..//textarea[contains(@id, 'node-INPUT-')]")
     FIAS_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Адрес по ФИАС')]/..//div[contains(@id, 'node-SELECT-')]")
     INPUT_FIAS_ADDRESS = (By.XPATH, "//label[contains(text(), 'Адрес по ФИАС')]/..//input")
-    SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS = (By.XPATH, "//span[contains(text(), 'г Москва, ул Тестовская, д 1А')]")
     TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT = (
         By.XPATH, "//label[contains(text(), 'Общая площадь объекта оценки')]/..//input[contains(@id, 'node-INPUT-')]")
     PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT = (
@@ -115,7 +112,6 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
     SELECT_OWNERSHIP = (By.XPATH, "//span[contains(text(), 'Право собственности')]")
     SELECT_RIGHTS_ARE_NOT_ISSUED = (By.XPATH, "//span[contains(text(), 'Права не оформлены')]")
     SELECT_RENT = (By.XPATH, "//span[contains(text(), 'Аренда')]")
-    CHECKING_THE_SELECTED_PROPERTY_RIGHTS = (By.XPATH, "//div[contains(text(), 'Право собственности')]")
     WALL_MATERIAL_DROP_DOWN_MENU = (By.XPATH,
                                     "//label[contains(text(),'Материал стен')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_WALL_MATERIAL = (By.XPATH, "//span[contains( text(), 'Кирпич')]")

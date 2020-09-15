@@ -38,23 +38,23 @@ class BaReportPage(BasePage):
         assert self.browser.find_element(how, what).text == text_in_field, \
             f"Значение в поле {what} не соответствует введенному"
 
-    def input_fias_address(self):
+    def input_fias_address(self, fias_address):
         """Заполнение поля 'Адрес по ФИАС' """
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.FIAS_DROP_DOWN_MENU), \
             " Поле 'Адрес по ФИАС' не отображается на странице "
         field_for_input_fias_address = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
-        for char in DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property:
+        for char in fias_address:
             field_for_input_fias_address.send_keys(char)
         # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля
         assert self.is_element_presence(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS), \
+            By.XPATH, f"//span[contains(text(), '{fias_address}')]"), \
             " Введенный адрес не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
         field_for_input_fias_address.send_keys(Keys.RETURN)
         check_value_in_fias_address_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_FIAS_ADDRESS)
+            By.XPATH, f"//div[contains(text(), '{fias_address}')]")
         assert check_value_in_fias_address_field.text == \
-            DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property, \
+            fias_address, \
             " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
 
     def input_total_area_of_the_assessment_object(self):

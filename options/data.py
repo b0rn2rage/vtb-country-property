@@ -10,5 +10,6 @@ class DataBankAppraiser:
         Report_Name = 'autotest_vtb_country_property '
         Name_of_the_object = "Home Sweet Home ^_^"
         Total_area = "250"
+        bank_employee = 'Селениумов Питон (autotest-country-property-vtb@test.ru)'
 
 
