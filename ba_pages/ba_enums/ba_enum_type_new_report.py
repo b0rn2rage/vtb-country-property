@@ -22,3 +22,9 @@ class BaSelectBank(Enum):
 class BaSelectDepartment(Enum):
     MORTGAGE = 'Ипотека'
     SMALL_BUSINESS_LENDING = 'Кредитование малого бизнеса'
+
+
+class BaSelectPropertyRights(Enum):
+    OWNERSHIP = 'Право собственности'
+    RIGHTS_ARE_NOT_ISSUED = 'Права не оформлены'
+    RENT = 'Аренда'

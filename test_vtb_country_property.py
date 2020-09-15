@@ -16,6 +16,7 @@ from ba_pages.ba_locators import BaNewCountryPropertyGeneralInformationPageLocat
 from ba_pages.ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectBank
 from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectDepartment
+from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectPropertyRights
 
 
 @pytest.mark.parametrize('login, password',
@@ -26,7 +27,7 @@ def test_login_to_ba(browser, login, password):
     page = BaLoginPage(browser, link)
     page.open()
     page.close_fb_popup()
-    page.login_to_bank_appraiser(login, password)
+    page.login_to_bank_appraiser(login, password)  # login, password - параметры запуска теста
 
 
 def test_creating_new_country_property_report(browser):
@@ -43,24 +44,23 @@ def test_filling_general_information_tab(browser):
     link = browser.current_url
     page = BaCountryPropertyNewReportGeneralInformationPage(browser, link)
     page.close_modal_popup()  # Закрытие четырех всплывающих окон
-    page.select_bank_in_the_general_information_tab(BaSelectBank.VTB)  # Выбрать банк ВТБ
+    page.select_bank_in_the_general_information_tab(BaSelectBank.VTB)  # Выбрать банк, enum = Банк
     page.select_department_in_the_general_information_tab(BaSelectDepartment.MORTGAGE)
     page.select_bank_employee_in_the_general_information_tab()
-    page2 = BaReportPage(browser, link)
+    shared_method = BaReportPage(browser, link)
     # Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика'
-    page2.input_in_field(
+    shared_method.input_in_field(
         *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER,
         text_in_field=DataBankAppraiser.BaCountryReport.Borrower_Customer_Name)
     # Ввод номера отчета в поле 'Номер отчета'
-    page2.input_in_field(*BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER,
-                         text_in_field=DataBankAppraiser.BaCountryReport.Report_Name + str(page.current_date()))
+    shared_method.input_in_field(*BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER,
+                                 text_in_field=DataBankAppraiser.BaCountryReport.Report_Name + str(page.current_date()))
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_file_in_the_general_information_tab()
     page.select_external_examination_in_the_general_information_tab()
     page.select_internal_inspection_in_the_general_information_tab()
-    page2 = BaReportPage(browser, link)
-    page2.go_to_photos_and_documents_tab()
+    shared_method.go_to_photos_and_documents_tab()
 
 
 def test_filling_photo_and_documents(browser):
@@ -69,8 +69,8 @@ def test_filling_photo_and_documents(browser):
     page = BaNewCountryPropertyPhotosAndDocumentsPage(browser, link)
     page.attach_photos_in_photos_and_documents_tab()
     page.attach_documents_in_photos_and_documents_tab()
-    page2 = BaReportPage(browser, link)
-    page2.go_to_new_object_tab()
+    shared_method = BaReportPage(browser, link)
+    shared_method.go_to_new_object_tab()
 
 
 def test_filling_residential_building(browser):
@@ -78,16 +78,17 @@ def test_filling_residential_building(browser):
     link = browser.current_url
     page = BaNewCountryPropertyResidentialBuildingPage(browser, link)
     page.select_type_in_residential_building_tab()
-    page2 = BaReportPage(browser, link)
+    shared_method = BaReportPage(browser, link)
     # Ввод наименования объекта в поле 'Наименование объекта'
-    page2.input_in_textarea(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT,
-                            text_in_field=DataBankAppraiser.BaCountryReport.Name_of_the_object)
+    shared_method.input_in_textarea(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT,
+                                    text_in_field=DataBankAppraiser.BaCountryReport.Name_of_the_object)
     # Ввод адреса в поле 'Адрес по документам'
-    page2.input_in_textarea(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
-                            text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
-    page.input_fias_address()
-    page.input_total_area_of_the_assessment_object()
-    page.select_property_rights_to_the_object_assessments()
+    shared_method.input_in_textarea(
+        *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
+        text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
+    shared_method.input_fias_address()
+    shared_method.input_total_area_of_the_assessment_object()
+    shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
     page.select_wall_material()
     page.select_repairs()
     page.input_market_price_of_the_object()
@@ -98,29 +99,29 @@ def test_filling_residential_building(browser):
     page.select_gas()
     page.select_heat_supply()
     page.select_borrower_customer_are_same_person()
-    page2 = BaReportPage(browser, link)
-    page2.go_to_new_object_tab()
+    shared_method.go_to_new_object_tab()
 
 
 def test_filling_land(browser):
     """
     Заполнение отчета по ЖД. Заполнение объекта с типом = 'Земельный участок'
     Для новых методов, (у которых поля отличаются от объекта с типом = ЖД) используется экземпляр page
-    Повторяющиеся методы вызываются из класса с типом ЖД, для них создан экземпляр page2.
+    Повторяющиеся методы вызываются из класса с типом ЖД, для них создан экземпляр shared_method.
     """
     link = browser.current_url
     page = BaNewCountryPropertyLandPage(browser, link)  # Экземпляр с классом ЗУ
     page.select_type_in_land_tab()
     page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
-    page3 = BaReportPage(browser, link)
-    page3.input_in_textarea(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
-                            text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
-    page2.input_fias_address()
+    shared_method = BaReportPage(browser, link)
+    shared_method.input_in_textarea(
+        *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS,
+        text_in_field=DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
+    shared_method.input_fias_address()
     page.input_cadastral_number()
-    page2.input_total_area_of_the_assessment_object()
+    shared_method.input_total_area_of_the_assessment_object()
     page.select_category()
     page.input_type_of_permitted_use()
-    page2.select_property_rights_to_the_object_assessments()
+    shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
     page.input_market_price_of_the_object()
     page2.select_reason_why_not_egrn()
     page2.select_electricity()

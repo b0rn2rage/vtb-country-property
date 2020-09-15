@@ -8,35 +8,6 @@ from options.data import DataBankAppraiser
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):
     """ Заполнение раздела 'Объект №1' в новом отчете по ЖД. Тип объекта = ЖД """
 
-    def input_fias_address(self):
-        """Заполнение поля 'Адрес по ФИАС' """
-        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.FIAS_DROP_DOWN_MENU), \
-            " Поле 'Адрес по ФИАС' не отображается на странице "
-        field_for_input_fias_address = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
-        for char in DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property:
-            field_for_input_fias_address.send_keys(char)
-        # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля
-        assert self.is_element_presence(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS), \
-            " Введенный адрес не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
-        field_for_input_fias_address.send_keys(Keys.RETURN)
-        check_value_in_fias_address_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_FIAS_ADDRESS)
-        assert check_value_in_fias_address_field.text == DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property,\
-            " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
-
-    def input_total_area_of_the_assessment_object(self):
-        """ Заполнение поля с общей площадью ОО """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT), \
-            " Поле 'Общая площадь объекта оценки' не отображается на странице "
-        field_for_input_total_area_of_the_assessment_object = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
-        field_for_input_total_area_of_the_assessment_object.send_keys("250")
-        assert field_for_input_total_area_of_the_assessment_object.get_attribute(
-            "value") == '250', " Значение в поле 'Общая площадь объекта оценки не соответствует введенному' "
-
     def input_market_price_of_the_object(self):
         """ Заполнение поля 'Рычноная стоимость объекта оценки' """
         assert self.is_element_present(
@@ -56,21 +27,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         assert self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECK_TYPE_IS_RESIDENTIAL_BUILDING), \
             " Выбранный тип недвижимости != Жилой садовый дом "
-
-    def select_property_rights_to_the_object_assessments(self):
-        """ Выбор имущественного права = Право собственности """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT), \
-            " Поле 'Имущественные права на объект оценки' отсутствует на странице "
-        drop_down_menu_for_the_property_rights_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT)
-        drop_down_menu_for_the_property_rights_field.click()
-        select_ownership = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_PROPERTY_RIGHTS)
-        select_ownership.click()
-        assert self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_PROPERTY_RIGHTS).text == \
-            'Право собственности', " Значение в поле 'Имущственые права на объект оценки' != Право собственности "
 
     def select_wall_material(self):
         """ Выбор материала стен = Кирпич """

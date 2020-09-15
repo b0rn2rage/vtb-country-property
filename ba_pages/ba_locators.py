@@ -40,7 +40,6 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
                                  "//label[contains(text(),'Департамент')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_MORTGAGE_DEPARTMENT = (By.XPATH, "//span[contains( text(), 'Ипотека')]")
     SELECT_SMALL_BUSINESS_LENDING_DEPARTMENT = (By.XPATH, "//span[contains( text(), 'Кредитование малого бизнеса')]")
-    CHECKING_THE_SELECTED_DEPARTMENT = (By.XPATH, "//div[contains(text(), 'Ипотека')]")
     BANK_EMPLOYEE_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Сотрудник банка')]/..//div[contains(@id, 'node-SELECT-')]")
     INPUT_BANK_EMPLOYEE = (By.XPATH,
@@ -108,13 +107,14 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
     FIAS_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Адрес по ФИАС')]/..//div[contains(@id, 'node-SELECT-')]")
     INPUT_FIAS_ADDRESS = (By.XPATH, "//label[contains(text(), 'Адрес по ФИАС')]/..//input")
     SELECT_VALUE_IN_THE_FIELD_FIAS_ADDRESS = (By.XPATH, "//span[contains(text(), 'г Москва, ул Тестовская, д 1А')]")
-    CHECKING_THE_SELECTED_FIAS_ADDRESS = (By.XPATH, "//div[contains(text(), 'г Москва, ул Тестовская, д 1А')]")
     TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT = (
         By.XPATH, "//label[contains(text(), 'Общая площадь объекта оценки')]/..//input[contains(@id, 'node-INPUT-')]")
     PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT = (
         By.XPATH, "//label[contains(text(), 'Имущественные права на объект оценки')]/..//"
                   "div[contains(@id, 'node-SELECT-')]")
-    SELECT_PROPERTY_RIGHTS = (By.XPATH, "//span[contains( text(), 'Право собственности')]")
+    SELECT_OWNERSHIP = (By.XPATH, "//span[contains(text(), 'Право собственности')]")
+    SELECT_RIGHTS_ARE_NOT_ISSUED = (By.XPATH, "//span[contains(text(), 'Права не оформлены')]")
+    SELECT_RENT = (By.XPATH, "//span[contains(text(), 'Аренда')]")
     CHECKING_THE_SELECTED_PROPERTY_RIGHTS = (By.XPATH, "//div[contains(text(), 'Право собственности')]")
     WALL_MATERIAL_DROP_DOWN_MENU = (By.XPATH,
                                     "//label[contains(text(),'Материал стен')]/..//div[contains(@id, 'node-SELECT-')]")

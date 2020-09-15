@@ -9,5 +9,6 @@ class DataBankAppraiser:
         Borrower_Customer_Name = 'Рандомное Физическое лицо'
         Report_Name = 'autotest_vtb_country_property '
         Name_of_the_object = "Home Sweet Home ^_^"
+        Total_area = "250"
 
 
