@@ -8,6 +8,31 @@ from options.data import DataBankAppraiser
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):
     """ Заполнение раздела 'Объект №1' в новом отчете по ЖД. Тип объекта = ЖД """
 
+    def input_name_of_the_object(self, name):
+        """ Заполнение поля 'Наименование объекта' """
+        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT), \
+            " Поле 'Наименование объекта (без учета адреса)' не отображается на странице "
+        field_for_input_name_of_the_object = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT)
+        field_for_input_name_of_the_object.click()
+        field_for_input_name_of_the_object.send_keys(name)
+        field_for_input_name_of_the_object.send_keys(Keys.TAB)
+        assert self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT).text == \
+            f"{name}", f"Значение в поле 'Наименование объекта...' не соответствует {name}"
+
+    def input_the_address_for_documents(self, address):
+        """ Заполнение поля 'Адрес по документам' """
+        assert self.is_element_present(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS), \
+            "Поле 'Адрес по документам' не отображается на странице "
+        field_for_input_the_address_for_documents = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
+        field_for_input_the_address_for_documents.send_keys(address)
+        field_for_input_the_address_for_documents.send_keys(Keys.TAB)
+        assert field_for_input_the_address_for_documents.text == address, \
+            f"Значение в поле 'Адрес по документам' не соответствует {address}"
+
     def input_market_price_of_the_object(self):
         """ Заполнение поля 'Рычноная стоимость объекта оценки' """
         assert self.is_element_present(

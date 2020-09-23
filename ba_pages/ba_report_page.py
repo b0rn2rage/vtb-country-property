@@ -20,24 +20,6 @@ class BaReportPage(BasePage):
         self.browser.find_element(
             *BaReportPageLocators.GO_TO_NEW_OBJECT_TAB).click()
 
-    def input_in_field(self, how, what, text_in_field):
-        """ Заполнение полей с обычным input'ом """
-        assert self.is_element_present(how, what), f'{what} не найден на странице'
-        field_for_input = self.browser.find_element(how, what)
-        field_for_input.send_keys(text_in_field)
-        assert field_for_input.get_attribute('value') == text_in_field, \
-            f'{text_in_field} не соответствует введенному значению'
-
-    def input_in_textarea(self, how, what, text_in_field):
-        """ Заполнение полей с тегом textarea """
-        assert self.is_element_present(how, what), f"Поле {what} не отображается на странице"
-        field_for_input = self.browser.find_element(how, what)
-        field_for_input.click()
-        field_for_input.send_keys(text_in_field)
-        field_for_input.send_keys(Keys.TAB)
-        assert self.browser.find_element(how, what).text == text_in_field, \
-            f"Значение в поле {what} не соответствует введенному"
-
     def input_fias_address(self, fias_address):
         """Заполнение поля 'Адрес по ФИАС' """
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.FIAS_DROP_DOWN_MENU), \
@@ -57,17 +39,16 @@ class BaReportPage(BasePage):
             fias_address, \
             " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
 
-    def input_total_area_of_the_assessment_object(self):
+    def input_total_area_of_the_assessment_object(self, total_area):
         """ Заполнение поля с общей площадью ОО """
         assert self.is_element_present(
             *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT), \
             " Поле 'Общая площадь объекта оценки' не отображается на странице "
         field_for_input_total_area_of_the_assessment_object = self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
-        field_for_input_total_area_of_the_assessment_object.send_keys(DataBankAppraiser.BaCountryReport.Total_area)
-        assert field_for_input_total_area_of_the_assessment_object.get_attribute(
-            "value") == DataBankAppraiser.BaCountryReport.Total_area, \
-            " Значение в поле 'Общая площадь объекта оценки не соответствует введенному' "
+        field_for_input_total_area_of_the_assessment_object.send_keys(total_area)
+        assert field_for_input_total_area_of_the_assessment_object.get_attribute("value") == total_area, \
+            f"Значение в поле 'Общая площадь объекта оценки' не соответствует {total_area}"
 
     def pay_report(self):
         assert self.is_element_present(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK), \

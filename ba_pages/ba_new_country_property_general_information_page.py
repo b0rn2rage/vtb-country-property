@@ -23,6 +23,28 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
         except TimeoutException:
             print('Всплывающее окно с ГОСТом не успело прогрузиться')
 
+    def input_full_name_of_the_borrower_customer_in_the_general_information_tab(self, name):
+        """ Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика' """
+        assert self.is_element_present(
+            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER), \
+            "Поле 'ФИО Заемщика/Заказчика' отсутствует на странице"
+        field_for_input_full_name_of_the_borrower_customer = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER)
+        field_for_input_full_name_of_the_borrower_customer.send_keys(name)
+        assert field_for_input_full_name_of_the_borrower_customer.get_attribute('value') == f'{name}', \
+            f"Значение в поле 'ФИО Заемщика/Заказчика' не соответствует {name}"
+
+    def input_report_number_in_the_general_information_tab(self, report_number):
+        """ Ввод номера отчета в поле 'Номер отчета' """
+        assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER), \
+            "Поле 'Номер отчета' отсутствует на странице"
+        field_for_input_report_number = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER)
+        full_report_name = report_number + str(self.current_date())
+        field_for_input_report_number.send_keys(full_report_name)
+        assert field_for_input_report_number.get_attribute('value') == full_report_name, \
+            f"Значение в поле 'Номер отчета' не соответствует {full_report_name}"
+
     def select_bank_in_the_general_information_tab(self, bank):
         """ Выбор банка в поле 'Банк' """
         assert self.is_element_present(*BaNewCountryPropertyGeneralInformationPageLocators.BANK_DROP_DOWN_MENU), \
