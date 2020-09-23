@@ -1,8 +1,10 @@
 from pages.base_page import BasePage
 from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
+from .ba_locators import BaNewCountryPropertySharedFieldsLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from options.data import DataBankAppraiser
+from selenium.webdriver.common.by import By
 
 
 class BaNewCountryPropertyResidentialBuildingPage(BasePage):
@@ -44,14 +46,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         assert field_for_input_market_price_of_the_object.get_attribute('value') == \
             DataBankAppraiser.BaCountryReport.Moscow_low_price_house, \
             "Значение в поле 'Рыночная стоимость объекта оценки' не соответствует введенному"
-
-    def select_type_in_residential_building_tab(self):
-        """ Проверка, что тип недвижимости = ЖД """
-        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.TYPE_DROP_DOWN_MENU), \
-            " Поле 'Тип' не отображается на странице "
-        assert self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECK_TYPE_IS_RESIDENTIAL_BUILDING), \
-            " Выбранный тип недвижимости != Жилой садовый дом "
 
     def select_wall_material(self):
         """ Выбор материала стен = Кирпич """

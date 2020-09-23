@@ -3,6 +3,7 @@ from .ba_locators import BaReportPageLocators
 from options.data import DataBankAppraiser
 from selenium.webdriver.common.keys import Keys
 from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
+from .ba_locators import BaNewCountryPropertySharedFieldsLocators
 from selenium.webdriver.common.by import By
 
 
@@ -59,6 +60,22 @@ class BaReportPage(BasePage):
             *BaReportPageLocators.PAY_REPORT_BUTTON_AFTER_CLICK), "Селектор с кнопкой 'Оплачено' не обновился"
         assert self.text_in_element_is_correct(*BaReportPageLocators.PAY_REPORT_BUTTON_AFTER_CLICK, 'Оплачено'), \
             "Возникла проблема с оплатой отчета"
+
+    def select_object_type(self, object_type):
+        """ Выбор типа объекта Жилой (садовый) дом/Земельный участок/Иное """
+        assert self.is_element_present(*BaNewCountryPropertySharedFieldsLocators.TYPE_DROP_DOWN_MENU), \
+            " Поле 'Тип' не отображается на странице "
+        self.browser.find_element(*BaNewCountryPropertySharedFieldsLocators.TYPE_DROP_DOWN_MENU).click()
+        dict_with_object_types = \
+        {
+            'Жилой (садовый) дом': BaNewCountryPropertySharedFieldsLocators.SELECT_RESIDENTIAL_TYPE,
+            'Земельный участок': BaNewCountryPropertySharedFieldsLocators.SELECT_LAND_TYPE,
+            'Иное': BaNewCountryPropertySharedFieldsLocators.SELECT_OTHER_TYPE
+        }
+        selected_type = dict_with_object_types[object_type.value]
+        self.browser.find_element(*selected_type).click()
+        assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{object_type.value}')]").text == \
+            object_type.value, f"Выбранный тип недвижимости != {object_type.value}"
 
     def save_report(self):
         """ Сохранение отчета """

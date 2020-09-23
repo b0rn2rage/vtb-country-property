@@ -10,11 +10,12 @@ from ba_pages.ba_report_page import BaReportPage
 from options.links import LinksBankAppraiser
 from options.auth import AuthBankAppraiser
 from options.data import DataBankAppraiser
-from ba_pages.ba_enums.ba_enum_type_new_report import BaTypeNewReport
+from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
 from ba_pages.ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
-from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectBank
-from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectDepartment
-from ba_pages.ba_enums.ba_enum_type_new_report import BaSelectPropertyRights
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectDepartment
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectPropertyRights
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectObjectType
 
 
 @pytest.mark.parametrize('login, password',
@@ -71,7 +72,8 @@ def test_filling_residential_building(browser):
     """ Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом' """
     link = browser.current_url
     page = BaNewCountryPropertyResidentialBuildingPage(browser, link)
-    page.select_type_in_residential_building_tab()
+    shared_method = BaReportPage(browser, link)
+    shared_method.select_object_type(BaSelectObjectType.RESIDENTIAL)
     page.input_name_of_the_object(DataBankAppraiser.BaCountryReport.Name_of_the_object)
     page.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method = BaReportPage(browser, link)
@@ -99,9 +101,9 @@ def test_filling_land(browser):
     """
     link = browser.current_url
     page = BaNewCountryPropertyLandPage(browser, link)  # Экземпляр с классом ЗУ
-    page.select_type_in_land_tab()
-    page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
     shared_method = BaReportPage(browser, link)
+    shared_method.select_object_type(BaSelectObjectType.LAND)
+    page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
     page2.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method.input_fias_address(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     page.input_cadastral_number()

@@ -95,9 +95,15 @@ class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
         " contains(@class, 'blue') and @data-percent='100']")
 
 
-class BaNewCountryPropertyResidentialBuildingPageLocators:
+class BaNewCountryPropertySharedFieldsLocators:
     TYPE_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Тип')]/..//div[contains(@id, 'node-SELECT-')]")
-    CHECK_TYPE_IS_RESIDENTIAL_BUILDING = (By.XPATH, "//div[contains(text(), 'Жилой (садовый) дом')]")
+    SELECT_RESIDENTIAL_TYPE = (By.XPATH, "//span[contains(text(), 'Жилой (садовый) дом')]")
+    SELECT_LAND_TYPE = (By.XPATH, "//span[contains(text(), 'Земельный участок')]")
+    SELECT_OTHER_TYPE = (By.XPATH, "//span[contains(text(), 'Иное')]")
+
+
+class BaNewCountryPropertyResidentialBuildingPageLocators:
+    CHECK_TYPE_IS_RESIDENTIAL_BUILDING = ()
     INPUT_NAME_OF_THE_OBJECT = (
         By.XPATH, "//label[contains(text(), 'Наименование объекта')]/..//textarea[contains(@id, 'node-INPUT-')]")
     INPUT_THE_ADDRESS_FOR_DOCUMENTS = (

@@ -28,3 +28,9 @@ class BaSelectPropertyRights(Enum):
     OWNERSHIP = 'Право собственности'
     RIGHTS_ARE_NOT_ISSUED = 'Права не оформлены'
     RENT = 'Аренда'
+
+
+class BaSelectObjectType(Enum):
+    RESIDENTIAL = 'Жилой (садовый) дом'
+    LAND = 'Земельный участок'
+    OTHER = 'Иное'
