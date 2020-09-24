@@ -27,30 +27,6 @@ class BaNewCountryPropertyLandPage(BasePage):
             'value') == "Для индивидуального жилищного строительства", \
             " Значение в поле 'Вид разрешенного использования' не соответствует введенному "
 
-    def input_market_price_of_the_object(self):
-        """ Заполнение поля 'Рычноная стоимость объекта оценки' """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT), \
-            " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
-        field_for_input_market_price_of_the_object = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT)
-        field_for_input_market_price_of_the_object.send_keys(DataBankAppraiser.BaCountryReport.Moscow_low_price_land)
-        assert field_for_input_market_price_of_the_object.get_attribute('value') == \
-            DataBankAppraiser.BaCountryReport.Moscow_low_price_land, \
-            "Значение в поле 'Рыночная стоимость объекта оценки' не соответствует введенному"
-
-    def select_type_in_land_tab(self):
-        """ Выбрать тип недвижимости = ЗУ """
-        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.TYPE_DROP_DOWN_MENU), \
-            " Поле 'Тип' не отображается на странице "
-        drop_down_menu_for_type_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.TYPE_DROP_DOWN_MENU)
-        drop_down_menu_for_type_field.click()
-        select_land_type = self.browser.find_element(*BaNewCountryPropertyLandPageLocators.SELECT_TYPE_IS_LAND)
-        select_land_type.click()
-        assert self.browser.find_element(*BaNewCountryPropertyLandPageLocators.CHECK_TYPE_IS_LAND), \
-            " Выбранный тип недвижимости != Земельный участок "
-
     def select_category(self):
         """ Выбрать категорию = """
         assert self.is_element_present(*BaNewCountryPropertyLandPageLocators.CATEGORY_DROP_DOWN_MENU), \

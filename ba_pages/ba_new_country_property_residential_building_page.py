@@ -23,30 +23,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT).text == \
             f"{name}", f"Значение в поле 'Наименование объекта...' не соответствует {name}"
 
-    def input_the_address_for_documents(self, address):
-        """ Заполнение поля 'Адрес по документам' """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS), \
-            "Поле 'Адрес по документам' не отображается на странице "
-        field_for_input_the_address_for_documents = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
-        field_for_input_the_address_for_documents.send_keys(address)
-        field_for_input_the_address_for_documents.send_keys(Keys.TAB)
-        assert field_for_input_the_address_for_documents.text == address, \
-            f"Значение в поле 'Адрес по документам' не соответствует {address}"
-
-    def input_market_price_of_the_object(self):
-        """ Заполнение поля 'Рычноная стоимость объекта оценки' """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT), \
-            " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
-        field_for_input_market_price_of_the_object = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT)
-        field_for_input_market_price_of_the_object.send_keys(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
-        assert field_for_input_market_price_of_the_object.get_attribute('value') == \
-            DataBankAppraiser.BaCountryReport.Moscow_low_price_house, \
-            "Значение в поле 'Рыночная стоимость объекта оценки' не соответствует введенному"
-
     def select_wall_material(self):
         """ Выбор материала стен = Кирпич """
         assert self.is_element_present(
@@ -150,19 +126,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         assert self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_HEAT_SUPPLY).text == \
             "Нет", " Значение в поле 'Теплоснабжение' != Нет "
-
-    def select_reason_why_not_egrn(self):
-        """ Выбор причины актуальной выписки из ЕГРН = Другое """
-        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.EGRN_DROP_DOWN_MENU), \
-            " Поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' "
-        drop_down_menu_for_egrn = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.EGRN_DROP_DOWN_MENU)
-        drop_down_menu_for_egrn.click()
-        select_reason = self.browser.find_element(*BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_EGRN)
-        select_reason.click()
-        assert self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_EGRN).text == "Другое", \
-            " Значение в поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' != Другое "
 
     def select_borrower_customer_are_same_person(self):
         """Включение чек-бокса 'Замемщик/Заказчик и собственник является одним лицом' """

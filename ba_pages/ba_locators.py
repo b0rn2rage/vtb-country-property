@@ -100,6 +100,13 @@ class BaNewCountryPropertySharedFieldsLocators:
     SELECT_RESIDENTIAL_TYPE = (By.XPATH, "//span[contains(text(), 'Жилой (садовый) дом')]")
     SELECT_LAND_TYPE = (By.XPATH, "//span[contains(text(), 'Земельный участок')]")
     SELECT_OTHER_TYPE = (By.XPATH, "//span[contains(text(), 'Иное')]")
+    EGRN_DROP_DOWN_MENU = \
+        (By.XPATH, "//label[contains(text(), 'Причина отсутствия актуальной')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_TECHNICAL_ISSUE_EGRN = \
+        (By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//span[contains(text(), "
+                   "'Техническая проблема на сайте Росреестра')]")
+    SELECT_OTHER_ISSUE_EGRN = \
+        (By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//span[contains(text(), 'Другое')]")
 
 
 class BaNewCountryPropertyResidentialBuildingPageLocators:
@@ -166,11 +173,9 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(text(), 'Нет')]")
     SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON = (
         By.XPATH, "//label[contains(text(),'Заемщик/Заказчик и собственник является одним лицом')]/..//input")
-    EGRN_DROP_DOWN_MENU = (
-        By.XPATH, "//label[contains(text(), 'Причина отсутствия актуальной')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_EGRN = (By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//span[contains(text(), 'Другое')]")
+
     CHECKING_THE_SELECTED_EGRN = (
-        By.XPATH, "//label[contains(text(),'Причина отсутствия')]/..//div[contains(text(), 'Другое')]")
+        )
 
 
 class BaNewCountryPropertyLandPageLocators:

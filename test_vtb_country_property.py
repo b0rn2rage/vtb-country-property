@@ -16,12 +16,13 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectDepartment
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectPropertyRights
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectObjectType
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectReasonWhyNotEGRN
 
 
 @pytest.mark.parametrize('login, password',
                          [(AuthBankAppraiser.VtbAuth.VtbLogin, AuthBankAppraiser.VtbAuth.VtbPassword)])
 def test_login_to_ba(browser, login, password):
-    """Авторизация в БО"""
+    """Авторизация в БО."""
     link = LinksBankAppraiser.DefaultTest.login_link  # Выбор тестового стенда
     page = BaLoginPage(browser, link)
     page.open()
@@ -30,7 +31,7 @@ def test_login_to_ba(browser, login, password):
 
 
 def test_creating_new_country_property_report(browser):
-    """Создание нового отчета """
+    """Создание нового отчета."""
     link = browser.current_url
     page = BaMainPage(browser, link)
     page.close_gost_popup()
@@ -39,7 +40,7 @@ def test_creating_new_country_property_report(browser):
 
 
 def test_filling_general_information_tab(browser):
-    """ Заполнение отчета по ЖД. Заполнение раздела 'Общая информация' """
+    """Заполнение отчета по ЖД. Заполнение раздела 'Общая информация'."""
     link = browser.current_url
     page = BaCountryPropertyNewReportGeneralInformationPage(browser, link)
     page.close_modal_popup()  # Закрытие четырех всплывающих окон
@@ -59,7 +60,7 @@ def test_filling_general_information_tab(browser):
 
 
 def test_filling_photo_and_documents(browser):
-    """ Заполнение отчета по ЖД. Заполнение раздела 'Фото и документы' """
+    """Заполнение отчета по ЖД. Заполнение раздела 'Фото и документы'."""
     link = browser.current_url
     page = BaNewCountryPropertyPhotosAndDocumentsPage(browser, link)
     page.attach_photos_in_photos_and_documents_tab()
@@ -69,21 +70,21 @@ def test_filling_photo_and_documents(browser):
 
 
 def test_filling_residential_building(browser):
-    """ Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом' """
+    """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом'."""
     link = browser.current_url
     page = BaNewCountryPropertyResidentialBuildingPage(browser, link)
     shared_method = BaReportPage(browser, link)
     shared_method.select_object_type(BaSelectObjectType.RESIDENTIAL)
     page.input_name_of_the_object(DataBankAppraiser.BaCountryReport.Name_of_the_object)
-    page.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
+    shared_method.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method = BaReportPage(browser, link)
     shared_method.input_fias_address(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method.input_total_area_of_the_assessment_object(DataBankAppraiser.BaCountryReport.Total_area)
     shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
     page.select_wall_material()
     page.select_repairs()
-    page.input_market_price_of_the_object()
-    page.select_reason_why_not_egrn()
+    shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
+    shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     page.select_electricity()
     page.select_water_supply()
     page.select_sewerage()
@@ -94,25 +95,21 @@ def test_filling_residential_building(browser):
 
 
 def test_filling_land(browser):
-    """
-    Заполнение отчета по ЖД. Заполнение объекта с типом = 'Земельный участок'
-    Для новых методов, (у которых поля отличаются от объекта с типом = ЖД) используется экземпляр page
-    Повторяющиеся методы вызываются из класса с типом ЖД, для них создан экземпляр shared_method.
-    """
+    """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Земельный участок'."""
     link = browser.current_url
     page = BaNewCountryPropertyLandPage(browser, link)  # Экземпляр с классом ЗУ
     shared_method = BaReportPage(browser, link)
     shared_method.select_object_type(BaSelectObjectType.LAND)
     page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
-    page2.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
+    shared_method.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method.input_fias_address(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     page.input_cadastral_number()
     shared_method.input_total_area_of_the_assessment_object(DataBankAppraiser.BaCountryReport.Total_area)
     page.select_category()
     page.input_type_of_permitted_use()
     shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
-    page.input_market_price_of_the_object()
-    page2.select_reason_why_not_egrn()
+    shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
+    shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     page2.select_electricity()
     page2.select_water_supply()
     page2.select_sewerage()
@@ -121,21 +118,21 @@ def test_filling_land(browser):
 
 
 def test_save_report(browser):
-    """ Сохранение отчета """
+    """Сохранение отчета."""
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.save_report()
 
 
 def test_pay_report(browser):
-    """ Оплата отчета """
+    """Оплата отчета."""
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.pay_report()
 
 
 def test_sign_report(browser):
-    """ Подписание отчета """
+    """Подписание отчета."""
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.sign_report()

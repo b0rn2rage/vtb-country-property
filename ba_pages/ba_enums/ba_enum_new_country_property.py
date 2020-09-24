@@ -34,3 +34,8 @@ class BaSelectObjectType(Enum):
     RESIDENTIAL = 'Жилой (садовый) дом'
     LAND = 'Земельный участок'
     OTHER = 'Иное'
+
+
+class BaSelectReasonWhyNotEGRN(Enum):
+    TECHNICAL_ISSUE = 'Техническая проблема на сайте Росреестра'
+    OTHER = 'Другое'

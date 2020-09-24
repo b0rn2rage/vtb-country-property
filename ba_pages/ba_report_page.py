@@ -21,6 +21,18 @@ class BaReportPage(BasePage):
         self.browser.find_element(
             *BaReportPageLocators.GO_TO_NEW_OBJECT_TAB).click()
 
+    def input_the_address_for_documents(self, address):
+        """ Заполнение поля 'Адрес по документам' """
+        assert self.is_element_present(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS), \
+            "Поле 'Адрес по документам' не отображается на странице "
+        field_for_input_the_address_for_documents = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
+        field_for_input_the_address_for_documents.send_keys(address)
+        field_for_input_the_address_for_documents.send_keys(Keys.TAB)
+        assert field_for_input_the_address_for_documents.text == address, \
+            f"Значение в поле 'Адрес по документам' не соответствует {address}"
+
     def input_fias_address(self, fias_address):
         """Заполнение поля 'Адрес по ФИАС' """
         assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.FIAS_DROP_DOWN_MENU), \
@@ -50,6 +62,17 @@ class BaReportPage(BasePage):
         field_for_input_total_area_of_the_assessment_object.send_keys(total_area)
         assert field_for_input_total_area_of_the_assessment_object.get_attribute("value") == total_area, \
             f"Значение в поле 'Общая площадь объекта оценки' не соответствует {total_area}"
+
+    def input_market_price_of_the_object(self, market_price):
+        """ Заполнение поля 'Рычноная стоимость объекта оценки' """
+        assert self.is_element_present(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT), \
+            " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
+        field_for_input_market_price_of_the_object = self.browser.find_element(
+            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT)
+        field_for_input_market_price_of_the_object.send_keys(market_price)
+        assert field_for_input_market_price_of_the_object.get_attribute('value') == market_price, \
+            f"Значение в поле 'Рыночная стоимость объекта оценки' не соответствует {market_price}"
 
     def pay_report(self):
         assert self.is_element_present(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK), \
@@ -122,3 +145,23 @@ class BaReportPage(BasePage):
         self.browser.find_element(*select_a_right).click()
         assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{right.value}')]").text == right.value, \
             "Значение в поле 'Имущственые права на объект оценки' != выбранному праву"
+
+    def select_reason_why_not_egrn(self, reason):
+        """ Выбор причины актуальной выписки из ЕГРН = Другое """
+        assert self.is_element_present(*BaNewCountryPropertySharedFieldsLocators.EGRN_DROP_DOWN_MENU), \
+            " Поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' "
+        drop_down_menu_for_egrn = self.browser.find_element(
+            *BaNewCountryPropertySharedFieldsLocators.EGRN_DROP_DOWN_MENU)
+        drop_down_menu_for_egrn.click()
+        dict_with_reasons = \
+            {
+                'Техническая проблема на сайте Росреестра':
+                    BaNewCountryPropertySharedFieldsLocators.SELECT_TECHNICAL_ISSUE_EGRN,
+                'Другое': BaNewCountryPropertySharedFieldsLocators.SELECT_OTHER_ISSUE_EGRN
+            }
+        select_reason = dict_with_reasons[reason.value]
+        self.browser.find_element(*select_reason).click()
+        assert self.browser.find_element(
+            By.XPATH, f"//label[contains(text(),'Причина отсутствия')]/..//div[contains(text(), "
+                      f"'{reason.value}')]").text == "Другое", \
+            f"Значение в поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' != {reason.value}"
