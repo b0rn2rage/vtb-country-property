@@ -11,12 +11,12 @@ from options.links import LinksBankAppraiser
 from options.auth import AuthBankAppraiser
 from options.data import DataBankAppraiser
 from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
-from ba_pages.ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectDepartment
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectPropertyRights
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectObjectType
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectReasonWhyNotEGRN
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectElectricity
 
 
 @pytest.mark.parametrize('login, password',
@@ -77,7 +77,6 @@ def test_filling_residential_building(browser):
     shared_method.select_object_type(BaSelectObjectType.RESIDENTIAL)
     page.input_name_of_the_object(DataBankAppraiser.BaCountryReport.Name_of_the_object)
     shared_method.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
-    shared_method = BaReportPage(browser, link)
     shared_method.input_fias_address(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method.input_total_area_of_the_assessment_object(DataBankAppraiser.BaCountryReport.Total_area)
     shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
@@ -85,7 +84,7 @@ def test_filling_residential_building(browser):
     page.select_repairs()
     shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
     shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
-    page.select_electricity()
+    shared_method.select_electricity(BaSelectElectricity.NO)
     page.select_water_supply()
     page.select_sewerage()
     page.select_gas()
@@ -110,7 +109,7 @@ def test_filling_land(browser):
     shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
     shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
     shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
-    page2.select_electricity()
+    shared_method.select_electricity(BaSelectElectricity.NO)
     page2.select_water_supply()
     page2.select_sewerage()
     page2.select_gas()

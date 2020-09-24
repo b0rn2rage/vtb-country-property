@@ -3,7 +3,7 @@ from .ba_locators import BaReportPageLocators
 from options.data import DataBankAppraiser
 from selenium.webdriver.common.keys import Keys
 from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
-from .ba_locators import BaNewCountryPropertySharedFieldsLocators
+from .ba_locators import BaReportPageLocators
 from selenium.webdriver.common.by import By
 
 
@@ -24,10 +24,10 @@ class BaReportPage(BasePage):
     def input_the_address_for_documents(self, address):
         """ Заполнение поля 'Адрес по документам' """
         assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS), \
+            *BaReportPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS), \
             "Поле 'Адрес по документам' не отображается на странице "
         field_for_input_the_address_for_documents = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
+            *BaReportPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
         field_for_input_the_address_for_documents.send_keys(address)
         field_for_input_the_address_for_documents.send_keys(Keys.TAB)
         assert field_for_input_the_address_for_documents.text == address, \
@@ -35,41 +35,37 @@ class BaReportPage(BasePage):
 
     def input_fias_address(self, fias_address):
         """Заполнение поля 'Адрес по ФИАС' """
-        assert self.is_element_present(*BaNewCountryPropertyResidentialBuildingPageLocators.FIAS_DROP_DOWN_MENU), \
+        assert self.is_element_present(*BaReportPageLocators.FIAS_DROP_DOWN_MENU), \
             " Поле 'Адрес по ФИАС' не отображается на странице "
-        field_for_input_fias_address = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.INPUT_FIAS_ADDRESS)
+        field_for_input_fias_address = self.browser.find_element(*BaReportPageLocators.INPUT_FIAS_ADDRESS)
         for char in fias_address:
             field_for_input_fias_address.send_keys(char)
-        # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ для поля
+        # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ
         assert self.is_element_presence(
             By.XPATH, f"//span[contains(text(), '{fias_address}')]"), \
-            " Введенный адрес не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
+            f"Введенный {fias_address} не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
         field_for_input_fias_address.send_keys(Keys.RETURN)
         check_value_in_fias_address_field = self.browser.find_element(
             By.XPATH, f"//div[contains(text(), '{fias_address}')]")
         assert check_value_in_fias_address_field.text == \
-            fias_address, \
-            " Значение в поле 'Адрес по ФИАС' не соответствует введенному "
+            fias_address, f"Значение в поле 'Адрес по ФИАС' не соответствует {fias_address}"
 
     def input_total_area_of_the_assessment_object(self, total_area):
         """ Заполнение поля с общей площадью ОО """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT), \
+        assert self.is_element_present(*BaReportPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT), \
             " Поле 'Общая площадь объекта оценки' не отображается на странице "
         field_for_input_total_area_of_the_assessment_object = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
+            *BaReportPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
         field_for_input_total_area_of_the_assessment_object.send_keys(total_area)
         assert field_for_input_total_area_of_the_assessment_object.get_attribute("value") == total_area, \
             f"Значение в поле 'Общая площадь объекта оценки' не соответствует {total_area}"
 
     def input_market_price_of_the_object(self, market_price):
         """ Заполнение поля 'Рычноная стоимость объекта оценки' """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT), \
+        assert self.is_element_present(*BaReportPageLocators.MARKET_PRICE_OF_THE_OBJECT), \
             " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
         field_for_input_market_price_of_the_object = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.MARKET_PRICE_OF_THE_OBJECT)
+            *BaReportPageLocators.MARKET_PRICE_OF_THE_OBJECT)
         field_for_input_market_price_of_the_object.send_keys(market_price)
         assert field_for_input_market_price_of_the_object.get_attribute('value') == market_price, \
             f"Значение в поле 'Рыночная стоимость объекта оценки' не соответствует {market_price}"
@@ -86,14 +82,14 @@ class BaReportPage(BasePage):
 
     def select_object_type(self, object_type):
         """ Выбор типа объекта Жилой (садовый) дом/Земельный участок/Иное """
-        assert self.is_element_present(*BaNewCountryPropertySharedFieldsLocators.TYPE_DROP_DOWN_MENU), \
+        assert self.is_element_present(*BaReportPageLocators.TYPE_DROP_DOWN_MENU), \
             " Поле 'Тип' не отображается на странице "
-        self.browser.find_element(*BaNewCountryPropertySharedFieldsLocators.TYPE_DROP_DOWN_MENU).click()
+        self.browser.find_element(*BaReportPageLocators.TYPE_DROP_DOWN_MENU).click()
         dict_with_object_types = \
         {
-            'Жилой (садовый) дом': BaNewCountryPropertySharedFieldsLocators.SELECT_RESIDENTIAL_TYPE,
-            'Земельный участок': BaNewCountryPropertySharedFieldsLocators.SELECT_LAND_TYPE,
-            'Иное': BaNewCountryPropertySharedFieldsLocators.SELECT_OTHER_TYPE
+            'Жилой (садовый) дом': BaReportPageLocators.SELECT_RESIDENTIAL_TYPE,
+            'Земельный участок': BaReportPageLocators.SELECT_LAND_TYPE,
+            'Иное': BaReportPageLocators.SELECT_OTHER_TYPE
         }
         selected_type = dict_with_object_types[object_type.value]
         self.browser.find_element(*selected_type).click()
@@ -129,11 +125,10 @@ class BaReportPage(BasePage):
 
     def select_property_rights_to_the_object_assessments(self, right):
         """ Выбор права в поле 'Имущественные права на объект оценки' """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT), \
+        assert self.is_element_present(*BaReportPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT), \
             " Поле 'Имущественные права на объект оценки' отсутствует на странице "
         drop_down_menu_for_the_property_rights_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT)
+            *BaReportPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT)
         drop_down_menu_for_the_property_rights_field.click()
         dict_with_property_rights = \
             {
@@ -144,24 +139,45 @@ class BaReportPage(BasePage):
         select_a_right = dict_with_property_rights[right.value]
         self.browser.find_element(*select_a_right).click()
         assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{right.value}')]").text == right.value, \
-            "Значение в поле 'Имущственые права на объект оценки' != выбранному праву"
+            f"Значение в поле 'Имущственые права на объект оценки' != {right}"
 
     def select_reason_why_not_egrn(self, reason):
-        """ Выбор причины актуальной выписки из ЕГРН = Другое """
-        assert self.is_element_present(*BaNewCountryPropertySharedFieldsLocators.EGRN_DROP_DOWN_MENU), \
+        """ Выбор причины отсутствия актуальной выписки из ЕГРН """
+        assert self.is_element_present(*BaReportPageLocators.EGRN_DROP_DOWN_MENU), \
             " Поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' "
-        drop_down_menu_for_egrn = self.browser.find_element(
-            *BaNewCountryPropertySharedFieldsLocators.EGRN_DROP_DOWN_MENU)
+        drop_down_menu_for_egrn = self.browser.find_element(*BaReportPageLocators.EGRN_DROP_DOWN_MENU)
         drop_down_menu_for_egrn.click()
         dict_with_reasons = \
             {
                 'Техническая проблема на сайте Росреестра':
-                    BaNewCountryPropertySharedFieldsLocators.SELECT_TECHNICAL_ISSUE_EGRN,
-                'Другое': BaNewCountryPropertySharedFieldsLocators.SELECT_OTHER_ISSUE_EGRN
+                    BaReportPageLocators.SELECT_TECHNICAL_ISSUE_EGRN,
+                'Другое': BaReportPageLocators.SELECT_OTHER_ISSUE_EGRN
             }
         select_reason = dict_with_reasons[reason.value]
         self.browser.find_element(*select_reason).click()
         assert self.browser.find_element(
             By.XPATH, f"//label[contains(text(),'Причина отсутствия')]/..//div[contains(text(), "
-                      f"'{reason.value}')]").text == "Другое", \
+                      f"'{reason.value}')]").text == reason.value, \
             f"Значение в поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' != {reason.value}"
+
+    def select_electricity(self, electricity):
+        """ Выбор электричества """
+        assert self.is_element_present(
+            *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU), \
+            " Поле 'Электричество' не отображается на странице "
+        drop_down_menu_for_electricity_field = self.browser.find_element(
+            *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU)
+        drop_down_menu_for_electricity_field.click()
+        dict_with_electricity = \
+            {
+                'Нет': BaReportPageLocators.SELECT_NO_ELECTRICITY,
+                'Есть, центральное': BaReportPageLocators.SELECT_CENTRAL_ELECTRICITY,
+                'Есть на участке': BaReportPageLocators.SELECT_ON_THE_SITE_ELECTRICITY,
+                'По границе участка': BaReportPageLocators.SELECT_AT_THE_BORDER_ELECTRICITY
+            }
+        selected_value_of_electricity = dict_with_electricity[electricity.value]
+        self.browser.find_element(*selected_value_of_electricity).click()
+        assert self.browser.find_element(
+            By.XPATH, "//label[contains(text(),'Электричество')]"
+            f"/..//div[contains(text(), '{electricity.value}')]").text == electricity.value, \
+            f"Значение в поле 'Электричество' != {electricity.value}"

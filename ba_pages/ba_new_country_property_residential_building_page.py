@@ -1,6 +1,5 @@
 from pages.base_page import BasePage
 from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
-from .ba_locators import BaNewCountryPropertySharedFieldsLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from options.data import DataBankAppraiser
@@ -51,21 +50,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
         assert self.browser.find_element(
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_REPAIRS).text == \
             "Хорошее состояние", " Значение в поле 'Состояние отделки' != Хорошее состояние "
-
-    def select_electricity(self):
-        """ Выбор электричества = Нет """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.ELECTRICITY_DROP_DOWN_MENU), \
-            " Поле 'Электричество' не отображается на странице "
-        drop_down_menu_for_electricity_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.ELECTRICITY_DROP_DOWN_MENU)
-        drop_down_menu_for_electricity_field.click()
-        select_no_electricity = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_ELECTRICITY)
-        select_no_electricity.click()
-        assert self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_ELECTRICITY).text == \
-            "Нет", " Значение в поле 'Электричество' != Нет "
 
     def select_water_supply(self):
         """ Выбор водоснабжения = Нет """

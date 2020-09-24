@@ -39,3 +39,10 @@ class BaSelectObjectType(Enum):
 class BaSelectReasonWhyNotEGRN(Enum):
     TECHNICAL_ISSUE = 'Техническая проблема на сайте Росреестра'
     OTHER = 'Другое'
+
+
+class BaSelectElectricity(Enum):
+    NO = 'Нет'
+    CENTRAL = 'Есть, центральное'
+    ON_THE_SITE = 'Есть на участке'
+    AT_THE_BORDER = 'По границе участка'
