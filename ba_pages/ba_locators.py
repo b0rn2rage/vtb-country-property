@@ -111,8 +111,6 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
                           "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
     CHECKING_THE_SELECTED_HEAT_SUPPLY = (
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(text(), 'Нет')]")
-    SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON = (
-        By.XPATH, "//label[contains(text(),'Заемщик/Заказчик и собственник является одним лицом')]/..//input")
 
 
 class BaNewCountryPropertyLandPageLocators:
@@ -223,3 +221,5 @@ class BaReportPageLocators:
     SELECT_AT_THE_BORDER_GAS = (
         By.XPATH, "//label[contains(text(),'Газ')]/..//"
                   "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'По границе участка')]")
+    SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON = (
+        By.XPATH, "//label[contains(text(),'Заемщик/Заказчик и собственник является одним лицом')]/..//input")

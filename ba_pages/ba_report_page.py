@@ -1,10 +1,10 @@
 from pages.base_page import BasePage
-from .ba_locators import BaReportPageLocators
 from options.data import DataBankAppraiser
 from selenium.webdriver.common.keys import Keys
 from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
 from .ba_locators import BaReportPageLocators
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BaReportPage(BasePage):
@@ -243,3 +243,22 @@ class BaReportPage(BasePage):
         assert self.browser.find_element(
             By.XPATH, f"//label[contains(text(),'Газ')]/..//div[contains(text(), '{gas.value}')]").text == gas.value, \
             f"Значение в поле 'Газ' != {gas.value}"
+
+    def select_borrower_customer_are_same_person(self):
+        """Включение чек-бокса 'Замемщик/Заказчик и собственник является одним лицом' """
+        assert self.is_element_present(
+            *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON), \
+            " Чек-бокс 'Заемщик/Заказчик и собственник является одним лицом' не отображатеся на странице "
+        scroll_to_checkbox = self.browser.find_element(
+            *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
+        actions = ActionChains(self.browser)
+        actions.move_to_element(scroll_to_checkbox).perform()
+        checkbox_for_borrower_customer_are_same_person_before_checked = self.browser.find_element(
+            *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
+        self.browser.execute_script("arguments[0].click();",
+                                    checkbox_for_borrower_customer_are_same_person_before_checked)
+        # После клика по чек-боксу элемент удаляется из DOM и заново загружается туда, поэтому требуется
+        # переопределить элемент для проверки на то, что чек-бокс включен
+        checkbox_for_borrower_customer_are_same_person_after_checked = self.browser.find_element(
+            *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
+        assert checkbox_for_borrower_customer_are_same_person_after_checked.is_selected(), "Чек-бокс не активен"

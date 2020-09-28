@@ -92,17 +92,16 @@ def test_filling_residential_building(browser):
     shared_method.select_sewerage(BaSelectSewerage.NO)
     shared_method.select_gas(BaSelectGas.NO)
     page.select_heat_supply()
-    page.select_borrower_customer_are_same_person()
+    shared_method.select_borrower_customer_are_same_person()
     shared_method.go_to_new_object_tab()
 
 
 def test_filling_land(browser):
     """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Земельный участок'."""
     link = browser.current_url
-    page = BaNewCountryPropertyLandPage(browser, link)  # Экземпляр с классом ЗУ
+    page = BaNewCountryPropertyLandPage(browser, link)
     shared_method = BaReportPage(browser, link)
     shared_method.select_object_type(BaSelectObjectType.LAND)
-    page2 = BaNewCountryPropertyResidentialBuildingPage(browser, link)  # Экземпляр с классом ЖД
     shared_method.input_the_address_for_documents(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     shared_method.input_fias_address(DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
     page.input_cadastral_number()
@@ -116,7 +115,7 @@ def test_filling_land(browser):
     shared_method.select_water_supply(BaSelectWaterSupply.NO)
     shared_method.select_sewerage(BaSelectSewerage.NO)
     shared_method.select_gas(BaSelectGas.NO)
-    page2.select_borrower_customer_are_same_person()
+    shared_method.select_borrower_customer_are_same_person()
 
 
 def test_save_report(browser):
