@@ -202,3 +202,25 @@ class BaReportPage(BasePage):
             By.XPATH, "//label[contains(text(),'Водоснабжение')]"
             f"/..//div[contains(text(), '{water_supply.value}')]").text == water_supply.value, \
             f"Значение в поле 'Водоснабжение' != {water_supply.value}"
+
+    def select_sewerage(self, sewerage):
+        """ Выбор канализации """
+        assert self.is_element_present(
+            *BaReportPageLocators.SEWERAGE_DROP_DOWN_MENU), " Поле 'Канализация' не отображается на странице' "
+        drop_down_menu_for_sewerage_field = self.browser.find_element(
+            *BaReportPageLocators.SEWERAGE_DROP_DOWN_MENU)
+        drop_down_menu_for_sewerage_field.click()
+        dict_with_sewerage = \
+            {
+                'Нет': BaReportPageLocators.SELECT_NO_SEWERAGE,
+                'Есть, автономное': BaReportPageLocators.SELECT_AUTONOMOUS_SEWERAGE,
+                'Есть, центральное': BaReportPageLocators.SELECT_CENTRAL_SEWERAGE,
+                'Есть на участке': BaReportPageLocators.SELECT_ON_THE_SITE_SEWERAGE,
+                'По границе участка': BaReportPageLocators.SELECT_AT_THE_BORDER_SEWERAGE
+            }
+        selected_value_of_sewerage = dict_with_sewerage[sewerage.value]
+        self.browser.find_element(*selected_value_of_sewerage).click()
+        assert self.browser.find_element(
+            By.XPATH, "//label[contains(text(),'Канализация')]"
+            f"/..//div[contains(text(), '{sewerage.value}')]").text == sewerage.value, \
+            f"Значение в поле 'Канализация' != {sewerage.value}"
