@@ -104,13 +104,6 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
                               "//label[contains(text(),'Состояние отделки')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_REPAIRS = (By.XPATH, "//span[contains( text(), 'Хорошее состояние')]")
     CHECKING_THE_SELECTED_REPAIRS = (By.XPATH, "//div[contains(text(), 'Хорошее состояние')]")
-    WATER_SUPPLY_DROP_DOWN_MENU = (
-        By.XPATH, "//label[contains(text(),'Водоснабжение')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_WATER_SUPPLY = (By.XPATH,
-                           "//label[contains(text(),'Водоснабжение')]/..//"
-                           "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
-    CHECKING_THE_SELECTED_WATER_SUPPLY = (
-        By.XPATH, "//label[contains(text(),'Водоснабжение')]/..//div[contains(text(), 'Нет')]")
     SEWERAGE_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Канализация')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_SEWERAGE = (By.XPATH,
@@ -196,3 +189,20 @@ class BaReportPageLocators:
     SELECT_AT_THE_BORDER_ELECTRICITY = (
         By.XPATH, "//label[contains(text(),'Электричество')]/..//"
         "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'По границе участка')]")
+    WATER_SUPPLY_DROP_DOWN_MENU = (
+        By.XPATH, "//label[contains(text(),'Водоснабжение')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_NO_WATER_SUPPLY = (By.XPATH,
+                              "//label[contains(text(),'Водоснабжение')]/..//"
+                              "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
+    SELECT_AUTONOMOUS_WATER_SUPPLY = (
+        By.XPATH, "//label[contains(text(),'Водоснабжение')]/..//"
+                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, автономное')]")
+    SELECT_CENTRAL_WATER_SUPPLY = (
+        By.XPATH, "//label[contains(text(),'Водоснабжение')]/..//"
+                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, центральное')]")
+    SELECT_ON_THE_SITE_WATER_SUPPLY = (
+        By.XPATH, "//label[contains(text(),'Водоснабжение')]/..//"
+                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, на участке')]")
+    SELECT_AT_THE_BORDER_WATER_SUPPLY = (
+        By.XPATH, "//label[contains(text(),'Водоснабжение')]/..//"
+                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'По границе участка')]")

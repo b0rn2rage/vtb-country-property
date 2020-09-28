@@ -17,6 +17,7 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectPropertyRight
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectObjectType
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectReasonWhyNotEGRN
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectElectricity
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWaterSupply
 
 
 @pytest.mark.parametrize('login, password',
@@ -85,7 +86,7 @@ def test_filling_residential_building(browser):
     shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
     shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     shared_method.select_electricity(BaSelectElectricity.NO)
-    page.select_water_supply()
+    shared_method.select_water_supply(BaSelectWaterSupply.NO)
     page.select_sewerage()
     page.select_gas()
     page.select_heat_supply()
@@ -110,7 +111,7 @@ def test_filling_land(browser):
     shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
     shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     shared_method.select_electricity(BaSelectElectricity.NO)
-    page2.select_water_supply()
+    shared_method.select_water_supply(BaSelectWaterSupply.NO)
     page2.select_sewerage()
     page2.select_gas()
     page2.select_borrower_customer_are_same_person()

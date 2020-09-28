@@ -163,8 +163,7 @@ class BaReportPage(BasePage):
     def select_electricity(self, electricity):
         """ Выбор электричества """
         assert self.is_element_present(
-            *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU), \
-            " Поле 'Электричество' не отображается на странице "
+            *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU), " Поле 'Электричество' не отображается на странице "
         drop_down_menu_for_electricity_field = self.browser.find_element(
             *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU)
         drop_down_menu_for_electricity_field.click()
@@ -181,3 +180,25 @@ class BaReportPage(BasePage):
             By.XPATH, "//label[contains(text(),'Электричество')]"
             f"/..//div[contains(text(), '{electricity.value}')]").text == electricity.value, \
             f"Значение в поле 'Электричество' != {electricity.value}"
+
+    def select_water_supply(self, water_supply):
+        """ Выбор водоснабжения """
+        assert self.is_element_present(
+            *BaReportPageLocators.WATER_SUPPLY_DROP_DOWN_MENU), " Поле 'Водоснабжение' не отображается на странице' "
+        drop_down_menu_for_water_supply_field = self.browser.find_element(
+            *BaReportPageLocators.WATER_SUPPLY_DROP_DOWN_MENU)
+        drop_down_menu_for_water_supply_field.click()
+        dict_with_water_supply = \
+            {
+                'Нет': BaReportPageLocators.SELECT_NO_WATER_SUPPLY,
+                'Есть, автономное': BaReportPageLocators.SELECT_AUTONOMOUS_WATER_SUPPLY,
+                'Есть, центральное': BaReportPageLocators.SELECT_CENTRAL_WATER_SUPPLY,
+                'Есть на участке': BaReportPageLocators.SELECT_ON_THE_SITE_WATER_SUPPLY,
+                'По границе участка': BaReportPageLocators.SELECT_AT_THE_BORDER_WATER_SUPPLY
+            }
+        selected_value_of_water_supply = dict_with_water_supply[water_supply.value]
+        self.browser.find_element(*selected_value_of_water_supply).click()
+        assert self.browser.find_element(
+            By.XPATH, "//label[contains(text(),'Водоснабжение')]"
+            f"/..//div[contains(text(), '{water_supply.value}')]").text == water_supply.value, \
+            f"Значение в поле 'Водоснабжение' != {water_supply.value}"

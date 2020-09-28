@@ -46,3 +46,11 @@ class BaSelectElectricity(Enum):
     CENTRAL = 'Есть, центральное'
     ON_THE_SITE = 'Есть на участке'
     AT_THE_BORDER = 'По границе участка'
+
+
+class BaSelectWaterSupply(Enum):
+    NO = 'Нет'
+    AUTONOMOUS = 'Есть, автономное'
+    CENTRAL = 'Есть, центральное'
+    ON_THE_SITE = 'Есть на участке'
+    AT_THE_BORDER = 'По границе участка'

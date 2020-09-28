@@ -51,21 +51,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_REPAIRS).text == \
             "Хорошее состояние", " Значение в поле 'Состояние отделки' != Хорошее состояние "
 
-    def select_water_supply(self):
-        """ Выбор водоснабжения = Нет """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.WATER_SUPPLY_DROP_DOWN_MENU), \
-            " Поле 'Водоснабжение' не отображается на странице' "
-        drop_down_menu_for_water_supply_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.WATER_SUPPLY_DROP_DOWN_MENU)
-        drop_down_menu_for_water_supply_field.click()
-        select_no_water_supply = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_WATER_SUPPLY)
-        select_no_water_supply.click()
-        assert self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_WATER_SUPPLY).text == \
-            "Нет", " Значение в поле 'Водоснабжение' != Нет "
-
     def select_sewerage(self):
         """ Выбор канализации = Нет """
         assert self.is_element_present(
