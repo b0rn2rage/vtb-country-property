@@ -19,6 +19,7 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectReasonWhyNotE
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectElectricity
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWaterSupply
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectSewerage
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectGas
 
 
 @pytest.mark.parametrize('login, password',
@@ -89,7 +90,7 @@ def test_filling_residential_building(browser):
     shared_method.select_electricity(BaSelectElectricity.NO)
     shared_method.select_water_supply(BaSelectWaterSupply.NO)
     shared_method.select_sewerage(BaSelectSewerage.NO)
-    page.select_gas()
+    shared_method.select_gas(BaSelectGas.NO)
     page.select_heat_supply()
     page.select_borrower_customer_are_same_person()
     shared_method.go_to_new_object_tab()
@@ -114,7 +115,7 @@ def test_filling_land(browser):
     shared_method.select_electricity(BaSelectElectricity.NO)
     shared_method.select_water_supply(BaSelectWaterSupply.NO)
     shared_method.select_sewerage(BaSelectSewerage.NO)
-    page2.select_gas()
+    shared_method.select_gas(BaSelectGas.NO)
     page2.select_borrower_customer_are_same_person()
 
 

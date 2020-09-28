@@ -224,3 +224,22 @@ class BaReportPage(BasePage):
             By.XPATH, "//label[contains(text(),'Канализация')]"
             f"/..//div[contains(text(), '{sewerage.value}')]").text == sewerage.value, \
             f"Значение в поле 'Канализация' != {sewerage.value}"
+
+    def select_gas(self, gas):
+        """ Выбор газа """
+        assert self.is_element_present(
+            *BaReportPageLocators.GAS_DROP_DOWN_MENU), " Поле 'Газ' не отображается на странице' "
+        drop_down_menu_for_gas_field = self.browser.find_element(*BaReportPageLocators.GAS_DROP_DOWN_MENU)
+        drop_down_menu_for_gas_field.click()
+        dict_with_gas = \
+            {
+                'Нет': BaReportPageLocators.SELECT_NO_GAS,
+                'Есть, центральное': BaReportPageLocators.SELECT_CENTRAL_GAS,
+                'Есть на участке': BaReportPageLocators.SELECT_ON_THE_SITE_GAS,
+                'По границе участка': BaReportPageLocators.SELECT_AT_THE_BORDER_GAS
+            }
+        selected_value_of_gas = dict_with_gas[gas.value]
+        self.browser.find_element(*selected_value_of_gas).click()
+        assert self.browser.find_element(
+            By.XPATH, f"//label[contains(text(),'Газ')]/..//div[contains(text(), '{gas.value}')]").text == gas.value, \
+            f"Значение в поле 'Газ' != {gas.value}"

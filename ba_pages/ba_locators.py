@@ -104,18 +104,6 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
                               "//label[contains(text(),'Состояние отделки')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_REPAIRS = (By.XPATH, "//span[contains( text(), 'Хорошее состояние')]")
     CHECKING_THE_SELECTED_REPAIRS = (By.XPATH, "//div[contains(text(), 'Хорошее состояние')]")
-
-
-
-    CHECKING_THE_SELECTED_SEWERAGE = (
-        By.XPATH, "//label[contains(text(),'Канализация')]/..//div[contains(text(), 'Нет')]")
-    GAS_DROP_DOWN_MENU = (
-        By.XPATH, "//label[contains(text(),'Газ')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_GAS = (By.XPATH,
-                  "//label[contains(text(),'Газ')]/..//"
-                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
-    CHECKING_THE_SELECTED_GAS = (
-        By.XPATH, "//label[contains(text(),'Газ')]/..//div[contains(text(), 'Нет')]")
     HEAT_SUPPLY_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_HEAT_SUPPLY = (By.XPATH,
@@ -220,4 +208,18 @@ class BaReportPageLocators:
                   "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, на участке')]")
     SELECT_AT_THE_BORDER_SEWERAGE = (
         By.XPATH, "//label[contains(text(),'Канализация')]/..//"
+                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'По границе участка')]")
+    GAS_DROP_DOWN_MENU = (
+        By.XPATH, "//label[contains(text(),'Газ')]/..//div[contains(@id, 'node-SELECT-')]")
+    SELECT_NO_GAS = (By.XPATH,
+                     "//label[contains(text(),'Газ')]/..//"
+                     "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
+    SELECT_CENTRAL_GAS = (
+        By.XPATH, "//label[contains(text(),'Газ')]/..//"
+                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, центральное')]")
+    SELECT_ON_THE_SITE_GAS = (
+        By.XPATH, "//label[contains(text(),'Газ')]/..//"
+                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, на участке')]")
+    SELECT_AT_THE_BORDER_GAS = (
+        By.XPATH, "//label[contains(text(),'Газ')]/..//"
                   "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'По границе участка')]")

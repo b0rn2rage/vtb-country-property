@@ -51,21 +51,6 @@ class BaNewCountryPropertyResidentialBuildingPage(BasePage):
             *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_REPAIRS).text == \
             "Хорошее состояние", " Значение в поле 'Состояние отделки' != Хорошее состояние "
 
-    def select_gas(self):
-        """ Выбор газа = Нет """
-        assert self.is_element_present(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.GAS_DROP_DOWN_MENU), \
-            " Поле 'Газ' не отображается на странице' "
-        drop_down_menu_for_gas_field = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.GAS_DROP_DOWN_MENU)
-        drop_down_menu_for_gas_field.click()
-        select_no_gas = self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_GAS)
-        select_no_gas.click()
-        assert self.browser.find_element(
-            *BaNewCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_GAS).text == \
-            "Нет", " Значение в поле 'Газ' != Нет "
-
     def select_heat_supply(self):
         """ Выбор теплоснабжения = Нет """
         assert self.is_element_present(

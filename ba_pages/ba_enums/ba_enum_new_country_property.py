@@ -62,3 +62,10 @@ class BaSelectSewerage(Enum):
     CENTRAL = 'Есть, центральное'
     ON_THE_SITE = 'Есть на участке'
     AT_THE_BORDER = 'По границе участка'
+
+
+class BaSelectGas(Enum):
+    NO = 'Нет'
+    CENTRAL = 'Есть, центральное'
+    ON_THE_SITE = 'Есть на участке'
+    AT_THE_BORDER = 'По границе участка'
