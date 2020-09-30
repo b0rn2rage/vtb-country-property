@@ -7,9 +7,11 @@ from ba_pages.ba_new_country_property_photos_and_documents_page import BaNewCoun
 from ba_pages.ba_new_country_property_residential_building_page import BaNewCountryPropertyResidentialBuildingPage
 from ba_pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
 from ba_pages.ba_report_page import BaReportPage
+from krona_pages.krona_login_page import KronaLoginPage
 from options.links import LinksBankAppraiser
 from options.links import LinksKrona
 from options.auth import AuthBankAppraiser
+from options.auth import AuthKrona
 from options.data import DataBankAppraiser
 from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
@@ -23,15 +25,13 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectSewerage
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectGas
 
 
-@pytest.mark.parametrize('login, password',
-                         [(AuthBankAppraiser.VtbAuth.VtbLogin, AuthBankAppraiser.VtbAuth.VtbPassword)])
-def test_login_to_ba(browser, login, password):
+def test_login_to_ba(browser):
     """Авторизация в БО."""
     link = LinksBankAppraiser.DefaultTest.login_link  # Выбор тестового стенда
     page = BaLoginPage(browser, link)
     page.open()
     page.close_fb_popup()
-    page.login_to_bank_appraiser(login, password)  # login, password - параметры запуска теста
+    page.login_to_bank_appraiser(AuthBankAppraiser.VtbAuth.VtbLogin, AuthBankAppraiser.VtbAuth.VtbPassword)
 
 
 def test_creating_new_country_property_report(browser):
@@ -141,7 +141,15 @@ def test_sign_report(browser):
 
 
 def test_redirect_to_krona(browser):
-    """ Переход и логин в КРОНУ """
+    """Переход в КРОНУ."""
     link = LinksKrona.DefaultTest.login_link
     page = BaReportPage(browser, link)
     page.redirect_to_krona_login_page()
+
+
+def test_login_to_krona(browser):
+    """Логин в КРОНУ."""
+    link = browser.current_url
+    page = KronaLoginPage(browser, link)
+    page.login_to_krona(AuthKrona.SrgAuth.SrgLogin, AuthKrona.SrgAuth.SrgPassword)
+
