@@ -18,5 +18,5 @@ class KronaLoginPage(BasePage):
             "Кнопка 'Войти' отсутсвует на странице "
         login_button = self.browser.find_element(*KronaLoginPageLocators.LOGIN_BUTTON)
         login_button.click()
-        assert self.is_element_presence(*KronaMainPageLocators.MENU_USERNAME, timeout=5), "Авторизация не удалась"
+        assert self.is_element_presence(*KronaMainPageLocators.USERNAME, timeout=5), "Авторизация не удалась"
 

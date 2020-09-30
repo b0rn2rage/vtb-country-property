@@ -2,12 +2,13 @@ import pytest
 import time
 from ba_pages.ba_login_page import BaLoginPage
 from ba_pages.ba_main_page import BaMainPage
-from ba_pages.ba_new_country_property_general_information_page import BaCountryPropertyNewReportGeneralInformationPage
+from ba_pages.ba_new_country_property_general_information_page import BaNewCountryPropertyGeneralInformationPage
 from ba_pages.ba_new_country_property_photos_and_documents_page import BaNewCountryPropertyPhotosAndDocumentsPage
 from ba_pages.ba_new_country_property_residential_building_page import BaNewCountryPropertyResidentialBuildingPage
 from ba_pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
 from ba_pages.ba_report_page import BaReportPage
 from krona_pages.krona_login_page import KronaLoginPage
+from krona_pages.krona_country_property_reports_page import KronaCountryPropertyReportsPage
 from options.links import LinksBankAppraiser
 from options.links import LinksKrona
 from options.auth import AuthBankAppraiser
@@ -46,7 +47,7 @@ def test_creating_new_country_property_report(browser):
 def test_filling_general_information_tab(browser):
     """Заполнение отчета по ЖД. Заполнение раздела 'Общая информация'."""
     link = browser.current_url
-    page = BaCountryPropertyNewReportGeneralInformationPage(browser, link)
+    page = BaNewCountryPropertyGeneralInformationPage(browser, link)
     page.close_modal_popup()  # Закрытие четырех всплывающих окон
     page.select_bank_in_the_general_information_tab(BaSelectBank.VTB)  # Выбрать банк, enum = Банк
     page.select_department_in_the_general_information_tab(BaSelectDepartment.MORTGAGE)
@@ -110,7 +111,7 @@ def test_filling_land(browser):
     page.select_category()
     page.input_type_of_permitted_use()
     shared_method.select_property_rights_to_the_object_assessments(BaSelectPropertyRights.OWNERSHIP)
-    shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
+    shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_land)
     shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     shared_method.select_electricity(BaSelectElectricity.NO)
     shared_method.select_water_supply(BaSelectWaterSupply.NO)
@@ -153,3 +154,11 @@ def test_login_to_krona(browser):
     page = KronaLoginPage(browser, link)
     page.login_to_krona(AuthKrona.SrgAuth.SrgLogin, AuthKrona.SrgAuth.SrgPassword)
 
+
+def test_open_country_property_report_in_krona(browser):
+    """Открытие карточки отчета в реестре 'Жилые дома'."""
+    link = browser.current_url
+    page = KronaCountryPropertyReportsPage(browser, link)
+    q = BaNewCountryPropertyGeneralInformationPage(browser, link)
+    page.open_country_report_in_data_table(q.get_report_number())
+    time.sleep(5)

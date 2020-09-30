@@ -9,7 +9,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 
-class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
+class BaNewCountryPropertyGeneralInformationPage(BasePage):
     """ Заполнение раздела 'Общая информация' в новом отчете по ЖД """
 
     def close_modal_popup(self):
@@ -22,6 +22,12 @@ class BaCountryPropertyNewReportGeneralInformationPage(BasePage):
                 button_for_closing_modal_popup.click()
         except TimeoutException:
             print('Всплывающее окно с ГОСТом не успело прогрузиться')
+
+    def get_report_number(self):
+        """Получить номер отчета"""
+        field_for_input_report_number = self.browser.find_element(
+            *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER)
+        return field_for_input_report_number.get_attribute('value')
 
     def input_full_name_of_the_borrower_customer_in_the_general_information_tab(self, name):
         """ Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика' """

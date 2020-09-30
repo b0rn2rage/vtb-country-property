@@ -10,4 +10,10 @@ class KronaLoginPageLocators:
 
 
 class KronaMainPageLocators:
-    MENU_USERNAME = (By.XPATH, "//div[contains(@class, 'Menu_username_')]")
+    USERNAME = (By.XPATH, "//div[contains(@class, 'Menu_username_')]")
+
+
+class KronaCountryPropertyReportsLocators:
+    MENU_COUNTRY_PROPERTY = (By.CSS_SELECTOR, '#country_property_reports')
+    DATA_TABLE = (By.CSS_SELECTOR, '.display.dataTable')
+    REPORT_NUMBER = (By.CSS_SELECTOR, '#reportNumber')
