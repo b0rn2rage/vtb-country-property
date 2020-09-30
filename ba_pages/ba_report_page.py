@@ -80,6 +80,12 @@ class BaReportPage(BasePage):
         assert self.text_in_element_is_correct(*BaReportPageLocators.PAY_REPORT_BUTTON_AFTER_CLICK, 'Оплачено'), \
             "Возникла проблема с оплатой отчета"
 
+    def redirect_to_krona_login_page(self):
+        """Открыть новое окно с страницей логина в КРОНЕ """
+        self.browser.execute_script("window.open()")
+        self.browser.switch_to.window(self.browser.window_handles[1])
+        BasePage.open(self)
+
     def select_object_type(self, object_type):
         """ Выбор типа объекта Жилой (садовый) дом/Земельный участок/Иное """
         assert self.is_element_present(*BaReportPageLocators.TYPE_DROP_DOWN_MENU), \
@@ -262,3 +268,4 @@ class BaReportPage(BasePage):
         checkbox_for_borrower_customer_are_same_person_after_checked = self.browser.find_element(
             *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
         assert checkbox_for_borrower_customer_are_same_person_after_checked.is_selected(), "Чек-бокс не активен"
+

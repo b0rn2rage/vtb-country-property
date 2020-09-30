@@ -8,6 +8,7 @@ from ba_pages.ba_new_country_property_residential_building_page import BaNewCoun
 from ba_pages.ba_new_country_property_land_page import BaNewCountryPropertyLandPage
 from ba_pages.ba_report_page import BaReportPage
 from options.links import LinksBankAppraiser
+from options.links import LinksKrona
 from options.auth import AuthBankAppraiser
 from options.data import DataBankAppraiser
 from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
@@ -137,3 +138,10 @@ def test_sign_report(browser):
     link = browser.current_url
     page = BaReportPage(browser, link)
     page.sign_report()
+
+
+def test_redirect_to_krona(browser):
+    """ Переход и логин в КРОНУ """
+    link = LinksKrona.DefaultTest.login_link
+    page = BaReportPage(browser, link)
+    page.redirect_to_krona_login_page()
