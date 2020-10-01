@@ -1,4 +1,3 @@
-import pytest
 import time
 from ba_pages.ba_login_page import BaLoginPage
 from ba_pages.ba_main_page import BaMainPage
@@ -24,6 +23,8 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectElectricity
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWaterSupply
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectSewerage
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectGas
+
+global report_number
 
 
 def test_login_to_ba(browser):
@@ -55,6 +56,8 @@ def test_filling_general_information_tab(browser):
     page.input_full_name_of_the_borrower_customer_in_the_general_information_tab(
         DataBankAppraiser.BaCountryReport.Borrower_Customer_Name)
     page.input_report_number_in_the_general_information_tab(DataBankAppraiser.BaCountryReport.Report_Number)
+    global report_number
+    report_number = page.get_report_number()  # Глобальной переменной присваиваю значение номера отчета
     page.select_report_date_in_the_general_information_tab()
     page.select_valuation_date_in_the_general_information_tab()
     page.select_external_examination_in_the_general_information_tab()
@@ -159,6 +162,4 @@ def test_open_country_property_report_in_krona(browser):
     """Открытие карточки отчета в реестре 'Жилые дома'."""
     link = browser.current_url
     page = KronaCountryPropertyReportsPage(browser, link)
-    q = BaNewCountryPropertyGeneralInformationPage(browser, link)
-    page.open_country_report_in_data_table(q.get_report_number())
-    time.sleep(5)
+    page.open_country_report_in_data_table(report_number)  # Аргумент = глобальная переменная

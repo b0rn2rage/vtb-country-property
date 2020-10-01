@@ -27,6 +27,7 @@ class BaNewCountryPropertyGeneralInformationPage(BasePage):
         """Получить номер отчета"""
         field_for_input_report_number = self.browser.find_element(
             *BaNewCountryPropertyGeneralInformationPageLocators.INPUT_REPORT_NUMBER)
+        print(field_for_input_report_number.get_attribute('value'))
         return field_for_input_report_number.get_attribute('value')
 
     def input_full_name_of_the_borrower_customer_in_the_general_information_tab(self, name):
