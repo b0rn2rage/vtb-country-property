@@ -8,6 +8,8 @@ from ba_pages.ba_new_country_property_land_page import BaNewCountryPropertyLandP
 from ba_pages.ba_report_page import BaReportPage
 from krona_pages.krona_login_page import KronaLoginPage
 from krona_pages.krona_country_property_reports_page import KronaCountryPropertyReportsPage
+from krona_pages.krona_country_property_report_card_page import \
+    KronaReportCardGeneralInformationPage
 from options.links import LinksBankAppraiser
 from options.links import LinksKrona
 from options.auth import AuthBankAppraiser
@@ -23,6 +25,10 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectElectricity
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWaterSupply
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectSewerage
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectGas
+from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportStatus
+from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportFlagForStandard
+from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportCardNameTab
+
 
 report_number = ''
 
@@ -163,3 +169,12 @@ def test_open_country_property_report_in_krona(browser):
     link = browser.current_url
     page = KronaCountryPropertyReportsPage(browser, link)
     page.open_country_report_in_data_table(report_number)  # Аргумент = глобальная переменная
+
+
+def test_srg_verification_via_report_card(browser):
+    """Верификация сотрудником SRG через карточку отчета."""
+    link = browser.current_url
+    page = KronaReportCardGeneralInformationPage(browser, link)
+    page.check_values_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
+                                                 CountryPropertyReportFlagForStandard.YES)
+    page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)

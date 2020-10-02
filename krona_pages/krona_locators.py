@@ -20,3 +20,16 @@ class KronaCountryPropertyReportsLocators:
     SHOW_TABLE = (By.CSS_SELECTOR, '#reportListDataTableSubmitButton.btn')
     RESULT_TABLE_PROCESSING = (By.XPATH, "//div[@id='result_table_processing'][contains(@style, 'display: none')]")
     REPORT_IN_THE_REGISTRY_AFTER_FILTERING = (By.CSS_SELECTOR, '.sorting_1 a')
+
+
+class KronaCountryPropertyReportCardPageLocators:
+    REPORT_STATUS = (By.CSS_SELECTOR, '#reportStatus')
+    FLAG_FOR_STANDARD = (By.CSS_SELECTOR, '#isStandardReport')
+    GENERAL_INFORMATION_TAB = (
+        By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Общая информация')]")
+    FIRST_OBJECT_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Объект 1')]")
+    SECOND_OBJECT_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Объект 2')]")
+    DOCUMENTS_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Документы')]")
+    PHOTOS_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Фотографии')]")
+    VERIFICATION_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Верификация')]")
+

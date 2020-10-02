@@ -3,7 +3,6 @@ from krona_pages.krona_locators import KronaCountryPropertyReportsLocators
 import time
 
 
-
 class KronaCountryPropertyReportsPage(BasePage):
     """В этом классе описывать все операции внутри карточки отчета ЖД."""
 
@@ -24,3 +23,4 @@ class KronaCountryPropertyReportsPage(BasePage):
         required_report = self.browser.find_element(
             *KronaCountryPropertyReportsLocators.REPORT_IN_THE_REGISTRY_AFTER_FILTERING)
         required_report.click()
+
