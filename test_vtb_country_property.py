@@ -24,7 +24,7 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWaterSupply
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectSewerage
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectGas
 
-global report_number
+report_number = ''
 
 
 def test_login_to_ba(browser):
