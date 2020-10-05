@@ -13,3 +13,9 @@ class DataBankAppraiser:
         bank_employee = 'Селениумов Питон (autotest-country-property-vtb@test.ru)'
 
 
+class DataKrona:
+    class KronaCountryReport:
+        Moscow_verification_low_price_house = "16000000"
+        Moscow_verification_low_price_land = "2500000"
+
+

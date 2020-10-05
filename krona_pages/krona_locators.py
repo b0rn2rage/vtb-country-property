@@ -32,4 +32,10 @@ class KronaCountryPropertyReportCardPageLocators:
     DOCUMENTS_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Документы')]")
     PHOTOS_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Фотографии')]")
     VERIFICATION_TAB = (By.XPATH, "//button[contains(@class, 'tablinks')][contains(text(), 'Верификация')]")
-
+    BUTTON_FOR_ATTACH_EXPERT_CALCULATION = (By.CSS_SELECTOR, "[title='file input']")
+    PROGRESS_BAR_FINISHED_DOWNLOADING = (By.XPATH, "//div[@aria-valuenow='100']")
+    INPUT_PRICE_FOR_FIRST_OBJECT = (By.CSS_SELECTOR, "[name='verifiedObjects[0].price']")
+    INPUT_PRICE_FOR_SECOND_OBJECT = (By.CSS_SELECTOR, "[name='verifiedObjects[1].price']")
+    LACK_DOCUMENTS = (By.CSS_SELECTOR, "#lackDocuments")
+    VERIFICATION_BUTTON = (By.CSS_SELECTOR, "#btnSend.btn.btn-primary")
+    RESULT = (By.XPATH, "//td[contains(text(), 'Принято')]")

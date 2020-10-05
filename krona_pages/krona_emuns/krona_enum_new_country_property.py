@@ -4,6 +4,7 @@ from enum import Enum
 class CountryPropertyReportStatus(Enum):
     ON_VERIFICATION = 'На верификации'
     THE_END_OF_THE_VERIFICATION = 'Окончание верификации SRG'
+    READY = 'Готово'
 
 
 class CountryPropertyReportFlagForStandard(Enum):
@@ -18,3 +19,12 @@ class CountryPropertyReportCardNameTab(Enum):
     DOCUMENTS = 'Документы'
     PHOTOS = 'Фотографии'
     VERIFICATION = 'Верификация'
+
+
+class CountryPropertyReportVerificationResult(Enum):
+    ACCEPTED = 'Принято'
+
+
+class CountryPropertyReportLackDocuments(Enum):
+    TRUE = 'true'
+    FALSE = 'false'

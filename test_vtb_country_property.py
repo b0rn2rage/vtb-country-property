@@ -15,6 +15,7 @@ from options.links import LinksKrona
 from options.auth import AuthBankAppraiser
 from options.auth import AuthKrona
 from options.data import DataBankAppraiser
+from options.data import DataKrona
 from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectDepartment
@@ -28,6 +29,8 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectGas
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportStatus
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportFlagForStandard
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportCardNameTab
+from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportVerificationResult
+from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportLackDocuments
 
 
 report_number = ''
@@ -178,3 +181,11 @@ def test_srg_verification_via_report_card(browser):
     page.check_values_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
                                                  CountryPropertyReportFlagForStandard.YES)
     page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)
+    page.attach_an_expert_calculation()
+    page.input_new_price_in_the_table(DataKrona.KronaCountryReport.Moscow_verification_low_price_house,
+                                      DataKrona.KronaCountryReport.Moscow_verification_low_price_land)
+    page.checking_lack_documents()
+    page.click_the_verification_button()
+    page.checking_values_after_verification(CountryPropertyReportStatus.READY,
+                                            CountryPropertyReportVerificationResult.ACCEPTED,
+                                            CountryPropertyReportLackDocuments.TRUE)
