@@ -1,6 +1,7 @@
 from pages.base_page import BasePage
 from krona_pages.krona_locators import KronaCountryPropertyReportCardPageLocators
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportCardNameTab
+from selenium.common.exceptions import NoSuchElementException
 import os
 
 
@@ -9,7 +10,7 @@ class KronaReportCardGeneralInformationPage(BasePage):
 
     def attach_an_expert_calculation(self):
         """Прикрепить excel файл с расчетом эксперта."""
-        assert self.browser.find_element(
+        assert self.is_element_present(
             *KronaCountryPropertyReportCardPageLocators.BUTTON_FOR_ATTACH_EXPERT_CALCULATION), \
             "Кнопка 'Загрузить файлы' отсутствует на странице"
         input_expert_calculation = self.browser.find_element(
@@ -33,7 +34,7 @@ class KronaReportCardGeneralInformationPage(BasePage):
 
     def checking_lack_documents(self):
         """Активация чек-бокса 'Не хватает документов на коммуникации'."""
-        assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS), \
+        assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS), \
             "Чек-бокс 'Не хватает документов на коммуникации' отсутсвует на странице."
         activate_checkbox = self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS)
         activate_checkbox.click()
@@ -45,13 +46,14 @@ class KronaReportCardGeneralInformationPage(BasePage):
         KronaReportCardGeneralInformationPage.go_to_the_tab_in_the_report_card(
             self, CountryPropertyReportCardNameTab.VERIFICATION)
         assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS).get_attribute(
-            'value') == lack_documents.value, f"Признак отсутствия документов != {lack_documents.value}"
+            'checked') == lack_documents.value, \
+            f"Признак отсутствия документов != {lack_documents.value}"
         assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.RESULT).text == result.value, \
             f"Результат отчета после верификации != {result.value}"
 
     def click_the_verification_button(self):
         """Нажатие кнопки 'Верифицировать'."""
-        assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.VERIFICATION_BUTTON), \
+        assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.VERIFICATION_BUTTON), \
             "Кнопка 'Верифицировать' отсутствует на странице."
         button_for_verification = self.browser.find_element(
             *KronaCountryPropertyReportCardPageLocators.VERIFICATION_BUTTON)
@@ -71,13 +73,16 @@ class KronaReportCardGeneralInformationPage(BasePage):
         selected_tab = dict_with_the_names_of_the_tabs[tab.value]
         self.browser.find_element(*selected_tab).click()
 
-    def input_new_price_in_the_table(self, house_price, land_price):
+    def input_new_price_in_the_table(self, house_price, land_price=0):
         """Ввод новой стоимости в таблицу 'Верифицированная стоимость'."""
-        assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.INPUT_PRICE_FOR_FIRST_OBJECT), \
+        assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.INPUT_PRICE_FOR_FIRST_OBJECT), \
             "Поле для ввода новой стоимости отсутствует в таблице"
-        new_price_for_first_object = self.browser.find_element(
-            *KronaCountryPropertyReportCardPageLocators.INPUT_PRICE_FOR_FIRST_OBJECT)
-        new_price_for_first_object.send_keys(house_price)
-        new_price_for_second_object = self.browser.find_element(
-            *KronaCountryPropertyReportCardPageLocators.INPUT_PRICE_FOR_SECOND_OBJECT)
-        new_price_for_second_object.send_keys(land_price)
+        try:
+            new_price_for_first_object = self.browser.find_element(
+                *KronaCountryPropertyReportCardPageLocators.INPUT_PRICE_FOR_FIRST_OBJECT)
+            new_price_for_first_object.send_keys(house_price)
+            new_price_for_second_object = self.browser.find_element(
+                *KronaCountryPropertyReportCardPageLocators.INPUT_PRICE_FOR_SECOND_OBJECT)
+            new_price_for_second_object.send_keys(land_price)
+        except NoSuchElementException:
+            print('Поле для ввода не найдено')

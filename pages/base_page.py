@@ -26,6 +26,14 @@ class BasePage:
             return False
         return True
 
+    def is_element_not_present(self, how, what):
+        """Проверка отсутствия элемента на странице"""
+        try:
+            self.browser.find_element(how, what)
+        except NoSuchElementException:
+            return True
+        return False
+
     def is_element_clickable(self, how, what, timeout=10):
         """ Проверка того, что элемент является кликабельным """
         try:

@@ -136,3 +136,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+/options/secret_config.py
+/samples/
+/sqlconnect.py

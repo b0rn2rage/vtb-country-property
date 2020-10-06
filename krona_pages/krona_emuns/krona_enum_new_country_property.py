@@ -26,5 +26,5 @@ class CountryPropertyReportVerificationResult(Enum):
 
 
 class CountryPropertyReportLackDocuments(Enum):
-    TRUE = 'true'
-    FALSE = 'false'
+    CHECKED = "true"
+    NOT_CHECKED = None
