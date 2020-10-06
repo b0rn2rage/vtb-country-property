@@ -5,6 +5,7 @@ class CountryPropertyReportStatus(Enum):
     ON_VERIFICATION = 'На верификации'
     THE_END_OF_THE_VERIFICATION = 'Окончание верификации SRG'
     READY = 'Готово'
+    CHECK_UZI = 'Проверка УЗИ'
 
 
 class CountryPropertyReportFlagForStandard(Enum):

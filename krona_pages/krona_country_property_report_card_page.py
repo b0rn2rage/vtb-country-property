@@ -59,6 +59,12 @@ class KronaReportCardGeneralInformationPage(BasePage):
             *KronaCountryPropertyReportCardPageLocators.VERIFICATION_BUTTON)
         button_for_verification.click()
 
+    def click_the_decision_button(self):
+        """Нажатте кнопки 'Решение' при верификации за сотрудника банка."""
+        assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.DECISION_BUTTON), \
+            "Кнопка 'Решение' отсутствует на странице."
+
+
     def go_to_the_tab_in_the_report_card(self, tab):
         """Переход по вкладкам в карточке отчета."""
         dict_with_the_names_of_the_tabs = \

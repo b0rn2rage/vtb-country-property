@@ -5,6 +5,8 @@ class DataBankAppraiser:
     class BaCountryReport:
         Moscow_low_price_house = "17000000"
         Moscow_low_price_land = "2999999"
+        Moscow_high_price_house = "17000001"
+        Moscow_high_price_land = "2999999"
         Moscow_address_for_country_property = "г Москва, ул Тестовская, д 1А"
         Borrower_Customer_Name = 'Рандомное Физическое лицо'
         Report_Number = 'autotest_vtb_country_property '
@@ -17,5 +19,7 @@ class DataKrona:
     class KronaCountryReport:
         Moscow_verification_low_price_house = "16000000"
         Moscow_verification_low_price_land = "2500000"
+        Moscow_verification_high_price_house = "19000000"
+        Moscow_verification_high_price_land = "4000000"
 
 

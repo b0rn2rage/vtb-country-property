@@ -39,3 +39,4 @@ class KronaCountryPropertyReportCardPageLocators:
     LACK_DOCUMENTS = (By.CSS_SELECTOR, "#lackDocuments")
     VERIFICATION_BUTTON = (By.CSS_SELECTOR, "#btnSend.btn.btn-primary")
     RESULT = (By.XPATH, "//td[contains(text(), 'Принято')]")
+    DECISION_BUTTON = (By.XPATH, "//a[contains(text(), 'Решение')]")
