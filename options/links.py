@@ -1,6 +1,6 @@
 class LinksBankAppraiser:
     class DefaultTest:
-        login_link = "https://testba.srg-it.ru/login.html"
+        login_page_link = "https://testba.srg-it.ru/login.html"
 
 
 class LinksKrona:

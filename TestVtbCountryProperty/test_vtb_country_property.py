@@ -45,7 +45,7 @@ class TestSrgVerificationStandardObjectViaReportCard:
         """
     def test_login_to_ba(self, browser):
         """Авторизация в БО."""
-        link = LinksBankAppraiser.DefaultTest.login_link  # Выбор тестового стенда
+        link = LinksBankAppraiser.DefaultTest.login_page_link  # Выбор тестового стенда
         page = BaLoginPage(browser, link)
         page.open()
         page.close_fb_popup()
@@ -196,7 +196,7 @@ class TestSrgVerificationNonStandardObjectViaReportCard:
     """
     def test_login_to_ba(self, browser):
         """Авторизация в БО."""
-        link = LinksBankAppraiser.DefaultTest.login_link  # Выбор тестового стенда
+        link = LinksBankAppraiser.DefaultTest.login_page_link  # Выбор тестового стенда
         page = BaLoginPage(browser, link)
         page.open()
         page.close_fb_popup()
@@ -323,7 +323,7 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
    """
     def test_login_to_ba(self, browser):
         """Авторизация в БО."""
-        link = LinksBankAppraiser.DefaultTest.login_link  # Выбор тестового стенда
+        link = LinksBankAppraiser.DefaultTest.login_page_link  # Выбор тестового стенда
         page = BaLoginPage(browser, link)
         page.open()
         page.close_fb_popup()

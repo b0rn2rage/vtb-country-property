@@ -138,4 +138,4 @@ dmypy.json
 cython_debug/
 /options/secret_config.py
 /samples/
-/sqlconnect.py
+/options/sqlconnect.py
