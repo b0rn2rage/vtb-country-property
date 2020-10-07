@@ -8,9 +8,8 @@ from selenium.common.exceptions import TimeoutException
 class BasePage:
     """Инициализация экземпляров класса"""
 
-    def __init__(self, browser, url):
+    def __init__(self, browser):
         self.browser = browser
-        self.url = url
 
     @staticmethod
     def current_date():
@@ -57,10 +56,6 @@ class BasePage:
         except TimeoutException:
             return False
         return True
-
-    def open(self):
-        """ Открытие страницы по ссылке """
-        self.browser.get(self.url)
 
     def text_in_element_is_correct(self, how, what, expected_text, timeout=5):
         """ Проверка того, что текст внутри элемента изменяется на правильный """

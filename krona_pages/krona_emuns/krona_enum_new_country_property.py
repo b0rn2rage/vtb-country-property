@@ -6,6 +6,7 @@ class CountryPropertyReportStatus(Enum):
     THE_END_OF_THE_VERIFICATION = 'Окончание верификации SRG'
     READY = 'Готово'
     CHECK_UZI = 'Проверка УЗИ'
+    READY_CHANGE_PRICE = 'Готово. Изменена стоимость'
 
 
 class CountryPropertyReportFlagForStandard(Enum):
@@ -24,8 +25,14 @@ class CountryPropertyReportCardNameTab(Enum):
 
 class CountryPropertyReportVerificationResult(Enum):
     ACCEPTED = 'Принято'
+    NOT_ACCEPTED = 'Не принято'
 
 
 class CountryPropertyReportLackDocuments(Enum):
     CHECKED = "true"
     NOT_CHECKED = None
+
+
+class CountryPropertyReportDecision(Enum):
+    APPROVE = 'Принять отчет'
+    ADJUST = 'Скорректировать'

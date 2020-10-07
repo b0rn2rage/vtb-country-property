@@ -1,6 +1,4 @@
-import time
 import pytest
-from selenium.webdriver.common.by import By
 from ba_pages.ba_login_page import BaLoginPage
 from ba_pages.ba_main_page import BaMainPage
 from ba_pages.ba_new_country_property_general_information_page import BaNewCountryPropertyGeneralInformationPage
@@ -33,6 +31,7 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPrope
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportCardNameTab
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportVerificationResult
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportLackDocuments
+from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportDecision
 
 report_number = ''
 
@@ -176,12 +175,12 @@ class TestSrgVerificationStandardObjectViaReportCard:
         """Верификация сотрудником SRG через карточку отчета."""
         link = browser.current_url
         page = KronaReportCardGeneralInformationPage(browser, link)
-        page.check_values_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
-                                                     CountryPropertyReportFlagForStandard.YES)
+        page.check_values_after_ba_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
+                                                              CountryPropertyReportFlagForStandard.YES)
         page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)
         page.attach_an_expert_calculation()
-        page.input_new_price_in_the_table(DataKrona.KronaCountryReport.Moscow_verification_low_price_house,
-                                          DataKrona.KronaCountryReport.Moscow_verification_low_price_land)
+        page.input_new_price_in_the_verification_table(DataKrona.KronaCountryReport.Moscow_verification_low_price_house,
+                                                       DataKrona.KronaCountryReport.Moscow_verification_low_price_land)
         page.checking_lack_documents()
         page.click_the_verification_button()
         page.checking_values_after_verification(CountryPropertyReportStatus.READY,
@@ -304,15 +303,15 @@ class TestSrgVerificationNonStandardObjectViaReportCard:
         """Верификация сотрудником SRG через карточку отчета."""
         link = browser.current_url
         page = KronaReportCardGeneralInformationPage(browser, link)
-        page.check_values_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
-                                                     CountryPropertyReportFlagForStandard.NO)
+        page.check_values_after_ba_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
+                                                              CountryPropertyReportFlagForStandard.NO)
         page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)
         page.attach_an_expert_calculation()
-        page.input_new_price_in_the_table(DataKrona.KronaCountryReport.Moscow_verification_low_price_house)
+        page.input_new_price_in_the_verification_table(DataKrona.KronaCountryReport.Moscow_verification_low_price_house)
         page.click_the_verification_button()
-        page.checking_values_after_verification(CountryPropertyReportStatus.READY,
-                                                CountryPropertyReportVerificationResult.ACCEPTED,
-                                                CountryPropertyReportLackDocuments.NOT_CHECKED)
+        page.checking_values_after_srg_verification(CountryPropertyReportStatus.READY,
+                                                    CountryPropertyReportVerificationResult.ACCEPTED,
+                                                    CountryPropertyReportLackDocuments.NOT_CHECKED)
 
 
 @pytest.mark.run_current_test
@@ -454,8 +453,12 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
         """Верификация сотрудником SRG через карточку отчета."""
         link = browser.current_url
         page = KronaReportCardGeneralInformationPage(browser, link)
-        page.check_values_on_general_information_tab(CountryPropertyReportStatus.CHECK_UZI,
-                                                     CountryPropertyReportFlagForStandard.YES)
+        page.check_values_after_ba_on_general_information_tab(CountryPropertyReportStatus.CHECK_UZI,
+                                                              CountryPropertyReportFlagForStandard.YES)
         page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)
-
-
+        page.taking_decision(CountryPropertyReportDecision.ADJUST)
+        page.input_new_adjust_price_in_the_decision_form(
+            DataKrona.KronaCountryReport.Moscow_verification_high_price_house,
+            DataKrona.KronaCountryReport.Moscow_verification_high_price_land)
+        page.checking_values_after_vtb_verification(CountryPropertyReportStatus.READY_CHANGE_PRICE,
+                                                    CountryPropertyReportVerificationResult.NOT_ACCEPTED)

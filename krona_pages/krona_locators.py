@@ -38,5 +38,13 @@ class KronaCountryPropertyReportCardPageLocators:
     INPUT_PRICE_FOR_SECOND_OBJECT = (By.CSS_SELECTOR, "[name='verifiedObjects[1].price']")
     LACK_DOCUMENTS = (By.CSS_SELECTOR, "#lackDocuments")
     VERIFICATION_BUTTON = (By.CSS_SELECTOR, "#btnSend.btn.btn-primary")
-    RESULT = (By.XPATH, "//td[contains(text(), 'Принято')]")
+    RESULT_ACCEPT = (By.XPATH, "//td[contains(text(), 'Принято')]")
+    RESULT_NOT_ACCEPT = (By.XPATH, "//td[contains(text(), 'Не принято')]")
     DECISION_BUTTON = (By.XPATH, "//a[contains(text(), 'Решение')]")
+    DECISION_FORM = (By.CSS_SELECTOR, "#decisionForm")
+    APPROVE_BUTTON = (By.CSS_SELECTOR, '#approve')
+    ADJUST_BUTTON = (By.CSS_SELECTOR, '#showChangePriceModal')
+    INPUT_ADJUST_PRICE = (By.CSS_SELECTOR, '.price-verification-vtb')
+    CHANGE_PRICE = (By.CSS_SELECTOR, '#changePriceAdvanced')
+
+
