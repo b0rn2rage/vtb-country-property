@@ -1,63 +1,49 @@
 from pages.base_page import BasePage
 from options.data import DataBankAppraiser
 from selenium.webdriver.common.keys import Keys
-from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
+from .ba_locators import BaCountryPropertyResidentialBuildingPageLocators
 from .ba_locators import BaReportPageLocators
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BaReportPage(BasePage):
-    """
-    Описание общих методов отчета, которые не имеют привязки к конкретной странице"
-    """
+    """Описание общих методов отчета, которые не имеют привязки к конкретной странице."""
     def go_to_photos_and_documents_tab(self):
-        """ Переход в раздел 'Фотографии и документы' """
-        self.browser.find_element(
-            *BaReportPageLocators.GO_TO_PHOTOS_AND_DOCUMENTS_TAB).click()
+        """Переход в раздел 'Фотографии и документы'."""
+        self.browser.find_element(*BaReportPageLocators.GO_TO_PHOTOS_AND_DOCUMENTS_TAB).click()
 
     def go_to_new_object_tab(self):
-        """ Переход в раздел с добавленным объектом """
-        self.browser.find_element(
-            *BaReportPageLocators.GO_TO_NEW_OBJECT_TAB).click()
+        """Переход в раздел с добавленным объектом."""
+        self.browser.find_element(*BaReportPageLocators.GO_TO_NEW_OBJECT_TAB).click()
 
     def input_the_address_for_documents(self, address):
-        """ Заполнение поля 'Адрес по документам' """
-        assert self.is_element_present(
-            *BaReportPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS), \
-            "Поле 'Адрес по документам' не отображается на странице "
-        field_for_input_the_address_for_documents = self.browser.find_element(
-            *BaReportPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
-        field_for_input_the_address_for_documents.send_keys(address)
-        field_for_input_the_address_for_documents.send_keys(Keys.TAB)
-        assert field_for_input_the_address_for_documents.text == address, \
+        """Заполнение поля 'Адрес по документам'."""
+        input_the_address = self.browser.find_element(*BaReportPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
+        input_the_address.send_keys(address)
+        input_the_address.send_keys(Keys.TAB)
+        assert input_the_address.text == address, \
             f"Значение в поле 'Адрес по документам' не соответствует {address}"
 
     def input_fias_address(self, fias_address):
-        """Заполнение поля 'Адрес по ФИАС' """
-        assert self.is_element_present(*BaReportPageLocators.FIAS_DROP_DOWN_MENU), \
-            " Поле 'Адрес по ФИАС' не отображается на странице "
-        field_for_input_fias_address = self.browser.find_element(*BaReportPageLocators.INPUT_FIAS_ADDRESS)
+        """Заполнение поля 'Адрес по ФИАС'."""
+        input_fias = self.browser.find_element(*BaReportPageLocators.INPUT_FIAS_ADDRESS)
         for char in fias_address:
-            field_for_input_fias_address.send_keys(char)
-        # is_element_presence в течение таймаута чекает подтянувшееся значение из КРОНЫ
+            input_fias.send_keys(char)
         assert self.is_element_presence(
             By.XPATH, f"//span[contains(text(), '{fias_address}')]"), \
             f"Введенный {fias_address} не отображается в поле 'Адрес по ФИАС'. Возможно тормозит КРОНА "
-        field_for_input_fias_address.send_keys(Keys.RETURN)
+        input_fias.send_keys(Keys.RETURN)
         check_value_in_fias_address_field = self.browser.find_element(
             By.XPATH, f"//div[contains(text(), '{fias_address}')]")
         assert check_value_in_fias_address_field.text == \
             fias_address, f"Значение в поле 'Адрес по ФИАС' не соответствует {fias_address}"
 
-    def input_total_area_of_the_assessment_object(self, total_area):
-        """ Заполнение поля с общей площадью ОО """
-        assert self.is_element_present(*BaReportPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT), \
-            " Поле 'Общая площадь объекта оценки' не отображается на странице "
-        field_for_input_total_area_of_the_assessment_object = self.browser.find_element(
-            *BaReportPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
-        field_for_input_total_area_of_the_assessment_object.send_keys(total_area)
-        assert field_for_input_total_area_of_the_assessment_object.get_attribute("value") == total_area, \
+    def input_total_area(self, total_area):
+        """Заполнение поля с общей площадью ОО."""
+        input_area = self.browser.find_element(*BaReportPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
+        input_area.send_keys(total_area)
+        assert input_area.get_attribute("value") == total_area, \
             f"Значение в поле 'Общая площадь объекта оценки' не соответствует {total_area}"
 
     def input_market_price_of_the_object(self, market_price):
@@ -129,18 +115,16 @@ class BaReportPage(BasePage):
         assert self.text_in_element_is_correct(*BaReportPageLocators.SUCCESSFUL_SIGN,
                                                'Отчет готов к печати!'), "При подписании отчета возникла ошибка"
 
-    def select_property_rights_to_the_object_assessments(self, right):
-        """ Выбор права в поле 'Имущественные права на объект оценки' """
-        assert self.is_element_present(*BaReportPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT), \
-            " Поле 'Имущественные права на объект оценки' отсутствует на странице "
+    def select_property_rights(self, right):
+        """Выбор права в поле 'Имущественные права на объект оценки'."""
         drop_down_menu_for_the_property_rights_field = self.browser.find_element(
             *BaReportPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT)
         drop_down_menu_for_the_property_rights_field.click()
         dict_with_property_rights = \
             {
-                'Право собственности': BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_OWNERSHIP,
-                'Права не оформлены': BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_RIGHTS_ARE_NOT_ISSUED,
-                'Аренда': BaNewCountryPropertyResidentialBuildingPageLocators.SELECT_RENT
+                'Право собственности': BaCountryPropertyResidentialBuildingPageLocators.SELECT_OWNERSHIP,
+                'Права не оформлены': BaCountryPropertyResidentialBuildingPageLocators.SELECT_RIGHTS_ARE_NOT_ISSUED,
+                'Аренда': BaCountryPropertyResidentialBuildingPageLocators.SELECT_RENT
             }
         select_a_right = dict_with_property_rights[right.value]
         self.browser.find_element(*select_a_right).click()

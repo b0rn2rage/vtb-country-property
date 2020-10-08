@@ -1,0 +1,19 @@
+{
+  "BankAppraiser": {
+    "test": "https://testba.srg-it.ru/login.html",
+    "duo": "https://duo.testba.srg-it.ru/login.html",
+    "test-10": "https://test10-ba.srg-test.ru/login.html",
+    "test-11": "https://test11-ba.srg-test.ru/login.html",
+    "test-2": "https://test2-ba.srg-test.ru/login.html",
+    "test-6": "https://test6-ba.srg-test.ru/",
+    "test-5": "https://test5-ba.srg-test.ru/login.html"
+  },
+  "Krona": {
+    "test": "https://test.srg-it.ru/9r/login",
+    "duo": "https://duo.test.srg-it.ru/9r/login",
+    "test-10": "https://test10.srg-test.ru/9r/login",
+    "test-11": "https://test11.srg-test.ru/9r/login",
+    "test-6": "https://test6.srg-test.ru/9r/login",
+    "test-5": "https://test5-krona.srg-test.ru/9r/login"
+  }
+}

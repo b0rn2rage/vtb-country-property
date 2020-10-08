@@ -1,5 +1,5 @@
 from pages.base_page import BasePage
-from .ba_locators import BaNewCountryPropertyResidentialBuildingPageLocators
+from .ba_locators import BaCountryPropertyResidentialBuildingPageLocators
 from .ba_locators import BaNewCountryPropertyLandPageLocators
 from options.data import DataBankAppraiser
 

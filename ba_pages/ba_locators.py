@@ -30,7 +30,7 @@ class BaMainPageLocators:
         By.XPATH, "//a[contains(text(), 'Товарно-материальные ценности') and contains(@class, 'btn-success')]")
 
 
-class BaNewCountryPropertyGeneralInformationPageLocators:
+class BaCountryPropertyGeneralInfoPageLocators:
     MODAL_POPUP = (By.CSS_SELECTOR, '.ui.modal')
     CLOSE_MODAL_POPUP = (By.CSS_SELECTOR, '.ui.large.basic')
     BANK_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Банк')]/..//div[contains(@id, 'node-SELECT-')]")
@@ -44,7 +44,7 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
         By.XPATH, "//label[contains(text(),'Сотрудник банка')]/..//div[contains(@id, 'node-SELECT-')]")
     INPUT_BANK_EMPLOYEE = (By.XPATH,
                            "//label[contains(text(),'Сотрудник банка')]/..//div[contains(@id, 'node-SELECT-')]/input")
-    INPUT_FULL_NAME_OF_THE_BORROWER_CUSTOMER = (By.XPATH,
+    INPUT_NAME_OF_THE_BORROWER_CUSTOMER = (By.XPATH,
                                                 "//label[contains(text(), 'ФИО Заемщика/Заказчика')]/..//input")
     INPUT_REPORT_NUMBER = (By.XPATH, "//label[contains(text(), 'Номер отчета')]/..//input")
     REPORT_DATE_FIELD = (By.XPATH, "//label[contains(text(), 'Дата отчета')]/..//input")
@@ -79,7 +79,7 @@ class BaNewCountryPropertyGeneralInformationPageLocators:
         By.XPATH, "//label[contains(text(),'Внутренний осмотр')]/..//div[contains(text(), 'Проводился')]")
 
 
-class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
+class BaCountryPropertyPhotosAndDocsPageLocators:
     INPUT_PHOTO = (By.XPATH, "//div[contains(text(), 'Фотографии')]/../../..//input")
     UPLOAD_PROGRESS_BAR_FOR_PHOTO = (
         By.XPATH, "//div[contains(text(), 'Фотографии')]/../../..//div[contains(@class, 'ui') and "
@@ -90,7 +90,7 @@ class BaNewCountryPropertyPhotosAndDocumentsPageLocators:
                   " contains(@class, 'blue') and @data-percent='100']")
 
 
-class BaNewCountryPropertyResidentialBuildingPageLocators:
+class BaCountryPropertyResidentialBuildingPageLocators:
     INPUT_NAME_OF_THE_OBJECT = (
         By.XPATH, "//label[contains(text(), 'Наименование объекта')]/..//textarea[contains(@id, 'node-INPUT-')]")
     SELECT_OWNERSHIP = (By.XPATH, "//span[contains(text(), 'Право собственности')]")
@@ -98,7 +98,14 @@ class BaNewCountryPropertyResidentialBuildingPageLocators:
     SELECT_RENT = (By.XPATH, "//span[contains(text(), 'Аренда')]")
     WALL_MATERIAL_DROP_DOWN_MENU = (By.XPATH,
                                     "//label[contains(text(),'Материал стен')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_WALL_MATERIAL = (By.XPATH, "//span[contains( text(), 'Кирпич')]")
+    SELECT_WALL_BRICK = (By.XPATH, "//span[contains( text(), 'Кирпич')]")
+    SELECT_WALL_PANEL = (By.XPATH, "//span[contains( text(), 'Панель')]")
+    SELECT_WALL_MONOLITH = (By.XPATH, "//span[contains( text(), 'Монолит')]")
+    SELECT_WALL_BLOCK = (By.XPATH, "//span[contains( text(), 'Блок')]")
+    SELECT_WALL_WOOD = (By.XPATH, "//span[contains( text(), 'Дерево')]")
+    SELECT_WALL_BALK = (By.XPATH, "//span[contains( text(), 'Брус')]")
+    SELECT_WALL_STONE = (By.XPATH, "//span[contains( text(), 'Каменные')]")
+    SELECT_WALL_CARCASS = (By.XPATH, "//span[contains( text(), 'Каркасные')]")
     CHECKING_THE_SELECTED_WALL_MATERIAL = (By.XPATH, "//div[contains(text(), 'Кирпич')]")
     REPAIRS_DROP_DOWN_MENU = (By.XPATH,
                               "//label[contains(text(),'Состояние отделки')]/..//div[contains(@id, 'node-SELECT-')]")

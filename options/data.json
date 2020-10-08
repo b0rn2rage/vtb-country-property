@@ -1,4 +1,42 @@
 {
-  "VtbLogin": "autotest-country-property-vtb@test.ru",
-  "VtbPassword": "testvtb"
+  "DataBankAppraiser": {
+    "Auth": {
+      "Login": {
+        "Vtb": "autotest-country-property-vtb@test.ru"
+      },
+      "Password": {
+        "Vtb": "testvtb"
+      }
+    },
+    "BaCountryReport": {
+      "MoscowLowPriceHouse": "17000000",
+      "MoscowLowPriceLand": "2999999",
+      "MoscowHighPriceHouse": "17000001",
+      "MoscowHighPriceLand": "2999999",
+      "MoscowAddressForCountryProperty": "г Москва, ул Тестовская, д 1А",
+      "BorrowerCustomerName": "Рандомное Физическое лицо",
+      "ReportNumber": "autotest_vtb_country_property +",
+      "NameOfTheObject": "Home Sweet Home ^_^",
+      "TotalArea": "250",
+      "BankEmployee": "Селениумов Питон (autotest-country-property-vtb@test.ru)"
+    }
+  },
+  "DataKrona": {
+    "KronaCountryReport": {
+      "MoscowVerificationLowPriceHouse": "16000000",
+      "MoscowVerificationLowPriceLand": "2500000",
+      "MoscowVerificationHighPriceHouse": "19000000",
+      "MoscowVerificationHighPriceLand": "4000000"
+    },
+    "Auth": {
+      "Login": {
+        "Vtb": "autotest-country-property-vtb",
+        "Srg": "autotest-country-property-srg"
+      },
+      "Password": {
+        "Vtb": "testvtb",
+        "Srg": "testsrg"
+      }
+    }
+  }
 }
