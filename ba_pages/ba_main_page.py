@@ -22,7 +22,7 @@ class BaMainPage(BasePage):
     def close_simple_notification_modal(self):
         """Закрытие всплывающИХ окОН 'Уважаемые партнеры'."""
         try:
-            while self.is_element_visible(*BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL):
+            while self.is_element_visible(*BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL, timeout=3):
                 button_for_closing_simple_notification_modal = self.browser.find_element(
                     *BaMainPageLocators.CLOSE_SIMPLE_NOTIFICATION_MODAL)
                 button_for_closing_simple_notification_modal.click()

@@ -1,6 +1,7 @@
 from pages.base_page import BasePage
 from .ba_locators import BaCountryPropertyResidentialBuildingPageLocators
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 
 class BaCountryPropertyResidentialBuildingPage(BasePage):
@@ -23,25 +24,42 @@ class BaCountryPropertyResidentialBuildingPage(BasePage):
         drop_down_menu_for_wall_material_field.click()
         dict_with_wall_materials = \
             {
+                'Кирпич': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_BRICK,
+                'Панель': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_PANEL,
+                'Монолит': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_MONOLITH,
+                'Блок': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_BLOCK,
+                'Дерево': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_WOOD,
+                'Брус': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_BALK,
+                'Каменные': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_STONE,
+                'Каркасные': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_CARCASS,
+                'Металлокаркасные панели/Легкие конструкции': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_METAL_FRAME_PANELS,
+                'Монолит-кирпич': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_MONOLITH_BRICK,
+                'СИП панели': BaCountryPropertyResidentialBuildingPageLocators.SELECT_WALL_SIP_PANELS
 
             }
-        assert self.browser.find_element(
-            *BaCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_WALL_MATERIAL).text == "Кирпич",\
-            " Значение в поле 'Материал стен' != Кирпич "
+        select_material = dict_with_wall_materials[material.value]
+        self.browser.find_element(*select_material).click()
+        assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{material.value}')]").text == \
+            material.value, f"Значение в поле 'Материал стен' != {material.value}."
 
-    def select_repairs(self):
+    def select_repairs(self, repairs):
         """Выбор состояния отделки"""
-        assert self.is_element_present(*BaCountryPropertyResidentialBuildingPageLocators.REPAIRS_DROP_DOWN_MENU), \
-            " Поле 'Состояние отделки' не отображается на странице"
         drop_down_menu_for_repairs_field = self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.REPAIRS_DROP_DOWN_MENU)
         drop_down_menu_for_repairs_field.click()
-        select_a_good_repair = self.browser.find_element(
-            *BaCountryPropertyResidentialBuildingPageLocators.SELECT_REPAIRS)
-        select_a_good_repair.click()
+        dict_with_repairs = \
+            {
+                'Без отделки': BaCountryPropertyResidentialBuildingPageLocators.SELECT_REPAIRS_WITHOUT,
+                'Под чистовую отделку': BaCountryPropertyResidentialBuildingPageLocators.SELECT_REPAIRS_CLEAN,
+                'Среднее (жилое) состояние': BaCountryPropertyResidentialBuildingPageLocators.SELECT_REPAIRS_AVERAGE,
+                'Хорошее состояние': BaCountryPropertyResidentialBuildingPageLocators.SELECT_REPAIRS_GOOD,
+                'Отличное (евро) состояние': BaCountryPropertyResidentialBuildingPageLocators.SELECT_REPAIRS_EXCELLENT
+            }
+        select_condition = dict_with_repairs[repairs.value]
+        self.browser.find_element(*select_condition).click()
         assert self.browser.find_element(
-            *BaCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_REPAIRS).text == \
-            "Хорошее состояние", " Значение в поле 'Состояние отделки' != Хорошее состояние "
+            By.XPATH, f"//div[contains(text(), '{repairs.value}')]").text == repairs.value, \
+            f"Значение в поле 'Состояние отделки' != {repairs.value}."
 
     def select_heat_supply(self):
         """Выбор теплоснабжения"""

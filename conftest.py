@@ -14,13 +14,13 @@ def browser():
 
 @pytest.fixture(scope='session')
 def config():
-    with open(os.getcwd()+'\\options\\data.json') as config_file:
+    with open(os.getcwd()+'\\options\\data.json', encoding='utf-8') as config_file:
         data = json.load(config_file)
     return data
 
 
 @pytest.fixture(scope='session')
 def host():
-    with open(os.getcwd()+'\\options\\hostname.json') as host_file:
+    with open(os.getcwd()+'\\options\\hostname.json', encoding='utf-8') as host_file:
         host_names = json.load(host_file)
     return host_names

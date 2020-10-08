@@ -106,11 +106,17 @@ class BaCountryPropertyResidentialBuildingPageLocators:
     SELECT_WALL_BALK = (By.XPATH, "//span[contains( text(), 'Брус')]")
     SELECT_WALL_STONE = (By.XPATH, "//span[contains( text(), 'Каменные')]")
     SELECT_WALL_CARCASS = (By.XPATH, "//span[contains( text(), 'Каркасные')]")
-    CHECKING_THE_SELECTED_WALL_MATERIAL = (By.XPATH, "//div[contains(text(), 'Кирпич')]")
+    SELECT_WALL_METAL_FRAME_PANELS = (
+        By.XPATH, "//span[contains( text(), 'Металлокаркасные панели/Легкие конструкции')]")
+    SELECT_WALL_MONOLITH_BRICK = (By.XPATH, "//span[contains( text(), 'Монолит-кирпич')]")
+    SELECT_WALL_SIP_PANELS = (By.XPATH, "//span[contains( text(), 'СИП панели')]")
     REPAIRS_DROP_DOWN_MENU = (By.XPATH,
                               "//label[contains(text(),'Состояние отделки')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_REPAIRS = (By.XPATH, "//span[contains( text(), 'Хорошее состояние')]")
-    CHECKING_THE_SELECTED_REPAIRS = (By.XPATH, "//div[contains(text(), 'Хорошее состояние')]")
+    SELECT_REPAIRS_WITHOUT = (By.XPATH, "//span[contains( text(), 'Без отделки')]")
+    SELECT_REPAIRS_CLEAN = (By.XPATH, "//span[contains( text(), 'Под чистовую отделку')]")
+    SELECT_REPAIRS_AVERAGE = (By.XPATH, "//span[contains( text(), 'Среднее (жилое) состояние')]")
+    SELECT_REPAIRS_GOOD = (By.XPATH, "//span[contains( text(), 'Хорошее состояние')]")
+    SELECT_REPAIRS_EXCELLENT = (By.XPATH, "//span[contains( text(), 'Отличное (евро) состояние')]")
     HEAT_SUPPLY_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(@id, 'node-SELECT-')]")
     SELECT_HEAT_SUPPLY = (By.XPATH,

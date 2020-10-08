@@ -9,6 +9,8 @@ from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectDepartment
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectObjectType
 from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectPropertyRights
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWallMaterial
+from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectRepairs
 import pytest
 import time
 
@@ -61,4 +63,6 @@ def test_srg_verify_standard_obj_via_report_card(browser, config, host):
         config['DataBankAppraiser']['BaCountryReport']['MoscowAddressForCountryProperty'])
     ba_report_page.input_total_area(config['DataBankAppraiser']['BaCountryReport']['TotalArea'])
     ba_report_page.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
-    ba_country_property_residential_building_page.select_wall_material()
+    ba_country_property_residential_building_page.select_wall_material(BaSelectWallMaterial.BRICK)
+    ba_country_property_residential_building_page.select_repairs(BaSelectRepairs.GOOD)
+

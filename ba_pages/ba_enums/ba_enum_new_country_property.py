@@ -36,6 +36,28 @@ class BaSelectObjectType(Enum):
     OTHER = 'Иное'
 
 
+class BaSelectWallMaterial(Enum):
+    BRICK = 'Кирпич'
+    PANEL = 'Панель'
+    MONOLITH = 'Монолит'
+    BLOCK = 'Блок'
+    WOOD = 'Дерево'
+    BALK = 'Брус'
+    STONE = 'Каменные'
+    CARCASS = 'Каркасные'
+    METAL_FRAME_PANELS = 'Металлокаркасные панели/Легкие конструкции'
+    MONOLITH_BRICK = 'Монолит-кирпич'
+    SIP_PANELS = 'СИП панели'
+
+
+class BaSelectRepairs(Enum):
+    WITHOUT = 'Без отделки'
+    CLEAN = 'Под чистовую отделку'
+    AVERAGE = 'Среднее (жилое) состояние'
+    GOOD = 'Хорошее состояние'
+    EXCELLENT = 'Отличное (евро) состояние'
+
+
 class BaSelectReasonWhyNotEGRN(Enum):
     TECHNICAL_ISSUE = 'Техническая проблема на сайте Росреестра'
     OTHER = 'Другое'

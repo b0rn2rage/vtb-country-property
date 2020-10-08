@@ -1,5 +1,4 @@
 from pages.base_page import BasePage
-from options.data import DataBankAppraiser
 from selenium.webdriver.common.keys import Keys
 from .ba_locators import BaCountryPropertyResidentialBuildingPageLocators
 from .ba_locators import BaReportPageLocators
