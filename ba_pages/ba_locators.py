@@ -119,9 +119,8 @@ class BaCountryPropertyResidentialBuildingPageLocators:
     SELECT_REPAIRS_EXCELLENT = (By.XPATH, "//span[contains( text(), 'Отличное (евро) состояние')]")
     HEAT_SUPPLY_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_HEAT_SUPPLY_NO = (By.XPATH,
-                             "//label[contains(text(),'Теплоснабжение')]/..//"
-                             "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
+    SELECT_HEAT_SUPPLY_NO = (By.XPATH, "//label[contains(text(),'Теплоснабжение')]/.."
+                                       "//div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
     SELECT_HEAT_SUPPLY_AUTONOMOUS = (By.XPATH,
                                      "//label[contains(text(),'Теплоснабжение')]/..//"
                                      "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, автономное')]")
