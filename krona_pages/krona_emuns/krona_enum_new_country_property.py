@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class CountryPropertyReportStatus(Enum):
+class KronaCountryPropertyReportStatus(Enum):
     ON_VERIFICATION = 'На верификации'
     THE_END_OF_THE_VERIFICATION = 'Окончание верификации SRG'
     READY = 'Готово'
@@ -9,12 +9,12 @@ class CountryPropertyReportStatus(Enum):
     READY_CHANGE_PRICE = 'Готово. Изменена стоимость'
 
 
-class CountryPropertyReportFlagForStandard(Enum):
+class KronaCountryPropertyReportFlagForStandard(Enum):
     YES = 'Да'
     NO = 'Нет'
 
 
-class CountryPropertyReportCardNameTab(Enum):
+class KronaCountryPropertyReportCardNameTab(Enum):
     GENERAL_INFORMATION = 'Общая информация'
     FIRST_OBJECT = 'Объект 1'
     SECOND_OBJECT = 'Объект 2'
@@ -23,16 +23,16 @@ class CountryPropertyReportCardNameTab(Enum):
     VERIFICATION = 'Верификация'
 
 
-class CountryPropertyReportVerificationResult(Enum):
+class KronaCountryPropertyReportVerificationResult(Enum):
     ACCEPTED = 'Принято'
     NOT_ACCEPTED = 'Не принято'
 
 
-class CountryPropertyReportLackDocuments(Enum):
+class KronaCountryPropertyReportLackDocuments(Enum):
     CHECKED = "true"
     NOT_CHECKED = None
 
 
-class CountryPropertyReportDecision(Enum):
+class KronaCountryPropertyReportDecision(Enum):
     APPROVE = 'Принять отчет'
     ADJUST = 'Скорректировать'

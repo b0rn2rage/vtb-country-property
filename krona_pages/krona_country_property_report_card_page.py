@@ -1,12 +1,12 @@
 from pages.base_page import BasePage
 from krona_pages.krona_locators import KronaCountryPropertyReportCardPageLocators
-from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportCardNameTab
+from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportCardNameTab
 from selenium.common.exceptions import NoSuchElementException
 import os
 
 
-class KronaReportCardGeneralInformationPage(BasePage):
-    """Карточка отчета, вкладка 'Общая информация'."""
+class KronaCountryPropertyReportCardPage(BasePage):
+    """Карточка отчета, все вкладки."""
 
     def attach_an_expert_calculation(self):
         """Прикрепить excel файл с расчетом эксперта."""
@@ -20,7 +20,7 @@ class KronaReportCardGeneralInformationPage(BasePage):
         assert self.is_element_presence(*KronaCountryPropertyReportCardPageLocators.PROGRESS_BAR_FINISHED_DOWNLOADING),\
             "Файл с расчетом эксперта не загрузился."
 
-    def check_values_after_ba_on_general_information_tab(self, status, flag_for_standard):
+    def check_values_after_ba(self, status, flag_for_standard):
         assert self.is_element_presence(
             *KronaCountryPropertyReportCardPageLocators.REPORT_STATUS), \
             "Поле 'Статус отчета' не отображается на странице."
@@ -32,7 +32,7 @@ class KronaReportCardGeneralInformationPage(BasePage):
         assert report_flag_for_standard.get_attribute('value') == flag_for_standard.value, \
             "Признак стандартного отчета проставлен не правильно."
 
-    def checking_lack_documents(self):
+    def lack_documents(self):
         """Активация чек-бокса 'Не хватает документов на коммуникации'."""
         assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS), \
             "Чек-бокс 'Не хватает документов на коммуникации' отсутсвует на странице."
@@ -45,8 +45,8 @@ class KronaReportCardGeneralInformationPage(BasePage):
             "Поле со статусом не отображается на странице"
         assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.REPORT_STATUS).get_attribute(
             'value') == status.value, f'Статус отчета после верификации != {status.value}'
-        KronaReportCardGeneralInformationPage.go_to_the_tab_in_the_report_card(
-            self, CountryPropertyReportCardNameTab.VERIFICATION)
+        KronaCountryPropertyReportCardPage.go_to_the_tab_in_the_report_card(
+            self, KronaCountryPropertyReportCardNameTab.VERIFICATION)
         assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS).get_attribute(
             'checked') == lack_documents.value, \
             f"Признак отсутствия документов != {lack_documents.value}"
@@ -59,8 +59,8 @@ class KronaReportCardGeneralInformationPage(BasePage):
             "Поле со статусом не отображается на странице"
         assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.REPORT_STATUS).get_attribute(
             'value') == status.value, f'Статус отчета после верификации != {status.value}'
-        KronaReportCardGeneralInformationPage.go_to_the_tab_in_the_report_card(
-            self, CountryPropertyReportCardNameTab.VERIFICATION)
+        KronaCountryPropertyReportCardPage.go_to_the_tab_in_the_report_card(
+            self, KronaCountryPropertyReportCardNameTab.VERIFICATION)
         dict_with_results = \
             {
                 'Принято': KronaCountryPropertyReportCardPageLocators.RESULT_ACCEPT,

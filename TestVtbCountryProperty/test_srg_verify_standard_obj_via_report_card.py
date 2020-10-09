@@ -28,8 +28,17 @@ from ba_pages.ba_enums.ba_enums import BaSelectHeatSupply
 from ba_pages.ba_enums.ba_enums import BaSelectCategory
 
 # Импорт страниц из КРОНЫ
+from krona_pages.krona_login_page import KronaLoginPage
+from krona_pages.krona_country_property_reports_page import KronaCountryPropertyReportsPage
+from krona_pages.krona_country_property_report_card_page import KronaCountryPropertyReportCardPage
 
 # Импорт enum'ов из КРОНЫ
+from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportStatus
+from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportFlagForStandard
+from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportCardNameTab
+from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportVerificationResult
+from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportLackDocuments
+
 
 @pytest.mark.regression
 def test_srg_verify_standard_obj_via_report_card(browser, config, host):
@@ -114,5 +123,26 @@ def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     ba_country_property_report_page.select_borrower_customer_are_same_person()
     ba_country_property_report_page.save_report()
     ba_country_property_report_page.pay_report()
-    ba_country_property_report_page.sign_report()
-    krona_login_page =
+    ba_country_property_report_page.sign_report(config['DataBankAppraiser']['Auth']['Password']['Vtb'])
+    ba_country_property_report_page.open_new_window()
+    krona_login_page = KronaLoginPage(browser)
+    krona_login_page.open(host['Krona']['test'])
+    krona_login_page.login_to_krona(config['DataKrona']['Auth']['Login']['Srg'],
+                                    config['DataKrona']['Auth']['Password']['Srg'])
+    krona_country_property_reports_page = KronaCountryPropertyReportsPage(browser)
+    krona_country_property_reports_page.open_country_report_in_data_table(report_number)
+    krona_country_property_report_card_page = KronaCountryPropertyReportCardPage(browser)
+    krona_country_property_report_card_page.check_values_after_ba(
+        KronaCountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION, KronaCountryPropertyReportFlagForStandard.YES)
+    krona_country_property_report_card_page.go_to_the_tab_in_the_report_card(
+        KronaCountryPropertyReportCardNameTab.VERIFICATION)
+    krona_country_property_report_card_page.attach_an_expert_calculation()
+    krona_country_property_report_card_page.input_new_price_in_the_verification_table(
+        config['DataKrona']['KronaCountryReport']['MoscowVerificationLowPriceHouse'],
+        config['DataKrona']['KronaCountryReport']['MoscowVerificationLowPriceLand'])
+    krona_country_property_report_card_page.lack_documents()
+    krona_country_property_report_card_page.click_the_verification_button()
+    krona_country_property_report_card_page.checking_values_after_srg_verification(
+        KronaCountryPropertyReportStatus.READY, KronaCountryPropertyReportVerificationResult.ACCEPTED,
+        KronaCountryPropertyReportLackDocuments.CHECKED)
+

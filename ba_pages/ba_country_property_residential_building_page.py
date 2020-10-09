@@ -76,7 +76,7 @@ class BaCountryPropertyResidentialBuildingPage(BasePage):
         self.browser.find_element(*select_heat)
         assert self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_HEAT_SUPPLY).text == \
-            "Нет", " Значение в поле 'Теплоснабжение' != Нет "
+            heat_supply.value, f"Значение в поле 'Теплоснабжение' != {heat_supply.value}"
 
 
 

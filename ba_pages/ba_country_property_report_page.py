@@ -45,12 +45,12 @@ class BaCountryPropertyReportPage(BasePage):
         assert input_area.get_attribute("value") == total_area, \
             f"Значение в поле 'Общая площадь объекта оценки' не соответствует {total_area}"
 
-    def input_market_price(self, market_price):
+    def input_market_price(self, price):
         """Заполнение поля 'Рычноная стоимость объекта оценки'."""
         market_price = self.browser.find_element(*BaReportPageLocators.MARKET_PRICE_OF_THE_OBJECT)
-        market_price.send_keys(market_price)
-        assert market_price.get_attribute('value') == market_price, \
-            f"Значение в поле 'Рыночная стоимость объекта оценки' не соответствует {market_price}"
+        market_price.send_keys(price)
+        assert market_price.get_attribute('value') == price, \
+            f"Значение в поле 'Рыночная стоимость объекта оценки' не соответствует {price}"
 
     def pay_report(self):
         pay_report = self.browser.find_element(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK)
@@ -88,7 +88,7 @@ class BaCountryPropertyReportPage(BasePage):
         assert self.text_in_element_is_correct(*BaReportPageLocators.SAVE_REPORT_BUTTON, 'Cохранено'), \
             "Сохранить не поменялось на Сохранено. P.S. слово 'сохранено' написано в БО с ошибкой"
 
-    def sign_report(self):
+    def sign_report(self, password):
         button_for_complete_and_sign = self.browser.find_element(*BaReportPageLocators.COMPLETE_AND_SIGN_BUTTON)
         button_for_complete_and_sign.click()
         assert self.is_element_visible(*BaReportPageLocators.THE_COMPLETION_OF_THE_REPORT_WINDOW), \
@@ -97,7 +97,7 @@ class BaCountryPropertyReportPage(BasePage):
             " Поле для ввода пароля при подписании отчета не появилось на странице "
         field_for_enter_the_password_for_singing = self.browser.find_element(
             *BaReportPageLocators.ENTER_THE_PASSWORD_FOR_SIGNING)
-        field_for_enter_the_password_for_singing.send_keys(DataBankAppraiser.SharedData.password_for_singing_reports)
+        field_for_enter_the_password_for_singing.send_keys(password)
         assert self.is_element_present(*BaReportPageLocators.SIGN_BUTTON), " Кнопка 'Подписать' отсутствует на странице"
         sign_button = self.browser.find_element(*BaReportPageLocators.SIGN_BUTTON)
         sign_button.click()

@@ -9,7 +9,7 @@ from ba_pages.ba_country_property_report_page import BaCountryPropertyReportPage
 from krona_pages.krona_login_page import KronaLoginPage
 from krona_pages.krona_country_property_reports_page import KronaCountryPropertyReportsPage
 from krona_pages.krona_country_property_report_card_page import \
-    KronaReportCardGeneralInformationPage
+    KronaReportCardGeneralInfoPage
 from ba_pages.ba_enums.ba_enums import BaTypeNewReport
 from ba_pages.ba_enums.ba_enums import BaSelectBank
 from ba_pages.ba_enums.ba_enums import BaSelectDepartment
@@ -167,7 +167,7 @@ class TestSrgVerificationStandardObjectViaReportCard:
     def test_srg_verification_via_report_card(self, browser):
         """Верификация сотрудником SRG через карточку отчета."""
         link = browser.current_url
-        page = KronaReportCardGeneralInformationPage(browser, link)
+        page = KronaReportCardGeneralInfoPage(browser, link)
         page.check_values_after_ba_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
                                                               CountryPropertyReportFlagForStandard.YES)
         page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)
@@ -295,7 +295,7 @@ class TestSrgVerificationNonStandardObjectViaReportCard:
     def test_srg_verification_via_report_card(self, browser):
         """Верификация сотрудником SRG через карточку отчета."""
         link = browser.current_url
-        page = KronaReportCardGeneralInformationPage(browser, link)
+        page = KronaReportCardGeneralInfoPage(browser, link)
         page.check_values_after_ba_on_general_information_tab(CountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION,
                                                               CountryPropertyReportFlagForStandard.NO)
         page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)
@@ -445,7 +445,7 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
     def test_vtb_verification_via_report_card(self, browser):
         """Верификация сотрудником SRG через карточку отчета."""
         link = browser.current_url
-        page = KronaReportCardGeneralInformationPage(browser, link)
+        page = KronaReportCardGeneralInfoPage(browser, link)
         page.check_values_after_ba_on_general_information_tab(CountryPropertyReportStatus.CHECK_UZI,
                                                               CountryPropertyReportFlagForStandard.YES)
         page.go_to_the_tab_in_the_report_card(CountryPropertyReportCardNameTab.VERIFICATION)
