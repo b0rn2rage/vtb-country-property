@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-class BaReportPage(BasePage):
+class BaCountryPropertyReportPage(BasePage):
     """Описание общих методов отчета, которые не имеют привязки к конкретной странице."""
     def go_to_photos_and_documents_tab(self):
         """Переход в раздел 'Фотографии и документы'."""
@@ -45,19 +45,14 @@ class BaReportPage(BasePage):
         assert input_area.get_attribute("value") == total_area, \
             f"Значение в поле 'Общая площадь объекта оценки' не соответствует {total_area}"
 
-    def input_market_price_of_the_object(self, market_price):
-        """ Заполнение поля 'Рычноная стоимость объекта оценки' """
-        assert self.is_element_present(*BaReportPageLocators.MARKET_PRICE_OF_THE_OBJECT), \
-            " Поле 'Рыночная стоимость объекта оценки' не отображается на странице "
-        field_for_input_market_price_of_the_object = self.browser.find_element(
-            *BaReportPageLocators.MARKET_PRICE_OF_THE_OBJECT)
-        field_for_input_market_price_of_the_object.send_keys(market_price)
-        assert field_for_input_market_price_of_the_object.get_attribute('value') == market_price, \
+    def input_market_price(self, market_price):
+        """Заполнение поля 'Рычноная стоимость объекта оценки'."""
+        market_price = self.browser.find_element(*BaReportPageLocators.MARKET_PRICE_OF_THE_OBJECT)
+        market_price.send_keys(market_price)
+        assert market_price.get_attribute('value') == market_price, \
             f"Значение в поле 'Рыночная стоимость объекта оценки' не соответствует {market_price}"
 
     def pay_report(self):
-        assert self.is_element_present(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK), \
-            " Кнопка оплаты отчета отсутствует на странице "
         pay_report = self.browser.find_element(*BaReportPageLocators.PAY_REPORT_BUTTON_BEFORE_CLICK)
         pay_report.click()
         assert self.is_element_presence(
@@ -65,11 +60,10 @@ class BaReportPage(BasePage):
         assert self.text_in_element_is_correct(*BaReportPageLocators.PAY_REPORT_BUTTON_AFTER_CLICK, 'Оплачено'), \
             "Возникла проблема с оплатой отчета"
 
-    def redirect_to_krona_login_page(self):
-        """Открыть новое окно с страницей логина в КРОНЕ """
+    def open_new_window(self):
+        """Открыть новую закладку в браузере."""
         self.browser.execute_script("window.open()")
         self.browser.switch_to.window(self.browser.window_handles[1])
-        BasePage.open(self)
 
     def select_object_type(self, object_type):
         """ Выбор типа объекта Жилой (садовый) дом/Земельный участок/Иное """
@@ -88,17 +82,13 @@ class BaReportPage(BasePage):
             object_type.value, f"Выбранный тип недвижимости != {object_type.value}"
 
     def save_report(self):
-        """ Сохранение отчета """
-        assert self.is_element_present(*BaReportPageLocators.SAVE_REPORT_BUTTON), \
-            " Кнопка сохранения отчета отсутствует на странице "
+        """Сохранение отчета."""
         save_report = self.browser.find_element(*BaReportPageLocators.SAVE_REPORT_BUTTON)
         save_report.click()
         assert self.text_in_element_is_correct(*BaReportPageLocators.SAVE_REPORT_BUTTON, 'Cохранено'), \
             "Сохранить не поменялось на Сохранено. P.S. слово 'сохранено' написано в БО с ошибкой"
 
     def sign_report(self):
-        assert self.is_element_present(*BaReportPageLocators.COMPLETE_AND_SIGN_BUTTON), \
-            " Кнопка 'Завершить и подписать' отсутствует на странице"
         button_for_complete_and_sign = self.browser.find_element(*BaReportPageLocators.COMPLETE_AND_SIGN_BUTTON)
         button_for_complete_and_sign.click()
         assert self.is_element_visible(*BaReportPageLocators.THE_COMPLETION_OF_THE_REPORT_WINDOW), \
@@ -131,15 +121,12 @@ class BaReportPage(BasePage):
             f"Значение в поле 'Имущственые права на объект оценки' != {right}"
 
     def select_reason_why_not_egrn(self, reason):
-        """ Выбор причины отсутствия актуальной выписки из ЕГРН """
-        assert self.is_element_present(*BaReportPageLocators.EGRN_DROP_DOWN_MENU), \
-            " Поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' "
+        """Выбор причины отсутствия актуальной выписки из ЕГРН."""
         drop_down_menu_for_egrn = self.browser.find_element(*BaReportPageLocators.EGRN_DROP_DOWN_MENU)
         drop_down_menu_for_egrn.click()
         dict_with_reasons = \
             {
-                'Техническая проблема на сайте Росреестра':
-                    BaReportPageLocators.SELECT_TECHNICAL_ISSUE_EGRN,
+                'Техническая проблема на сайте Росреестра': BaReportPageLocators.SELECT_TECHNICAL_ISSUE_EGRN,
                 'Другое': BaReportPageLocators.SELECT_OTHER_ISSUE_EGRN
             }
         select_reason = dict_with_reasons[reason.value]
@@ -150,9 +137,7 @@ class BaReportPage(BasePage):
             f"Значение в поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' != {reason.value}"
 
     def select_electricity(self, electricity):
-        """ Выбор электричества """
-        assert self.is_element_present(
-            *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU), " Поле 'Электричество' не отображается на странице "
+        """Выбор электричества."""
         drop_down_menu_for_electricity_field = self.browser.find_element(
             *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU)
         drop_down_menu_for_electricity_field.click()
@@ -171,9 +156,7 @@ class BaReportPage(BasePage):
             f"Значение в поле 'Электричество' != {electricity.value}"
 
     def select_water_supply(self, water_supply):
-        """ Выбор водоснабжения """
-        assert self.is_element_present(
-            *BaReportPageLocators.WATER_SUPPLY_DROP_DOWN_MENU), " Поле 'Водоснабжение' не отображается на странице' "
+        """Выбор водоснабжения."""
         drop_down_menu_for_water_supply_field = self.browser.find_element(
             *BaReportPageLocators.WATER_SUPPLY_DROP_DOWN_MENU)
         drop_down_menu_for_water_supply_field.click()
@@ -193,9 +176,7 @@ class BaReportPage(BasePage):
             f"Значение в поле 'Водоснабжение' != {water_supply.value}"
 
     def select_sewerage(self, sewerage):
-        """ Выбор канализации """
-        assert self.is_element_present(
-            *BaReportPageLocators.SEWERAGE_DROP_DOWN_MENU), " Поле 'Канализация' не отображается на странице' "
+        """Выбор канализации."""
         drop_down_menu_for_sewerage_field = self.browser.find_element(
             *BaReportPageLocators.SEWERAGE_DROP_DOWN_MENU)
         drop_down_menu_for_sewerage_field.click()
@@ -215,9 +196,7 @@ class BaReportPage(BasePage):
             f"Значение в поле 'Канализация' != {sewerage.value}"
 
     def select_gas(self, gas):
-        """ Выбор газа """
-        assert self.is_element_present(
-            *BaReportPageLocators.GAS_DROP_DOWN_MENU), " Поле 'Газ' не отображается на странице' "
+        """Выбор газа."""
         drop_down_menu_for_gas_field = self.browser.find_element(*BaReportPageLocators.GAS_DROP_DOWN_MENU)
         drop_down_menu_for_gas_field.click()
         dict_with_gas = \
@@ -234,21 +213,17 @@ class BaReportPage(BasePage):
             f"Значение в поле 'Газ' != {gas.value}"
 
     def select_borrower_customer_are_same_person(self):
-        """Включение чек-бокса 'Замемщик/Заказчик и собственник является одним лицом' """
-        assert self.is_element_present(
-            *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON), \
-            " Чек-бокс 'Заемщик/Заказчик и собственник является одним лицом' не отображатеся на странице "
+        """Включение чек-бокса 'Замемщик/Заказчик и собственник является одним лицом'."""
         scroll_to_checkbox = self.browser.find_element(
             *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
         actions = ActionChains(self.browser)
         actions.move_to_element(scroll_to_checkbox).perform()
-        checkbox_for_borrower_customer_are_same_person_before_checked = self.browser.find_element(
+        checkbox_before_checked = self.browser.find_element(
             *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
-        self.browser.execute_script("arguments[0].click();",
-                                    checkbox_for_borrower_customer_are_same_person_before_checked)
+        self.browser.execute_script("arguments[0].click();", checkbox_before_checked)
         # После клика по чек-боксу элемент удаляется из DOM и заново загружается туда, поэтому требуется
         # переопределить элемент для проверки на то, что чек-бокс включен
-        checkbox_for_borrower_customer_are_same_person_after_checked = self.browser.find_element(
+        checkbox_after_checked = self.browser.find_element(
             *BaReportPageLocators.SELECT_THE_BORROWER_CUSTOMER_ARE_THE_SAME_PERSON)
-        assert checkbox_for_borrower_customer_are_same_person_after_checked.is_selected(), "Чек-бокс не активен"
+        assert checkbox_after_checked.is_selected(), "Чек-бокс не активен"
 

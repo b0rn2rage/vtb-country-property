@@ -91,3 +91,19 @@ class BaSelectGas(Enum):
     CENTRAL = 'Есть, центральное'
     ON_THE_SITE = 'Есть на участке'
     AT_THE_BORDER = 'По границе участка'
+
+
+class BaSelectHeatSupply(Enum):
+    NO = 'Нет'
+    AUTONOMOUS = 'Есть, автономное'
+    CENTRAL = 'Есть, центральное'
+
+
+class BaSelectCategory(Enum):
+    SETTLEMENT = 'Земли населённых пунктов (земли поселений)'
+    AGRICULTURAL = 'Земли сельскохозяйственного назначения'
+    INDUSTRY = 'Земли промышленности и иного специального назначения'
+    GUARDED = 'Земли особо охраняемых территорий и объектов'
+    FOREST = 'Земли лесного фонда'
+    WATER = 'Земли водного фонда'
+    STOCK = 'Земли запаса'

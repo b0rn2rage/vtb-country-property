@@ -61,17 +61,19 @@ class BaCountryPropertyResidentialBuildingPage(BasePage):
             By.XPATH, f"//div[contains(text(), '{repairs.value}')]").text == repairs.value, \
             f"Значение в поле 'Состояние отделки' != {repairs.value}."
 
-    def select_heat_supply(self):
+    def select_heat_supply(self, heat_supply):
         """Выбор теплоснабжения"""
-        assert self.is_element_present(
-            *BaCountryPropertyResidentialBuildingPageLocators.HEAT_SUPPLY_DROP_DOWN_MENU), \
-            " Поле 'Теплоснабжение' не отображается на странице' "
         drop_down_menu_for_heat_supply_field = self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.HEAT_SUPPLY_DROP_DOWN_MENU)
         drop_down_menu_for_heat_supply_field.click()
-        select_no_heat_supply = self.browser.find_element(
-            *BaCountryPropertyResidentialBuildingPageLocators.SELECT_HEAT_SUPPLY)
-        select_no_heat_supply.click()
+        dict_with_heat_supply = \
+            {
+                'Нет': BaCountryPropertyResidentialBuildingPageLocators.SELECT_HEAT_SUPPLY_NO,
+                'Есть, автономное': BaCountryPropertyResidentialBuildingPageLocators.SELECT_HEAT_SUPPLY_AUTONOMOUS,
+                'Есть, центральное': BaCountryPropertyResidentialBuildingPageLocators.SELECT_HEAT_SUPPLY_CENTRAL
+            }
+        select_heat = dict_with_heat_supply[heat_supply.value]
+        self.browser.find_element(*select_heat)
         assert self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_HEAT_SUPPLY).text == \
             "Нет", " Значение в поле 'Теплоснабжение' != Нет "

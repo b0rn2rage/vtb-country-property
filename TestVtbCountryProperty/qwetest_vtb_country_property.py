@@ -4,22 +4,22 @@ from ba_pages.ba_main_page import BaMainPage
 from ba_pages.ba_country_property_general_info_page import BaCountryPropertyGeneralInfoPage
 from ba_pages.ba_country_property_photos_and_docs_page import BaCountryPropertyPhotosAndDocsPage
 from ba_pages.ba_country_property_residential_building_page import BaCountryPropertyResidentialBuildingPage
-from ba_pages.ba_country_property_land_page import BaNewCountryPropertyLandPage
-from ba_pages.ba_report_page import BaReportPage
+from ba_pages.ba_country_property_land_page import BaCountryPropertyLandPage
+from ba_pages.ba_country_property_report_page import BaCountryPropertyReportPage
 from krona_pages.krona_login_page import KronaLoginPage
 from krona_pages.krona_country_property_reports_page import KronaCountryPropertyReportsPage
 from krona_pages.krona_country_property_report_card_page import \
     KronaReportCardGeneralInformationPage
-from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectDepartment
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectPropertyRights
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectObjectType
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectReasonWhyNotEGRN
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectElectricity
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWaterSupply
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectSewerage
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectGas
+from ba_pages.ba_enums.ba_enums import BaTypeNewReport
+from ba_pages.ba_enums.ba_enums import BaSelectBank
+from ba_pages.ba_enums.ba_enums import BaSelectDepartment
+from ba_pages.ba_enums.ba_enums import BaSelectPropertyRights
+from ba_pages.ba_enums.ba_enums import BaSelectObjectType
+from ba_pages.ba_enums.ba_enums import BaSelectReasonWhyNotEGRN
+from ba_pages.ba_enums.ba_enums import BaSelectElectricity
+from ba_pages.ba_enums.ba_enums import BaSelectWaterSupply
+from ba_pages.ba_enums.ba_enums import BaSelectSewerage
+from ba_pages.ba_enums.ba_enums import BaSelectGas
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportStatus
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportFlagForStandard
 from krona_pages.krona_emuns.krona_enum_new_country_property import CountryPropertyReportCardNameTab
@@ -70,7 +70,7 @@ class TestSrgVerificationStandardObjectViaReportCard:
         page.select_external_inspection()
         page.select_internal_inspection()
         page.select_file()
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.go_to_photos_and_documents_tab()
 
     def test_filling_photo_and_documents(self, browser):
@@ -79,14 +79,14 @@ class TestSrgVerificationStandardObjectViaReportCard:
         page = BaCountryPropertyPhotosAndDocsPage(browser, link)
         page.attach_photos()
         page.attach_documents()
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.go_to_new_object_tab()
 
     def test_filling_residential_building(self, browser):
         """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом'."""
         link = browser.current_url
         page = BaCountryPropertyResidentialBuildingPage(browser, link)
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.select_object_type(BaSelectObjectType.RESIDENTIAL)
         page.input_name_of_the_object(DataBankAppraiser.BaCountryReport.Name_of_the_object)
         shared_method.input_the_address_for_documents(
@@ -96,7 +96,7 @@ class TestSrgVerificationStandardObjectViaReportCard:
         shared_method.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
         page.select_wall_material()
         page.select_repairs()
-        shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
+        shared_method.input_market_price(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
         shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
         shared_method.select_electricity(BaSelectElectricity.NO)
         shared_method.select_water_supply(BaSelectWaterSupply.NO)
@@ -109,8 +109,8 @@ class TestSrgVerificationStandardObjectViaReportCard:
     def test_filling_land(self, browser):
         """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Земельный участок'."""
         link = browser.current_url
-        page = BaNewCountryPropertyLandPage(browser, link)
-        shared_method = BaReportPage(browser, link)
+        page = BaCountryPropertyLandPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.select_object_type(BaSelectObjectType.LAND)
         shared_method.input_the_address_for_documents(
             DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
@@ -120,7 +120,7 @@ class TestSrgVerificationStandardObjectViaReportCard:
         page.select_category()
         page.input_type_of_permitted_use()
         shared_method.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
-        shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_land)
+        shared_method.input_market_price(DataBankAppraiser.BaCountryReport.Moscow_low_price_land)
         shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
         shared_method.select_electricity(BaSelectElectricity.NO)
         shared_method.select_water_supply(BaSelectWaterSupply.NO)
@@ -131,25 +131,25 @@ class TestSrgVerificationStandardObjectViaReportCard:
     def test_save_report(self, browser):
         """Сохранение отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.save_report()
 
     def test_pay_report(self, browser):
         """Оплата отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.pay_report()
 
     def test_sign_report(self, browser):
         """Подписание отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.sign_report()
 
     def test_redirect_to_krona(self, browser):
         """Переход в КРОНУ."""
         link = LinksKrona.DefaultTest.login_link
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.redirect_to_krona_login_page()
 
     def test_login_to_krona(self, browser):
@@ -221,7 +221,7 @@ class TestSrgVerificationNonStandardObjectViaReportCard:
         page.select_external_inspection()
         page.select_internal_inspection()
         page.select_file()
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.go_to_photos_and_documents_tab()
 
     def test_filling_photo_and_documents(self, browser):
@@ -230,14 +230,14 @@ class TestSrgVerificationNonStandardObjectViaReportCard:
         page = BaCountryPropertyPhotosAndDocsPage(browser, link)
         page.attach_photos()
         page.attach_documents()
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.go_to_new_object_tab()
 
     def test_filling_residential_building(self, browser):
         """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом'."""
         link = browser.current_url
         page = BaCountryPropertyResidentialBuildingPage(browser, link)
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.select_object_type(BaSelectObjectType.RESIDENTIAL)
         page.input_name_of_the_object(DataBankAppraiser.BaCountryReport.Name_of_the_object)
         shared_method.input_the_address_for_documents(
@@ -247,7 +247,7 @@ class TestSrgVerificationNonStandardObjectViaReportCard:
         shared_method.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
         page.select_wall_material()
         page.select_repairs()
-        shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
+        shared_method.input_market_price(DataBankAppraiser.BaCountryReport.Moscow_low_price_house)
         shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
         shared_method.select_electricity(BaSelectElectricity.NO)
         shared_method.select_water_supply(BaSelectWaterSupply.NO)
@@ -259,25 +259,25 @@ class TestSrgVerificationNonStandardObjectViaReportCard:
     def test_save_report(self, browser):
         """Сохранение отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.save_report()
 
     def test_pay_report(self, browser):
         """Оплата отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.pay_report()
 
     def test_sign_report(self, browser):
         """Подписание отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.sign_report()
 
     def test_redirect_to_krona(self, browser):
         """Переход в КРОНУ."""
         link = LinksKrona.DefaultTest.login_link
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.redirect_to_krona_login_page()
 
     def test_login_to_krona(self, browser):
@@ -348,7 +348,7 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
         page.select_external_inspection()
         page.select_internal_inspection()
         page.select_file()
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.go_to_photos_and_documents_tab()
 
     def test_filling_photo_and_documents(self, browser):
@@ -357,14 +357,14 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
         page = BaCountryPropertyPhotosAndDocsPage(browser, link)
         page.attach_photos()
         page.attach_documents()
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.go_to_new_object_tab()
 
     def test_filling_residential_building(self, browser):
         """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Жилой дом'."""
         link = browser.current_url
         page = BaCountryPropertyResidentialBuildingPage(browser, link)
-        shared_method = BaReportPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.select_object_type(BaSelectObjectType.RESIDENTIAL)
         page.input_name_of_the_object(DataBankAppraiser.BaCountryReport.Name_of_the_object)
         shared_method.input_the_address_for_documents(
@@ -374,7 +374,7 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
         shared_method.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
         page.select_wall_material()
         page.select_repairs()
-        shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_high_price_house)
+        shared_method.input_market_price(DataBankAppraiser.BaCountryReport.Moscow_high_price_house)
         shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
         shared_method.select_electricity(BaSelectElectricity.NO)
         shared_method.select_water_supply(BaSelectWaterSupply.NO)
@@ -387,8 +387,8 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
     def test_filling_land(self, browser):
         """Заполнение отчета по ЖД. Заполнение объекта с типом = 'Земельный участок'."""
         link = browser.current_url
-        page = BaNewCountryPropertyLandPage(browser, link)
-        shared_method = BaReportPage(browser, link)
+        page = BaCountryPropertyLandPage(browser, link)
+        shared_method = BaCountryPropertyReportPage(browser, link)
         shared_method.select_object_type(BaSelectObjectType.LAND)
         shared_method.input_the_address_for_documents(
             DataBankAppraiser.BaCountryReport.Moscow_address_for_country_property)
@@ -398,7 +398,7 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
         page.select_category()
         page.input_type_of_permitted_use()
         shared_method.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
-        shared_method.input_market_price_of_the_object(DataBankAppraiser.BaCountryReport.Moscow_high_price_land)
+        shared_method.input_market_price(DataBankAppraiser.BaCountryReport.Moscow_high_price_land)
         shared_method.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
         shared_method.select_electricity(BaSelectElectricity.NO)
         shared_method.select_water_supply(BaSelectWaterSupply.NO)
@@ -409,25 +409,25 @@ class TestVtbVerificationStandardObjectDecisionCorrect:
     def test_save_report(self, browser):
         """Сохранение отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.save_report()
 
     def test_pay_report(self, browser):
         """Оплата отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.pay_report()
 
     def test_sign_report(self, browser):
         """Подписание отчета."""
         link = browser.current_url
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.sign_report()
 
     def test_redirect_to_krona(self, browser):
         """Переход в КРОНУ."""
         link = LinksKrona.DefaultTest.login_link
-        page = BaReportPage(browser, link)
+        page = BaCountryPropertyReportPage(browser, link)
         page.redirect_to_krona_login_page()
 
     def test_login_to_krona(self, browser):

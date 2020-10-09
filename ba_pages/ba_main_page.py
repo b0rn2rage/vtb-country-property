@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
+from ba_pages.ba_enums.ba_enums import BaTypeNewReport
 from pages.base_page import BasePage
 from .ba_locators import BaMainPageLocators
 from selenium.common.exceptions import TimeoutException

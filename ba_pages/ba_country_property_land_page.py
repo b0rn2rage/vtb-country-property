@@ -1,41 +1,43 @@
 from pages.base_page import BasePage
-from .ba_locators import BaCountryPropertyResidentialBuildingPageLocators
-from .ba_locators import BaNewCountryPropertyLandPageLocators
-from options.data import DataBankAppraiser
+from .ba_locators import BaCountryPropertyLandPageLocators
+from selenium.webdriver.common.by import By
 
 
-class BaNewCountryPropertyLandPage(BasePage):
-    """ Заполнение объекта №2 в новом отчете по ЖД. Тип объекта = ЗУ """
-    def input_cadastral_number(self):
-        """ Заполнение поля 'Кадастровый номер' """
-        assert self.is_element_present(*BaNewCountryPropertyLandPageLocators.INPUT_CADASTRAL_NUMBER), \
-            " Поле 'Кадастровый номер' отсутствует на странице "
+class BaCountryPropertyLandPage(BasePage):
+    """Заполнение объекта с типом = ЗУ."""
+    def input_cadastral_number(self, number):
+        """Заполнение поля 'Кадастровый номер'."""
         field_for_input_cadastral_number = self.browser.find_element(
-            *BaNewCountryPropertyLandPageLocators.INPUT_CADASTRAL_NUMBER)
-        field_for_input_cadastral_number.send_keys("50:16:0502056:115")
-        assert field_for_input_cadastral_number.get_attribute('value') == "50:16:0502056:115", \
-            " Значение в поле 'Кадастровый номер' не совпадает с введенным "
+            *BaCountryPropertyLandPageLocators.INPUT_CADASTRAL_NUMBER)
+        field_for_input_cadastral_number.send_keys(number)
+        assert field_for_input_cadastral_number.get_attribute('value') == number, \
+            "Значение в поле 'Кадастровый номер' не совпадает с введенным."
 
-    def input_type_of_permitted_use(self):
-        """ Заполнения поля 'Вид разрешенного использования' """
-        assert self.is_element_present(*BaNewCountryPropertyLandPageLocators.INPUT_TYPE_OF_PERMITTED_USE), \
-            "Поле 'Вид разрешенного использования' не отображается на странице "
+    def input_type_of_permitted_use(self, type_of_use):
+        """Заполнения поля 'Вид разрешенного использования'."""
         field_for_input_type_of_permitted_use = self.browser.find_element(
-            *BaNewCountryPropertyLandPageLocators.INPUT_TYPE_OF_PERMITTED_USE)
-        field_for_input_type_of_permitted_use.send_keys("Для индивидуального жилищного строительства")
-        assert field_for_input_type_of_permitted_use.get_attribute(
-            'value') == "Для индивидуального жилищного строительства", \
-            " Значение в поле 'Вид разрешенного использования' не соответствует введенному "
+            *BaCountryPropertyLandPageLocators.INPUT_TYPE_OF_PERMITTED_USE)
+        field_for_input_type_of_permitted_use.send_keys(type_of_use)
+        assert field_for_input_type_of_permitted_use.get_attribute('value') == type_of_use, \
+            f"Значение в поле 'Вид разрешенного использования' не соответствует {type_of_use}."
 
-    def select_category(self):
-        """ Выбрать категорию = """
-        assert self.is_element_present(*BaNewCountryPropertyLandPageLocators.CATEGORY_DROP_DOWN_MENU), \
-            " Поле 'Категория' отсутствует на странице"
+    def select_category(self, category):
+        """Выбрать категорию."""
         drop_down_menu_for_category_field = self.browser.find_element(
-            *BaNewCountryPropertyLandPageLocators.CATEGORY_DROP_DOWN_MENU)
+            *BaCountryPropertyLandPageLocators.CATEGORY_DROP_DOWN_MENU)
         drop_down_menu_for_category_field.click()
-        select_lands_of_localities = self.browser.find_element(*BaNewCountryPropertyLandPageLocators.SELECT_CATEGORY)
-        select_lands_of_localities.click()
-        assert self.browser.find_element(*BaNewCountryPropertyLandPageLocators.CHECKING_THE_SELECTED_CATEGORY).text == \
-            "Земли населённых пунктов (земли поселений)", \
-            "Значение в поле 'Категория' не соответствует выбранному"
+        dict_with_categories = \
+            {
+                'Земли населённых пунктов (земли поселений)': BaCountryPropertyLandPageLocators.SELECT_CATEGORY_SETTLEMENT,
+                'Земли сельскохозяйственного назначения': BaCountryPropertyLandPageLocators.SELECT_CATEGORY_AGRICULTURAL,
+                'Земли промышленности и иного специального назначения': BaCountryPropertyLandPageLocators.SELECT_CATEGORY_INDUSTRY,
+                'Земли особо охраняемых территорий и объектов': BaCountryPropertyLandPageLocators.SELECT_CATEGORY_GUARDED,
+                'Земли лесного фонда': BaCountryPropertyLandPageLocators.SELECT_CATEGORY_FOREST,
+                'Земли водного фонда': BaCountryPropertyLandPageLocators.SELECT_CATEGORY_WATER,
+                'Земли запаса': BaCountryPropertyLandPageLocators.SELECT_CATEGORY_STOCK
+            }
+        selected_category = dict_with_categories[category.value]
+        self.browser.find_element(*selected_category).click()
+        assert self.browser.find_element(
+            By.XPATH, f"//label[contains(text(),'Категория')]/..//div[contains(text(), '{category.value}')]").text == \
+            category.value, f"Значение в поле 'Категория' не соответствует {category.value}."

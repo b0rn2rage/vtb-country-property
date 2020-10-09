@@ -119,21 +119,31 @@ class BaCountryPropertyResidentialBuildingPageLocators:
     SELECT_REPAIRS_EXCELLENT = (By.XPATH, "//span[contains( text(), 'Отличное (евро) состояние')]")
     HEAT_SUPPLY_DROP_DOWN_MENU = (
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_HEAT_SUPPLY = (By.XPATH,
-                          "//label[contains(text(),'Теплоснабжение')]/..//"
-                          "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
+    SELECT_HEAT_SUPPLY_NO = (By.XPATH,
+                             "//label[contains(text(),'Теплоснабжение')]/..//"
+                             "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Нет')]")
+    SELECT_HEAT_SUPPLY_AUTONOMOUS = (By.XPATH,
+                                     "//label[contains(text(),'Теплоснабжение')]/..//"
+                                     "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, автономное')]")
+    SELECT_HEAT_SUPPLY_CENTRAL = (By.XPATH,
+                                  "//label[contains(text(),'Теплоснабжение')]/..//"
+                                  "div[contains(@id, 'node-SELECT-')]/..//span[contains(text(), 'Есть, центральное')]")
     CHECKING_THE_SELECTED_HEAT_SUPPLY = (
         By.XPATH, "//label[contains(text(),'Теплоснабжение')]/..//div[contains(text(), 'Нет')]")
 
 
-class BaNewCountryPropertyLandPageLocators:
+class BaCountryPropertyLandPageLocators:
     INPUT_CADASTRAL_NUMBER = (
         By.XPATH, "//label[contains(text(),'Кадастровый номер')]/..//input[contains(@id, 'node-INPUT-')]")
     CATEGORY_DROP_DOWN_MENU = (By.XPATH, "//label[contains(text(),'Категория')]/..//div[contains(@id, 'node-SELECT-')]")
-    SELECT_CATEGORY = (By.XPATH, "//span[contains(text(), 'Земли населённых пунктов (земли поселений)')]")
-    CHECKING_THE_SELECTED_CATEGORY = (By.XPATH,
-                                      "//label[contains(text(),'Категория')]/..//div[contains(text(), "
-                                      "'Земли населённых пунктов (земли поселений)')]")
+    SELECT_CATEGORY_SETTLEMENT = (By.XPATH, "//span[contains(text(), 'Земли населённых пунктов (земли поселений)')]")
+    SELECT_CATEGORY_AGRICULTURAL = (By.XPATH, "//span[contains(text(), 'Земли сельскохозяйственного назначения')]")
+    SELECT_CATEGORY_INDUSTRY = (
+        By.XPATH, "//span[contains(text(), 'Земли промышленности и иного специального назначения')]")
+    SELECT_CATEGORY_GUARDED = (By.XPATH, "//span[contains(text(), 'Земли особо охраняемых территорий и объектов')]")
+    SELECT_CATEGORY_FOREST = (By.XPATH, "//span[contains(text(), 'Земли лесного фонда')]")
+    SELECT_CATEGORY_WATER = (By.XPATH, "//span[contains(text(), 'Земли водного фонда')]")
+    SELECT_CATEGORY_STOCK = (By.XPATH, "//span[contains(text(), 'Земли запаса')]")
     INPUT_TYPE_OF_PERMITTED_USE = (
         By.XPATH, "//label[contains(text(),'Вид разрешенного использования')]/..//input[contains(@id, 'node-INPUT-')]")
 

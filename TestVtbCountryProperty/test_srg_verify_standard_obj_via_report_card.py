@@ -1,19 +1,35 @@
-from ba_pages.ba_report_page import BaReportPage
+# Импорт библиотек
+import pytest
+import time
+
+# Импорт страниц из БО
+from ba_pages.ba_country_property_report_page import BaCountryPropertyReportPage
 from ba_pages.ba_login_page import BaLoginPage
 from ba_pages.ba_main_page import BaMainPage
 from ba_pages.ba_country_property_general_info_page import BaCountryPropertyGeneralInfoPage
 from ba_pages.ba_country_property_photos_and_docs_page import BaCountryPropertyPhotosAndDocsPage
 from ba_pages.ba_country_property_residential_building_page import BaCountryPropertyResidentialBuildingPage
-from ba_pages.ba_enums.ba_enum_new_country_property import BaTypeNewReport
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectBank
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectDepartment
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectObjectType
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectPropertyRights
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectWallMaterial
-from ba_pages.ba_enums.ba_enum_new_country_property import BaSelectRepairs
-import pytest
-import time
+from ba_pages.ba_country_property_land_page import BaCountryPropertyLandPage
 
+# Импорт enum'ов из БО
+from ba_pages.ba_enums.ba_enums import BaTypeNewReport
+from ba_pages.ba_enums.ba_enums import BaSelectBank
+from ba_pages.ba_enums.ba_enums import BaSelectDepartment
+from ba_pages.ba_enums.ba_enums import BaSelectObjectType
+from ba_pages.ba_enums.ba_enums import BaSelectPropertyRights
+from ba_pages.ba_enums.ba_enums import BaSelectWallMaterial
+from ba_pages.ba_enums.ba_enums import BaSelectRepairs
+from ba_pages.ba_enums.ba_enums import BaSelectReasonWhyNotEGRN
+from ba_pages.ba_enums.ba_enums import BaSelectElectricity
+from ba_pages.ba_enums.ba_enums import BaSelectWaterSupply
+from ba_pages.ba_enums.ba_enums import BaSelectSewerage
+from ba_pages.ba_enums.ba_enums import BaSelectGas
+from ba_pages.ba_enums.ba_enums import BaSelectHeatSupply
+from ba_pages.ba_enums.ba_enums import BaSelectCategory
+
+# Импорт страниц из КРОНЫ
+
+# Импорт enum'ов из КРОНЫ
 
 @pytest.mark.regression
 def test_srg_verify_standard_obj_via_report_card(browser, config, host):
@@ -47,22 +63,56 @@ def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     ba_country_property_general_info_page.select_external_inspection()
     ba_country_property_general_info_page.select_internal_inspection()
     ba_country_property_general_info_page.select_file()
-    ba_report_page = BaReportPage(browser)
-    ba_report_page.go_to_photos_and_documents_tab()
+    ba_country_property_report_page = BaCountryPropertyReportPage(browser)
+    ba_country_property_report_page.go_to_photos_and_documents_tab()
     ba_country_property_photos_and_docs_page = BaCountryPropertyPhotosAndDocsPage(browser)
     ba_country_property_photos_and_docs_page.attach_photos()
     ba_country_property_photos_and_docs_page.attach_documents()
-    ba_report_page.go_to_new_object_tab()
+    ba_country_property_report_page.go_to_new_object_tab()
     ba_country_property_residential_building_page = BaCountryPropertyResidentialBuildingPage(browser)
-    ba_report_page.select_object_type(BaSelectObjectType.RESIDENTIAL)
+    ba_country_property_report_page.select_object_type(BaSelectObjectType.RESIDENTIAL)
     ba_country_property_residential_building_page.input_name_of_the_object(
         config['DataBankAppraiser']['BaCountryReport']['NameOfTheObject'])
-    ba_report_page.input_the_address_for_documents(
+    ba_country_property_report_page.input_the_address_for_documents(
         config['DataBankAppraiser']['BaCountryReport']['MoscowAddressForCountryProperty'])
-    ba_report_page.input_fias_address(
+    ba_country_property_report_page.input_fias_address(
         config['DataBankAppraiser']['BaCountryReport']['MoscowAddressForCountryProperty'])
-    ba_report_page.input_total_area(config['DataBankAppraiser']['BaCountryReport']['TotalArea'])
-    ba_report_page.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
+    ba_country_property_report_page.input_total_area(config['DataBankAppraiser']['BaCountryReport']['TotalArea'])
+    ba_country_property_report_page.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
     ba_country_property_residential_building_page.select_wall_material(BaSelectWallMaterial.BRICK)
     ba_country_property_residential_building_page.select_repairs(BaSelectRepairs.GOOD)
-
+    ba_country_property_report_page.input_market_price(
+        config['DataBankAppraiser']['BaCountryReport']['MoscowLowPriceHouse'])
+    ba_country_property_report_page.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
+    ba_country_property_report_page.select_electricity(BaSelectElectricity.NO)
+    ba_country_property_report_page.select_water_supply(BaSelectWaterSupply.NO)
+    ba_country_property_report_page.select_sewerage(BaSelectSewerage.NO)
+    ba_country_property_report_page.select_gas(BaSelectGas.NO)
+    ba_country_property_residential_building_page.select_heat_supply(BaSelectHeatSupply.NO)
+    ba_country_property_report_page.select_borrower_customer_are_same_person()
+    ba_country_property_report_page.go_to_new_object_tab()
+    ba_country_property_report_page.select_object_type(BaSelectObjectType.LAND)
+    ba_country_property_report_page.input_the_address_for_documents(
+        config['DataBankAppraiser']['BaCountryReport']['MoscowAddressForCountryProperty'])
+    ba_country_property_report_page.input_fias_address(
+        config['DataBankAppraiser']['BaCountryReport']['MoscowAddressForCountryProperty'])
+    ba_country_property_land_page = BaCountryPropertyLandPage(browser)
+    ba_country_property_land_page.input_cadastral_number(
+        config['DataBankAppraiser']['BaCountryReport']['CadastralNumber'])
+    ba_country_property_report_page.input_total_area(config['DataBankAppraiser']['BaCountryReport']['TotalArea'])
+    ba_country_property_land_page.select_category(BaSelectCategory.SETTLEMENT)
+    ba_country_property_land_page.input_type_of_permitted_use(
+        config['DataBankAppraiser']['BaCountryReport']['TypeOfPermittedUse'])
+    ba_country_property_report_page.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
+    ba_country_property_report_page.input_market_price(
+        config['DataBankAppraiser']['BaCountryReport']['MoscowLowPriceHouse'])
+    ba_country_property_report_page.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
+    ba_country_property_report_page.select_electricity(BaSelectElectricity.NO)
+    ba_country_property_report_page.select_water_supply(BaSelectWaterSupply.NO)
+    ba_country_property_report_page.select_sewerage(BaSelectSewerage.NO)
+    ba_country_property_report_page.select_gas(BaSelectGas.NO)
+    ba_country_property_report_page.select_borrower_customer_are_same_person()
+    ba_country_property_report_page.save_report()
+    ba_country_property_report_page.pay_report()
+    ba_country_property_report_page.sign_report()
+    krona_login_page =
