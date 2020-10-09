@@ -41,6 +41,7 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 
 
 @pytest.mark.regression
+@pytest.mark.run_current_test
 def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     """
             Верификация аналитиком SRG через карточку отчета. Стандартный объект.
@@ -99,28 +100,6 @@ def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     ba_country_property_report_page.select_gas(BaSelectGas.NO)
     ba_country_property_residential_building_page.select_heat_supply(BaSelectHeatSupply.NO)
     ba_country_property_report_page.select_borrower_customer_are_same_person()
-    ba_country_property_report_page.go_to_new_object_tab()
-    ba_country_property_report_page.select_object_type(BaSelectObjectType.LAND)
-    ba_country_property_report_page.input_the_address_for_documents(
-        config['DataBankAppraiser']['BaCountryReport']['MoscowAddressForCountryProperty'])
-    ba_country_property_report_page.input_fias_address(
-        config['DataBankAppraiser']['BaCountryReport']['MoscowAddressForCountryProperty'])
-    ba_country_property_land_page = BaCountryPropertyLandPage(browser)
-    ba_country_property_land_page.input_cadastral_number(
-        config['DataBankAppraiser']['BaCountryReport']['CadastralNumber'])
-    ba_country_property_report_page.input_total_area(config['DataBankAppraiser']['BaCountryReport']['TotalArea'])
-    ba_country_property_land_page.select_category(BaSelectCategory.SETTLEMENT)
-    ba_country_property_land_page.input_type_of_permitted_use(
-        config['DataBankAppraiser']['BaCountryReport']['TypeOfPermittedUse'])
-    ba_country_property_report_page.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
-    ba_country_property_report_page.input_market_price(
-        config['DataBankAppraiser']['BaCountryReport']['MoscowLowPriceLand'])
-    ba_country_property_report_page.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
-    ba_country_property_report_page.select_electricity(BaSelectElectricity.NO)
-    ba_country_property_report_page.select_water_supply(BaSelectWaterSupply.NO)
-    ba_country_property_report_page.select_sewerage(BaSelectSewerage.NO)
-    ba_country_property_report_page.select_gas(BaSelectGas.NO)
-    ba_country_property_report_page.select_borrower_customer_are_same_person()
     ba_country_property_report_page.save_report()
     ba_country_property_report_page.pay_report()
     ba_country_property_report_page.sign_report(config['DataBankAppraiser']['Auth']['Password']['Vtb'])
@@ -133,16 +112,14 @@ def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     krona_country_property_reports_page.open_country_report_in_data_table(report_number)
     krona_country_property_report_card_page = KronaCountryPropertyReportCardPage(browser)
     krona_country_property_report_card_page.check_values_after_ba(
-        KronaCountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION, KronaCountryPropertyReportFlagForStandard.YES)
+        KronaCountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION, KronaCountryPropertyReportFlagForStandard.NO)
     krona_country_property_report_card_page.go_to_the_tab_in_the_report_card(
         KronaCountryPropertyReportCardNameTab.VERIFICATION)
     krona_country_property_report_card_page.attach_an_expert_calculation()
     krona_country_property_report_card_page.input_new_price_in_the_verification_table(
-        config['DataKrona']['KronaCountryReport']['MoscowVerificationLowPriceHouse'],
-        config['DataKrona']['KronaCountryReport']['MoscowVerificationLowPriceLand'])
-    krona_country_property_report_card_page.lack_documents()
+        config['DataKrona']['KronaCountryReport']['MoscowVerificationLowPriceHouse'])
     krona_country_property_report_card_page.click_the_verification_button()
     krona_country_property_report_card_page.checking_values_after_srg_verification(
         KronaCountryPropertyReportStatus.READY, KronaCountryPropertyReportVerificationResult.ACCEPTED,
-        KronaCountryPropertyReportLackDocuments.CHECKED)
+        KronaCountryPropertyReportLackDocuments.NOT_CHECKED)
 

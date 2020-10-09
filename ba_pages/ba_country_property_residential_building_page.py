@@ -73,7 +73,7 @@ class BaCountryPropertyResidentialBuildingPage(BasePage):
                 'Есть, центральное': BaCountryPropertyResidentialBuildingPageLocators.SELECT_HEAT_SUPPLY_CENTRAL
             }
         select_heat = dict_with_heat_supply[heat_supply.value]
-        self.browser.find_element(*select_heat)
+        self.browser.find_element(*select_heat).click()
         assert self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.CHECKING_THE_SELECTED_HEAT_SUPPLY).text == \
             heat_supply.value, f"Значение в поле 'Теплоснабжение' != {heat_supply.value}"
