@@ -6,7 +6,12 @@ import os
 
 @pytest.fixture(scope='function')
 def browser():
-    driver = webdriver.Chrome()
+    chrome_options = webdriver.ChromeOptions()
+    prefs = {"download.default_directory": "C:\\qwe"}
+    chrome_options.add_experimental_option("prefs", prefs)
+    chromedriver = "C:\\chromedriver\\chromedriver.exe"
+    driver = webdriver.Chrome(executable_path=chromedriver, chrome_options=chrome_options)
+    #driver = webdriver.Chrome()
     driver.maximize_window()
     yield driver
     driver.quit()

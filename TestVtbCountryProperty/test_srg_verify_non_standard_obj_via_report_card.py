@@ -42,10 +42,10 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 
 @pytest.mark.regression
 @pytest.mark.run_current_test
-def test_srg_verify_standard_obj_via_report_card(browser, config, host):
+def test_srg_verify_non_standard_obj_via_report_card(browser, config, host):
     """
-            Верификация аналитиком SRG через карточку отчета. Стандартный объект.
-            Признак отсутствия документов присутствует.
+            Верификация аналитиком SRG через карточку отчета. Не стандартный объект.
+            Признак отсутствия документов = not checked.
             Статус отчета = Готово. Результат верификации = Принято.
     """
     ba_login_page = BaLoginPage(browser)
@@ -109,7 +109,7 @@ def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     krona_login_page.login_to_krona(config['DataKrona']['Auth']['Login']['Srg'],
                                     config['DataKrona']['Auth']['Password']['Srg'])
     krona_country_property_reports_page = KronaCountryPropertyReportsPage(browser)
-    krona_country_property_reports_page.open_country_report_in_data_table(report_number)
+    krona_country_property_reports_page.open_report_in_data_table(report_number)
     krona_country_property_report_card_page = KronaCountryPropertyReportCardPage(browser)
     krona_country_property_report_card_page.check_values_after_ba(
         KronaCountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION, KronaCountryPropertyReportFlagForStandard.NO)

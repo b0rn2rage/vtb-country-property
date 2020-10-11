@@ -6,7 +6,7 @@ from krona_pages.krona_locators import KronaCountryPropertyReportsPageLocators
 class KronaCountryPropertyReportsPage(BasePage):
     """В этом классе описывать все операции внутри карточки отчета ЖД."""
 
-    def open_country_report_in_data_table(self, report_number):
+    def open_report_in_data_table(self, report_number):
         """Открыть карточку отчета из реестра отчетов по ЖД."""
         assert self.is_element_visible(*KronaCountryPropertyReportsPageLocators.DATA_TABLE, timeout=15), \
             "В реестре жилых домов не прогружается таблица с отчетами"
