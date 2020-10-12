@@ -46,5 +46,7 @@ class KronaCountryPropertyReportCardPageLocators:
     ADJUST_BUTTON = (By.CSS_SELECTOR, '#showChangePriceModal')
     INPUT_ADJUST_PRICE = (By.CSS_SELECTOR, '.price-verification-vtb')
     CHANGE_PRICE = (By.CSS_SELECTOR, '#changePriceAdvanced')
+    DOWNLOAD_EXPERT_CALCULATION = (By.CSS_SELECTOR, '.control-static')
+
 
 

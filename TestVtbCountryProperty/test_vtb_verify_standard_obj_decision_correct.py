@@ -90,7 +90,7 @@ def test_vtb_verify_standard_obj_decision_correct(browser, config, host):
     ba_country_property_residential_building_page.select_wall_material(BaSelectWallMaterial.BRICK)
     ba_country_property_residential_building_page.select_repairs(BaSelectRepairs.GOOD)
     ba_country_property_report_page.input_market_price(
-        config['DataBankAppraiser']['BaCountryReport']['MoscowLowPriceHouse'])
+        config['DataBankAppraiser']['BaCountryReport']['MoscowHighPriceHouse'])
     ba_country_property_report_page.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     ba_country_property_report_page.select_electricity(BaSelectElectricity.NO)
     ba_country_property_report_page.select_water_supply(BaSelectWaterSupply.NO)
@@ -113,7 +113,7 @@ def test_vtb_verify_standard_obj_decision_correct(browser, config, host):
         config['DataBankAppraiser']['BaCountryReport']['TypeOfPermittedUse'])
     ba_country_property_report_page.select_property_rights(BaSelectPropertyRights.OWNERSHIP)
     ba_country_property_report_page.input_market_price(
-        config['DataBankAppraiser']['BaCountryReport']['MoscowLowPriceLand'])
+        config['DataBankAppraiser']['BaCountryReport']['MoscowHighPriceLand'])
     ba_country_property_report_page.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     ba_country_property_report_page.select_electricity(BaSelectElectricity.NO)
     ba_country_property_report_page.select_water_supply(BaSelectWaterSupply.NO)
@@ -141,4 +141,5 @@ def test_vtb_verify_standard_obj_decision_correct(browser, config, host):
         config['DataKrona']['KronaCountryReport']['MoscowVerificationHighPriceLand'])
     krona_country_property_report_card_page.checking_values_after_vtb_verification(
         KronaCountryPropertyReportStatus.READY_CHANGE_PRICE, KronaCountryPropertyReportVerificationResult.NOT_ACCEPTED)
+
 

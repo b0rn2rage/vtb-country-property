@@ -41,6 +41,7 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 
 
 @pytest.mark.regression
+@pytest.mark.run_current_test
 def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     """
             Верификация аналитиком SRG через карточку отчета. Стандартный объект.
@@ -145,4 +146,7 @@ def test_srg_verify_standard_obj_via_report_card(browser, config, host):
     krona_country_property_report_card_page.checking_values_after_srg_verification(
         KronaCountryPropertyReportStatus.READY, KronaCountryPropertyReportVerificationResult.ACCEPTED,
         KronaCountryPropertyReportLackDocuments.CHECKED)
+    krona_country_property_report_card_page.download_files()
+    krona_country_property_report_card_page.wait_download(r'C:\autotests_download_files\test xlsx.xlsx')
+
 

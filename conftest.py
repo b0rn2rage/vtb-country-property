@@ -1,17 +1,16 @@
 import pytest
 import json
-from selenium import webdriver
 import os
+from selenium import webdriver
 
 
 @pytest.fixture(scope='function')
 def browser():
-    chrome_options = webdriver.ChromeOptions()
-    prefs = {"download.default_directory": "C:\\qwe"}
-    chrome_options.add_experimental_option("prefs", prefs)
+    options = webdriver.ChromeOptions()
+    prefs = {"download.default_directory": "C:\\autotests_download_files"}
+    options.add_experimental_option("prefs", prefs)
     chromedriver = "C:\\chromedriver\\chromedriver.exe"
-    driver = webdriver.Chrome(executable_path=chromedriver, chrome_options=chrome_options)
-    #driver = webdriver.Chrome()
+    driver = webdriver.Chrome(executable_path=chromedriver, options=options)
     driver.maximize_window()
     yield driver
     driver.quit()

@@ -1,8 +1,17 @@
+# Импорт библиотек
+import os
+
+# Импорт не стандартных модулей/библиотек
+import requests
+from selenium.common.exceptions import NoSuchElementException
+from tqdm import tqdm
+
+# Импорт страниц из БО
 from pages.base_page import BasePage
+
+# Импорт страниц из КРОНЫ
 from krona_pages.krona_locators import KronaCountryPropertyReportCardPageLocators
 from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportCardNameTab
-from selenium.common.exceptions import NoSuchElementException
-import os
 
 
 class KronaCountryPropertyReportCardPage(BasePage):
@@ -78,6 +87,14 @@ class KronaCountryPropertyReportCardPage(BasePage):
             *KronaCountryPropertyReportCardPageLocators.VERIFICATION_BUTTON)
         button_for_verification.click()
 
+    def download_files(self):
+        """Загрузка файлов после верификации (отчет, заключение, расчет эксперта etc)"""
+        KronaCountryPropertyReportCardPage.go_to_the_tab_in_the_report_card(self,
+            KronaCountryPropertyReportCardNameTab.VERIFICATION)
+        download_link_expert_calc = self.browser.find_element(
+            *KronaCountryPropertyReportCardPageLocators.DOWNLOAD_EXPERT_CALCULATION)
+        download_link_expert_calc.click()
+
     def go_to_the_tab_in_the_report_card(self, tab):
         """Переход по вкладкам в карточке отчета."""
         dict_with_the_names_of_the_tabs = \
@@ -114,8 +131,10 @@ class KronaCountryPropertyReportCardPage(BasePage):
         try:
             objects = self.browser.find_elements(*KronaCountryPropertyReportCardPageLocators.INPUT_ADJUST_PRICE)
             new_price_for_first_object = objects[0]
+            new_price_for_first_object.clear()
             new_price_for_first_object.send_keys(house_price)
             new_price_for_second_object = objects[1]
+            new_price_for_second_object.clear()
             new_price_for_second_object.send_keys(land_price)
         except NoSuchElementException:
             pass

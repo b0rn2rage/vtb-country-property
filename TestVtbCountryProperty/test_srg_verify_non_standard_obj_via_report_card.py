@@ -41,7 +41,6 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 
 
 @pytest.mark.regression
-@pytest.mark.run_current_test
 def test_srg_verify_non_standard_obj_via_report_card(browser, config, host):
     """
             Верификация аналитиком SRG через карточку отчета. Не стандартный объект.
