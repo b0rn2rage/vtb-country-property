@@ -44,6 +44,7 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 def test_vtb_verify_standard_obj_decision_correct(browser, config, host):
     """
             Верификация сотрудником ВТБ через карточку отчета. Стандартный объект.
+            Решение сотрудника = Скорректировать.
             Статус отчета = Готово. Результат верификации = Принято.
     """
     ba_login_page = BaLoginPage(browser)

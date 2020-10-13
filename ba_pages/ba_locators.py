@@ -12,7 +12,7 @@ class BaLoginPageLocators:
 class BaMainPageLocators:
     GOST_POPUP = (By.CSS_SELECTOR, '#gost-popup-modal')
     CLOSE_GOST_POPUP = (By.CSS_SELECTOR, "#gost-popup-modal .modal-header button.close")
-    SIMPLE_NOTIFICATION_MODAL = (By.CSS_SELECTOR, 'div.simpleNotificationModal_content')
+    SIMPLE_NOTIFICATION_MODAL = (By.CSS_SELECTOR, '.simpleNotificationModal_content')
     CLOSE_SIMPLE_NOTIFICATION_MODAL = (By.CSS_SELECTOR, 'div.simpleNotificationModal_close')
     SHOW_CREATE_REPORT_DIALOG = (By.CSS_SELECTOR, '.new-report .btn.btn-success')
     USER_NAME = (By.CSS_SELECTOR, '#headerUserName')

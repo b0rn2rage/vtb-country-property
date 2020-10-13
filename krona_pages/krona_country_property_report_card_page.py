@@ -4,7 +4,6 @@ import os
 # Импорт не стандартных модулей/библиотек
 import requests
 from selenium.common.exceptions import NoSuchElementException
-from tqdm import tqdm
 
 # Импорт страниц из БО
 from pages.base_page import BasePage
@@ -50,7 +49,7 @@ class KronaCountryPropertyReportCardPage(BasePage):
 
     def checking_values_after_srg_verification(self, status, result, lack_documents):
         """Проверка значений в карточке отчета после верифиикации."""
-        assert self.is_element_visible(*KronaCountryPropertyReportCardPageLocators.REPORT_STATUS), \
+        assert self.is_element_presence(*KronaCountryPropertyReportCardPageLocators.REPORT_STATUS), \
             "Поле со статусом не отображается на странице"
         assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.REPORT_STATUS).get_attribute(
             'value') == status.value, f'Статус отчета после верификации != {status.value}'
@@ -86,14 +85,6 @@ class KronaCountryPropertyReportCardPage(BasePage):
         button_for_verification = self.browser.find_element(
             *KronaCountryPropertyReportCardPageLocators.VERIFICATION_BUTTON)
         button_for_verification.click()
-
-    def download_files(self):
-        """Загрузка файлов после верификации (отчет, заключение, расчет эксперта etc)"""
-        KronaCountryPropertyReportCardPage.go_to_the_tab_in_the_report_card(self,
-            KronaCountryPropertyReportCardNameTab.VERIFICATION)
-        download_link_expert_calc = self.browser.find_element(
-            *KronaCountryPropertyReportCardPageLocators.DOWNLOAD_EXPERT_CALCULATION)
-        download_link_expert_calc.click()
 
     def go_to_the_tab_in_the_report_card(self, tab):
         """Переход по вкладкам в карточке отчета."""
