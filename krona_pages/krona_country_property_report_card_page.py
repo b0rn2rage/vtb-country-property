@@ -119,16 +119,13 @@ class KronaCountryPropertyReportCardPage(BasePage):
         assert self.is_element_visible(
             *KronaCountryPropertyReportCardPageLocators.INPUT_ADJUST_PRICE), \
             "Поле для ввода новой скорректированной стоимости не отображается на странице"
-        try:
-            objects = self.browser.find_elements(*KronaCountryPropertyReportCardPageLocators.INPUT_ADJUST_PRICE)
-            new_price_for_first_object = objects[0]
-            new_price_for_first_object.clear()
-            new_price_for_first_object.send_keys(house_price)
-            new_price_for_second_object = objects[1]
-            new_price_for_second_object.clear()
-            new_price_for_second_object.send_keys(land_price)
-        except NoSuchElementException:
-            pass
+        objects = self.browser.find_elements(*KronaCountryPropertyReportCardPageLocators.INPUT_ADJUST_PRICE)
+        for x in range(len(objects)):
+            objects[x].clear()
+            if x % 2 == 0:
+                objects[x].send_keys(house_price)
+            else:
+                objects[x].send_keys(land_price)
         assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.CHANGE_PRICE), \
             "Кнопка 'Скорректировать' не отображается на странице"
         self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.CHANGE_PRICE).click()

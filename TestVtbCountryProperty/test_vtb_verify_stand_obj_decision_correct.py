@@ -41,7 +41,7 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 
 
 @pytest.mark.regression
-def test_vtb_verify_standard_obj_decision_correct(browser, config, host):
+def test_vtb_verify_stand_obj_decision_correct(browser, config, host):
     """
             Верификация сотрудником ВТБ через карточку отчета. Стандартный объект.
             Решение сотрудника = Скорректировать.

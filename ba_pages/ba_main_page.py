@@ -13,7 +13,7 @@ class BaMainPage(BasePage):
     def close_gost_popup(self):
         """Закрытие всплывающего окна ГОСТ, жду 2 секунды, заодно подгружается страница в БО"""
         try:
-            self.is_element_visible(*BaMainPageLocators.GOST_POPUP, timeout=2)
+            self.is_element_visible(*BaMainPageLocators.GOST_POPUP, timeout=4)
             button_for_closing_gost_popup = self.browser.find_element(*BaMainPageLocators.CLOSE_GOST_POPUP)
             button_for_closing_gost_popup.click()
         except TimeoutException:
@@ -22,7 +22,7 @@ class BaMainPage(BasePage):
     def close_simple_notification_modal(self):
         """Закрытие всплывающИХ окОН 'Уважаемые партнеры'."""
         try:
-            while self.is_element_visible(*BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL, timeout=3):
+            while self.is_element_visible(*BaMainPageLocators.SIMPLE_NOTIFICATION_MODAL, timeout=5):
                 button_for_closing_simple_notification_modal = self.browser.find_element(
                     *BaMainPageLocators.CLOSE_SIMPLE_NOTIFICATION_MODAL)
                 button_for_closing_simple_notification_modal.click()
