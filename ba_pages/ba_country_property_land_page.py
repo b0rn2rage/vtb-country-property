@@ -1,3 +1,5 @@
+from enum import Enum
+
 from pages.base_page import BasePage
 from .ba_locators import BaCountryPropertyLandPageLocators
 from selenium.webdriver.common.by import By
@@ -5,7 +7,8 @@ from selenium.webdriver.common.by import By
 
 class BaCountryPropertyLandPage(BasePage):
     """Заполнение объекта с типом = ЗУ."""
-    def input_cadastral_number(self, number):
+
+    def input_cadastral_number(self, number: str):
         """Заполнение поля 'Кадастровый номер'."""
         field_for_input_cadastral_number = self.browser.find_element(
             *BaCountryPropertyLandPageLocators.INPUT_CADASTRAL_NUMBER)
@@ -13,7 +16,7 @@ class BaCountryPropertyLandPage(BasePage):
         assert field_for_input_cadastral_number.get_attribute('value') == number, \
             "Значение в поле 'Кадастровый номер' не совпадает с введенным."
 
-    def input_type_of_permitted_use(self, type_of_use):
+    def input_type_of_permitted_use(self, type_of_use: Enum):
         """Заполнения поля 'Вид разрешенного использования'."""
         field_for_input_type_of_permitted_use = self.browser.find_element(
             *BaCountryPropertyLandPageLocators.INPUT_TYPE_OF_PERMITTED_USE)
@@ -21,7 +24,7 @@ class BaCountryPropertyLandPage(BasePage):
         assert field_for_input_type_of_permitted_use.get_attribute('value') == type_of_use, \
             f"Значение в поле 'Вид разрешенного использования' не соответствует {type_of_use}."
 
-    def select_category(self, category):
+    def select_category(self, category: Enum):
         """Выбрать категорию."""
         drop_down_menu_for_category_field = self.browser.find_element(
             *BaCountryPropertyLandPageLocators.CATEGORY_DROP_DOWN_MENU)

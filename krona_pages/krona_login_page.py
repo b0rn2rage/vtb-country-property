@@ -4,7 +4,7 @@ from .krona_locators import KronaMainPageLocators
 
 
 class KronaLoginPage(BasePage):
-    def login_to_krona(self, login, password):
+    def login_to_krona(self, login: str, password: str):
         """Авторизация в КРОНУ."""
         assert self.is_element_visible(*KronaLoginPageLocators.INPUT_LOGIN), \
             "Поле для ввода имени пользователя отсутствует на странице"

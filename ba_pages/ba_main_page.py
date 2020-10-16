@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import Tuple
 
 from ba_pages.ba_enums.ba_enums import BaTypeNewReport
@@ -29,7 +30,7 @@ class BaMainPage(BasePage):
         except TimeoutException:
             pass
 
-    def create_new_report_from_main_page(self, report_type):
+    def create_new_report_from_main_page(self, report_type: Enum):
         """Создание нового отчета с главной страницы БО."""
         button_for_show_create_report_dialog = self.browser.find_element(*BaMainPageLocators.SHOW_CREATE_REPORT_DIALOG)
         button_for_show_create_report_dialog.click()

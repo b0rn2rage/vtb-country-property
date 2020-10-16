@@ -1,3 +1,5 @@
+from enum import Enum
+
 from pages.base_page import BasePage
 from .ba_locators import BaCountryPropertyResidentialBuildingPageLocators
 from selenium.webdriver.common.keys import Keys
@@ -7,7 +9,7 @@ from selenium.webdriver.common.by import By
 class BaCountryPropertyResidentialBuildingPage(BasePage):
     """Заполнение раздела с типом объекта = ЖД."""
 
-    def input_name_of_the_object(self, name):
+    def input_name_of_the_object(self, name: str):
         input_name = self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT)
         input_name.click()
@@ -17,7 +19,7 @@ class BaCountryPropertyResidentialBuildingPage(BasePage):
             *BaCountryPropertyResidentialBuildingPageLocators.INPUT_NAME_OF_THE_OBJECT).text == \
             f"{name}", f"Значение в поле 'Наименование объекта...' не соответствует {name}"
 
-    def select_wall_material(self, material):
+    def select_wall_material(self, material: Enum):
         """Выбор материала стен"""
         drop_down_menu_for_wall_material_field = self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.WALL_MATERIAL_DROP_DOWN_MENU)
@@ -42,7 +44,7 @@ class BaCountryPropertyResidentialBuildingPage(BasePage):
         assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{material.value}')]").text == \
             material.value, f"Значение в поле 'Материал стен' != {material.value}."
 
-    def select_repairs(self, repairs):
+    def select_repairs(self, repairs: Enum):
         """Выбор состояния отделки"""
         drop_down_menu_for_repairs_field = self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.REPAIRS_DROP_DOWN_MENU)
@@ -61,7 +63,7 @@ class BaCountryPropertyResidentialBuildingPage(BasePage):
             By.XPATH, f"//div[contains(text(), '{repairs.value}')]").text == repairs.value, \
             f"Значение в поле 'Состояние отделки' != {repairs.value}."
 
-    def select_heat_supply(self, heat_supply):
+    def select_heat_supply(self, heat_supply: Enum):
         """Выбор теплоснабжения"""
         drop_down_menu_for_heat_supply_field = self.browser.find_element(
             *BaCountryPropertyResidentialBuildingPageLocators.HEAT_SUPPLY_DROP_DOWN_MENU)

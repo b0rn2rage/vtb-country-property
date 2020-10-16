@@ -1,3 +1,5 @@
+from enum import Enum
+
 from pages.base_page import BasePage
 from selenium.webdriver.common.keys import Keys
 from .ba_locators import BaCountryPropertyResidentialBuildingPageLocators
@@ -16,7 +18,7 @@ class BaCountryPropertyReportPage(BasePage):
         """Переход в раздел с добавленным объектом."""
         self.browser.find_element(*BaReportPageLocators.GO_TO_NEW_OBJECT_TAB).click()
 
-    def input_the_address_for_documents(self, address):
+    def input_the_address_for_documents(self, address: str):
         """Заполнение поля 'Адрес по документам'."""
         input_the_address = self.browser.find_element(*BaReportPageLocators.INPUT_THE_ADDRESS_FOR_DOCUMENTS)
         input_the_address.send_keys(address)
@@ -24,7 +26,7 @@ class BaCountryPropertyReportPage(BasePage):
         assert input_the_address.text == address, \
             f"Значение в поле 'Адрес по документам' не соответствует {address}"
 
-    def input_fias_address(self, fias_address):
+    def input_fias_address(self, fias_address: str):
         """Заполнение поля 'Адрес по ФИАС'."""
         input_fias = self.browser.find_element(*BaReportPageLocators.INPUT_FIAS_ADDRESS)
         for char in fias_address:
@@ -38,14 +40,14 @@ class BaCountryPropertyReportPage(BasePage):
         assert check_value_in_fias_address_field.text == \
             fias_address, f"Значение в поле 'Адрес по ФИАС' не соответствует {fias_address}"
 
-    def input_total_area(self, total_area):
+    def input_total_area(self, total_area: str):
         """Заполнение поля с общей площадью ОО."""
         input_area = self.browser.find_element(*BaReportPageLocators.TOTAL_AREA_OF_THE_ASSESSMENT_OBJECT)
         input_area.send_keys(total_area)
         assert input_area.get_attribute("value") == total_area, \
             f"Значение в поле 'Общая площадь объекта оценки' не соответствует {total_area}"
 
-    def input_market_price(self, price):
+    def input_market_price(self, price: str):
         """Заполнение поля 'Рычноная стоимость объекта оценки'."""
         market_price = self.browser.find_element(*BaReportPageLocators.MARKET_PRICE_OF_THE_OBJECT)
         market_price.send_keys(price)
@@ -65,7 +67,7 @@ class BaCountryPropertyReportPage(BasePage):
         self.browser.execute_script("window.open()")
         self.browser.switch_to.window(self.browser.window_handles[1])
 
-    def select_object_type(self, object_type):
+    def select_object_type(self, object_type: Enum):
         """ Выбор типа объекта Жилой (садовый) дом/Земельный участок/Иное """
         assert self.is_element_present(*BaReportPageLocators.TYPE_DROP_DOWN_MENU), \
             " Поле 'Тип' не отображается на странице "
@@ -88,7 +90,7 @@ class BaCountryPropertyReportPage(BasePage):
         assert self.text_in_element_is_correct(*BaReportPageLocators.SAVE_REPORT_BUTTON, 'Cохранено'), \
             "Сохранить не поменялось на Сохранено. P.S. слово 'сохранено' написано в БО с ошибкой"
 
-    def sign_report(self, password):
+    def sign_report(self, password: str):
         button_for_complete_and_sign = self.browser.find_element(*BaReportPageLocators.COMPLETE_AND_SIGN_BUTTON)
         button_for_complete_and_sign.click()
         assert self.is_element_visible(*BaReportPageLocators.THE_COMPLETION_OF_THE_REPORT_WINDOW), \
@@ -104,7 +106,7 @@ class BaCountryPropertyReportPage(BasePage):
         assert self.text_in_element_is_correct(*BaReportPageLocators.SUCCESSFUL_SIGN,
                                                'Отчет готов к печати!'), "При подписании отчета возникла ошибка"
 
-    def select_property_rights(self, right):
+    def select_property_rights(self, right: Enum):
         """Выбор права в поле 'Имущественные права на объект оценки'."""
         drop_down_menu_for_the_property_rights_field = self.browser.find_element(
             *BaReportPageLocators.PROPERTY_RIGHTS_TO_THE_OBJECT_ASSESSMENT)
@@ -120,7 +122,7 @@ class BaCountryPropertyReportPage(BasePage):
         assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{right.value}')]").text == right.value, \
             f"Значение в поле 'Имущственые права на объект оценки' != {right}"
 
-    def select_reason_why_not_egrn(self, reason):
+    def select_reason_why_not_egrn(self, reason: Enum):
         """Выбор причины отсутствия актуальной выписки из ЕГРН."""
         drop_down_menu_for_egrn = self.browser.find_element(*BaReportPageLocators.EGRN_DROP_DOWN_MENU)
         drop_down_menu_for_egrn.click()
@@ -136,7 +138,7 @@ class BaCountryPropertyReportPage(BasePage):
                       f"'{reason.value}')]").text == reason.value, \
             f"Значение в поле 'Причина отсутствия актуальной выписки из ЕГРН отсутствует на странице' != {reason.value}"
 
-    def select_electricity(self, electricity):
+    def select_electricity(self, electricity: Enum):
         """Выбор электричества."""
         drop_down_menu_for_electricity_field = self.browser.find_element(
             *BaReportPageLocators.ELECTRICITY_DROP_DOWN_MENU)
@@ -155,7 +157,7 @@ class BaCountryPropertyReportPage(BasePage):
             f"/..//div[contains(text(), '{electricity.value}')]").text == electricity.value, \
             f"Значение в поле 'Электричество' != {electricity.value}"
 
-    def select_water_supply(self, water_supply):
+    def select_water_supply(self, water_supply: Enum):
         """Выбор водоснабжения."""
         drop_down_menu_for_water_supply_field = self.browser.find_element(
             *BaReportPageLocators.WATER_SUPPLY_DROP_DOWN_MENU)
@@ -175,7 +177,7 @@ class BaCountryPropertyReportPage(BasePage):
             f"/..//div[contains(text(), '{water_supply.value}')]").text == water_supply.value, \
             f"Значение в поле 'Водоснабжение' != {water_supply.value}"
 
-    def select_sewerage(self, sewerage):
+    def select_sewerage(self, sewerage: Enum):
         """Выбор канализации."""
         drop_down_menu_for_sewerage_field = self.browser.find_element(
             *BaReportPageLocators.SEWERAGE_DROP_DOWN_MENU)
@@ -195,7 +197,7 @@ class BaCountryPropertyReportPage(BasePage):
             f"/..//div[contains(text(), '{sewerage.value}')]").text == sewerage.value, \
             f"Значение в поле 'Канализация' != {sewerage.value}"
 
-    def select_gas(self, gas):
+    def select_gas(self, gas: Enum):
         """Выбор газа."""
         drop_down_menu_for_gas_field = self.browser.find_element(*BaReportPageLocators.GAS_DROP_DOWN_MENU)
         drop_down_menu_for_gas_field.click()

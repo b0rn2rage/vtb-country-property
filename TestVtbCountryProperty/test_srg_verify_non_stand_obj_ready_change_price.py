@@ -37,15 +37,16 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportFlagForStandard
 from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportCardNameTab
 from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportVerificationResult
-from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportDecision
+from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountryPropertyReportLackDocuments
 
 
 @pytest.mark.regression
-def test_vtb_verify_stand_obj_decision_correct(browser, config, host):
+@pytest.mark.run_current_test
+def test_srg_verify_non_stand_ready(browser, config, host):
     """
-            Верификация сотрудником ВТБ через карточку отчета. Стандартный объект.
-            Решение сотрудника = Скорректировать.
-            Статус отчета = Готово. Результат верификации = Принято.
+            Верификация аналитиком SRG через карточку отчета. Не стандартный объект.
+            Признак отсутствия документов = not checked.
+            Статус отчета = Готово. Изменана стоимость. Результат верификации = Не принято.
     """
     ba_login_page = BaLoginPage(browser)
     ba_login_page.open(host['BankAppraiser']['test'])
@@ -91,7 +92,7 @@ def test_vtb_verify_stand_obj_decision_correct(browser, config, host):
     ba_country_property_residential_building_page.select_wall_material(BaSelectWallMaterial.BRICK)
     ba_country_property_residential_building_page.select_repairs(BaSelectRepairs.GOOD)
     ba_country_property_report_page.input_market_price(
-        config['DataBankAppraiser']['BaCountryReport']['MoscowHighPriceHouse'])
+        config['DataBankAppraiser']['BaCountryReport']['MoscowLowPriceHouse'])
     ba_country_property_report_page.select_reason_why_not_egrn(BaSelectReasonWhyNotEGRN.OTHER)
     ba_country_property_report_page.select_electricity(BaSelectElectricity.NO)
     ba_country_property_report_page.select_water_supply(BaSelectWaterSupply.NO)
@@ -105,19 +106,23 @@ def test_vtb_verify_stand_obj_decision_correct(browser, config, host):
     ba_country_property_report_page.open_new_window()
     krona_login_page = KronaLoginPage(browser)
     krona_login_page.open(host['Krona']['test'])
-    krona_login_page.login_to_krona(config['DataKrona']['Auth']['Login']['Vtb'],
-                                    config['DataKrona']['Auth']['Password']['Vtb'])
+    krona_login_page.login_to_krona(config['DataKrona']['Auth']['Login']['Srg'],
+                                    config['DataKrona']['Auth']['Password']['Srg'])
     krona_country_property_reports_page = KronaCountryPropertyReportsPage(browser)
     krona_country_property_reports_page.open_report_in_data_table(report_number)
     krona_country_property_report_card_page = KronaCountryPropertyReportCardPage(browser)
     krona_country_property_report_card_page.check_values_after_ba(
-        KronaCountryPropertyReportStatus.CHECK_UZI, KronaCountryPropertyReportFlagForStandard.NO)
+        KronaCountryPropertyReportStatus.THE_END_OF_THE_VERIFICATION, KronaCountryPropertyReportFlagForStandard.NO)
     krona_country_property_report_card_page.go_to_the_tab_in_the_report_card(
         KronaCountryPropertyReportCardNameTab.VERIFICATION)
-    krona_country_property_report_card_page.taking_decision(KronaCountryPropertyReportDecision.ADJUST)
-    krona_country_property_report_card_page.input_new_adjust_price_in_the_decision_form(
-        config['DataKrona']['KronaCountryReport']['MoscowVerificationHighPriceHouse'])
-    krona_country_property_report_card_page.checking_values_after_vtb_verification(
-        KronaCountryPropertyReportStatus.READY_CHANGE_PRICE, KronaCountryPropertyReportVerificationResult.NOT_ACCEPTED)
-
+    krona_country_property_report_card_page.attach_an_expert_calculation()
+    # В качестве стоимости используется значение земельного участка, чтобы
+    # верифицированная стоимость * 1.2 была меньше стоимости отчета в БО и
+    # отчет получил статус = Готово. Изменена стоимость.
+    krona_country_property_report_card_page.input_new_price_in_the_verification_table(
+        config['DataKrona']['KronaCountryReport']['MoscowVerificationLowPriceLand'])
+    krona_country_property_report_card_page.click_the_verification_button()
+    krona_country_property_report_card_page.checking_values_after_srg_verification(
+        KronaCountryPropertyReportStatus.READY_CHANGE_PRICE, KronaCountryPropertyReportVerificationResult.NOT_ACCEPTED,
+        KronaCountryPropertyReportLackDocuments.NOT_CHECKED)
 

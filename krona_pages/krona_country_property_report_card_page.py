@@ -2,6 +2,8 @@
 import os
 
 # Импорт не стандартных модулей/библиотек
+from enum import Enum
+
 import requests
 from selenium.common.exceptions import NoSuchElementException
 
@@ -28,7 +30,7 @@ class KronaCountryPropertyReportCardPage(BasePage):
         assert self.is_element_presence(*KronaCountryPropertyReportCardPageLocators.PROGRESS_BAR_FINISHED_DOWNLOADING),\
             "Файл с расчетом эксперта не загрузился."
 
-    def check_values_after_ba(self, status, flag_for_standard):
+    def check_values_after_ba(self, status: Enum, flag_for_standard: Enum):
         assert self.is_element_presence(
             *KronaCountryPropertyReportCardPageLocators.REPORT_STATUS), \
             "Поле 'Статус отчета' не отображается на странице."
@@ -47,7 +49,7 @@ class KronaCountryPropertyReportCardPage(BasePage):
         activate_checkbox = self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS)
         activate_checkbox.click()
 
-    def checking_values_after_srg_verification(self, status, result, lack_documents):
+    def checking_values_after_srg_verification(self, status: Enum, result: Enum, lack_documents: Enum):
         """Проверка значений в карточке отчета после верифиикации."""
         assert self.is_element_presence(*KronaCountryPropertyReportCardPageLocators.REPORT_STATUS), \
             "Поле со статусом не отображается на странице"
@@ -58,10 +60,16 @@ class KronaCountryPropertyReportCardPage(BasePage):
         assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.LACK_DOCUMENTS).get_attribute(
             'checked') == lack_documents.value, \
             f"Признак отсутствия документов != {lack_documents.value}"
-        assert self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.RESULT_ACCEPT).text == result.value, \
+        dict_with_results = \
+            {
+                'Принято': KronaCountryPropertyReportCardPageLocators.RESULT_ACCEPT,
+                'Не принято': KronaCountryPropertyReportCardPageLocators.RESULT_NOT_ACCEPT
+            }
+        result_request = dict_with_results[result.value]
+        assert self.browser.find_element(*result_request).text == result.value, \
             f"Результат отчета после верификации != {result.value}"
 
-    def checking_values_after_vtb_verification(self, status, result):
+    def checking_values_after_vtb_verification(self, status: Enum, result: Enum):
         """Проверка значений в карточке отчета после верифиикации."""
         assert self.is_element_visible(*KronaCountryPropertyReportCardPageLocators.REPORT_STATUS), \
             "Поле со статусом не отображается на странице"
@@ -86,7 +94,7 @@ class KronaCountryPropertyReportCardPage(BasePage):
             *KronaCountryPropertyReportCardPageLocators.VERIFICATION_BUTTON)
         button_for_verification.click()
 
-    def go_to_the_tab_in_the_report_card(self, tab):
+    def go_to_the_tab_in_the_report_card(self, tab: Enum):
         """Переход по вкладкам в карточке отчета."""
         dict_with_the_names_of_the_tabs = \
             {
@@ -100,7 +108,7 @@ class KronaCountryPropertyReportCardPage(BasePage):
         selected_tab = dict_with_the_names_of_the_tabs[tab.value]
         self.browser.find_element(*selected_tab).click()
 
-    def input_new_price_in_the_verification_table(self, house_price, land_price=0):
+    def input_new_price_in_the_verification_table(self, house_price: Enum, land_price=0):
         """Ввод новой стоимости в таблицу 'Верифицированная стоимость'."""
         assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.INPUT_PRICE_FOR_FIRST_OBJECT), \
             "Поле для ввода новой стоимости отсутствует в таблице"
@@ -114,7 +122,7 @@ class KronaCountryPropertyReportCardPage(BasePage):
         except NoSuchElementException:
             pass
 
-    def input_new_adjust_price_in_the_decision_form(self, house_price, land_price=0):
+    def input_new_adjust_price_in_the_decision_form(self, house_price: Enum, land_price=0):
         """Ввод скорректированной стоимости в таблицу 'Скорректировать цену'."""
         assert self.is_element_visible(
             *KronaCountryPropertyReportCardPageLocators.INPUT_ADJUST_PRICE), \
@@ -130,7 +138,7 @@ class KronaCountryPropertyReportCardPage(BasePage):
             "Кнопка 'Скорректировать' не отображается на странице"
         self.browser.find_element(*KronaCountryPropertyReportCardPageLocators.CHANGE_PRICE).click()
 
-    def taking_decision(self, decision):
+    def taking_decision(self, decision: Enum):
         """Нажатте кнопки 'Решение' при верификации за сотрудника банка."""
         assert self.is_element_present(*KronaCountryPropertyReportCardPageLocators.DECISION_BUTTON), \
             "Кнопка 'Решение' отсутствует на странице."

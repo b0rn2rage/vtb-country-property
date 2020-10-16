@@ -41,7 +41,7 @@ from krona_pages.krona_emuns.krona_enum_new_country_property import KronaCountry
 
 
 @pytest.mark.regression
-def test_srg_verify_non_stand_obj_via_report_card(browser, config, host):
+def test_srg_verify_non_stand_ready(browser, config, host):
     """
             Верификация аналитиком SRG через карточку отчета. Не стандартный объект.
             Признак отсутствия документов = not checked.

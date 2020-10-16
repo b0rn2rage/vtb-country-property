@@ -11,7 +11,7 @@ class BaLoginPage(BasePage):
         button_for_closing_fb_popup = self.browser.find_element(*BaLoginPageLocators.CLOSE_FACEBOOK_POPUP)
         button_for_closing_fb_popup.click()
 
-    def login_to_bank_appraiser(self, login, password):
+    def login_to_bank_appraiser(self, login: str, password: str):
         """Авторизация в Банк-Оценщике."""
         assert self.is_element_visible(*BaLoginPageLocators.INPUT_EMAIL), \
             "Поле для ввода электронной почты отсутствует на странице"

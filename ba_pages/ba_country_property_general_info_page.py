@@ -1,4 +1,5 @@
 import os
+from enum import Enum
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from pages.base_page import BasePage
@@ -19,12 +20,12 @@ class BaCountryPropertyGeneralInfoPage(BasePage):
         except TimeoutException:
             pass
 
-    def get_report_number(self):
+    def get_report_number(self) -> str:
         """Получить номер отчета."""
         input_report_number = self.browser.find_element(*BaCountryPropertyGeneralInfoPageLocators.INPUT_REPORT_NUMBER)
         return input_report_number.get_attribute('value')
 
-    def input_name_of_the_borrower_customer(self, name):
+    def input_name_of_the_borrower_customer(self, name: str):
         """Ввод ФИО заемщика/заказчика в поле 'ФИО Заемщика/Заказчика'."""
         input_name = self.browser.find_element(
             *BaCountryPropertyGeneralInfoPageLocators.INPUT_NAME_OF_THE_BORROWER_CUSTOMER)
@@ -32,7 +33,7 @@ class BaCountryPropertyGeneralInfoPage(BasePage):
         assert input_name.get_attribute('value') == f'{name}', \
             f"Значение в поле 'ФИО Заемщика/Заказчика' не соответствует {name}."
 
-    def input_report_number(self, report_number):
+    def input_report_number(self, report_number: str):
         """Ввод номера отчета в поле 'Номер отчета'."""
         input_number = self.browser.find_element(*BaCountryPropertyGeneralInfoPageLocators.INPUT_REPORT_NUMBER)
         full_report_name = report_number + str(self.current_date())
@@ -40,7 +41,7 @@ class BaCountryPropertyGeneralInfoPage(BasePage):
         assert input_number.get_attribute('value') == full_report_name, \
             f"Значение в поле 'Номер отчета' не соответствует {full_report_name}"
 
-    def select_bank(self, bank):
+    def select_bank(self, bank: Enum):
         """Выбор банка в поле 'Банк'."""
         drop_down_menu_for_the_bank_field = self.browser.find_element(
             *BaCountryPropertyGeneralInfoPageLocators.BANK_DROP_DOWN_MENU)
@@ -55,11 +56,7 @@ class BaCountryPropertyGeneralInfoPage(BasePage):
         assert self.browser.find_element(By.XPATH, f"//div[contains(text(), '{bank.value}')]").text == bank.value, \
             'Значение в поле Банк != выбранному банку'
 
-    def check_selected_value(self, field):
-        """Проверка выбранного значения в указанном поле."""
-        assert self.browser.find_element()
-
-    def select_department(self, department):
+    def select_department(self, department: Enum):
         """Выбор департамента в поле 'Департамент'."""
         drop_down_menu_for_the_department_field = self.browser.find_element(
             *BaCountryPropertyGeneralInfoPageLocators.DEPARTMENT_DROP_DOWN_MENU)
@@ -76,7 +73,7 @@ class BaCountryPropertyGeneralInfoPage(BasePage):
                                          f"//div[contains(text(), '{department.value}')]").text == department.value, \
             'Значение в поле Департамент != выбранному департаменту'
 
-    def select_bank_employee(self, bank_employee):
+    def select_bank_employee(self, bank_employee: str):
         """Ввод сотрудника банка в поле 'Сотрудник банка'."""
         input_bank_employee = self.browser.find_element(*BaCountryPropertyGeneralInfoPageLocators.INPUT_BANK_EMPLOYEE)
         for char in bank_employee:
